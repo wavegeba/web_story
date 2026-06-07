@@ -3,19 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GEBA Consulting LLC</title>
+  <title>GEBA LLC | GeoAI for Agricultural and Environmental Intelligence</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
       background: #06120f;
+      color: #eaf5ef;
+      line-height: 1.6;
     }
 
     header {
@@ -23,91 +20,83 @@
       top: 0;
       width: 100%;
       z-index: 1000;
-      padding: 22px 8%;
+      padding: 16px 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(5, 18, 15, 0.78);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(3, 13, 20, 0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      color: #d8f5df;
+    .logo img {
+      height: 48px;
+      width: auto;
+      display: block;
     }
 
     nav a {
-      color: #e8f5ec;
+      color: #eaf5ef;
       text-decoration: none;
-      margin-left: 32px;
-      font-size: 0.95rem;
-      font-weight: 500;
+      margin-left: 22px;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
-    nav a:hover {
-      color: #7ee787;
-    }
+    nav a:hover { color: #7ee787; }
 
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 0 8%;
+      padding: 150px 7% 80px;
       background:
-        linear-gradient(rgba(3, 20, 15, 0.72), rgba(3, 20, 15, 0.88)),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80");
+        linear-gradient(90deg, rgba(3,12,18,0.88), rgba(3,12,18,0.56), rgba(3,12,18,0.35)),
+        url("assets/images/Main.png");
       background-size: cover;
       background-position: center;
     }
 
-    .hero-content {
-      max-width: 900px;
-      margin-top: 70px;
-    }
+    .hero-content { max-width: 850px; }
 
     .eyebrow {
       color: #9be7a8;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       margin-bottom: 22px;
     }
 
     h1 {
-      font-size: clamp(2.8rem, 6vw, 5.8rem);
-      line-height: 1.02;
+      font-size: clamp(2.7rem, 6vw, 5.7rem);
+      line-height: 1.03;
       font-weight: 800;
       margin-bottom: 28px;
     }
 
     .subtitle {
-      font-size: clamp(1.3rem, 2.5vw, 2.1rem);
-      line-height: 1.35;
-      color: #e7f5eb;
-      margin-bottom: 34px;
-      max-width: 780px;
+      font-size: clamp(1.2rem, 2.2vw, 2rem);
+      color: #eaf5ef;
+      margin-bottom: 26px;
+      max-width: 760px;
     }
 
     .description {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #c7d8ce;
+      color: #c9d9d0;
       max-width: 680px;
-      margin-bottom: 42px;
+      font-size: 1.05rem;
+      margin-bottom: 38px;
     }
 
     .buttons {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 14px 24px;
+      padding: 13px 24px;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
@@ -116,183 +105,404 @@
 
     .btn-primary {
       background: #7ee787;
-      color: #062016;
+      color: #06120f;
     }
 
     .btn-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.55);
+      color: white;
     }
 
     section {
-      padding: 90px 8%;
+      padding: 95px 7%;
       background: #06120f;
     }
 
+    section.light {
+      background: #f6faf7;
+      color: #102018;
+    }
+
+    .section-header {
+      max-width: 900px;
+      margin-bottom: 46px;
+    }
+
+    .section-kicker {
+      color: #7ee787;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .light .section-kicker { color: #226b35; }
+
     .section-title {
-      font-size: 2.3rem;
-      margin-bottom: 20px;
-      color: #e8f5ec;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.15;
+      margin-bottom: 18px;
     }
 
     .section-text {
       color: #b9cfc2;
-      max-width: 760px;
-      line-height: 1.7;
-      margin-bottom: 44px;
+      font-size: 1.05rem;
+      max-width: 820px;
     }
 
-    .cards {
+    .light .section-text { color: #46584e; }
+
+    .two-col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 42px;
+      align-items: center;
     }
 
-    .card {
+    .image-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+    }
+
+    .light .image-card {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .image-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .highlight {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #dbe9e0;
+      font-weight: 600;
+    }
+
+    .light .highlight {
+      background: white;
+      color: #183325;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      margin-top: 30px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 30px;
+    }
+
+    .profile-card {
+      padding: 30px;
+      border-radius: 22px;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .profile-card h3 {
+      color: #0b3b25;
+      margin-bottom: 12px;
+      font-size: 1.35rem;
+    }
+
+    .profile-card p {
+      color: #46584e;
+      margin-bottom: 18px;
+    }
+
+    .award-card {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: center;
       padding: 28px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #10251d, #0a1914);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
     }
 
-    .card h3 {
-      color: #9be7a8;
+    .award-card img {
+      width: 100%;
+      border-radius: 18px;
+    }
+
+    .award-card h3 {
+      color: #0b3b25;
       margin-bottom: 14px;
-      font-size: 1.25rem;
     }
 
-    .card p {
-      color: #c7d8ce;
-      line-height: 1.6;
-      font-size: 0.98rem;
+    .award-card p {
+      color: #46584e;
+    }
+
+    .contact-box {
+      margin-top: 34px;
+      padding: 30px;
+      border-radius: 22px;
+      background: #0b281d;
+      color: white;
+    }
+
+    .contact-box a {
+      color: #7ee787;
+      text-decoration: none;
+      font-weight: 700;
     }
 
     footer {
-      padding: 34px 8%;
+      padding: 34px 7%;
       background: #030907;
       color: #9fb5a8;
       font-size: 0.9rem;
     }
 
-    @media (max-width: 720px) {
-      header {
-        padding: 18px 6%;
-      }
+    .chatbot {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1200;
+      background: #7ee787;
+      color: #06120f;
+      border: none;
+      border-radius: 999px;
+      padding: 15px 22px;
+      font-weight: 800;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.28);
+      cursor: pointer;
+    }
 
-      nav a {
-        margin-left: 14px;
-        font-size: 0.85rem;
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .two-col, .about-grid, .award-card, .gallery {
+        grid-template-columns: 1fr;
       }
-
-      .hero {
-        padding: 0 6%;
-      }
+      .highlights { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">GEBA</div>
-    <nav>
-      <a href="#solutions">Solutions</a>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<header>
+  <div class="logo">
+    <img src="assets/logo/geba-logo.png" alt="GEBA logo">
+  </div>
+  <nav>
+    <a href="#agriculture">Sustainable Agriculture</a>
+    <a href="#environment">Environmental Monitoring</a>
+    <a href="#ai">Advanced AI</a>
+    <a href="#multisensor">Multisensor Integration</a>
+    <a href="#dialogue">Dialogue & Trust</a>
+    <a href="#about">About / Contact</a>
+  </nav>
+</header>
 
-  <main class="hero">
-    <div class="hero-content">
-      <div class="eyebrow">Geo-Informatics Environment & Agriculture Bridging AI (GEBA) LLC</div>
+<main class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Geo-Informatics Environment & Agriculture Bridging AI Consulting LLC</div>
+    <h1>GeoAI for Agricultural and Environmental Intelligence</h1>
+    <p class="subtitle">Transforming Earth observation, environmental data, and artificial intelligence into actionable insights.</p>
+    <p class="description">GEBA develops practical GeoAI solutions for sustainable agriculture, environmental monitoring, multisensor interoperability, and decision-ready intelligence.</p>
+    <div class="buttons">
+      <a href="#agriculture" class="btn btn-primary">Explore Solutions</a>
+      <a href="#about" class="btn btn-secondary">Contact GEBA</a>
+    </div>
+  </div>
+</main>
 
-      <h1>GeoAI for Agricultural and Environmental Intelligence</h1>
+<section id="agriculture" class="light">
+  <div class="section-header">
+    <div class="section-kicker">Food Security & Precision Agriculture</div>
+    <h2 class="section-title">Sustainable Agriculture</h2>
+    <p class="section-text">GeoAI-enabled crop monitoring, yield forecasting, and precision agriculture applications using Earth observation and environmental data.</p>
+  </div>
 
-      <p class="subtitle">
-        Transforming Earth observation, environmental data, and artificial intelligence into actionable insights.
-      </p>
-
-      <p class="description">
-        GEBA Consulting develops geospatial AI solutions for crop monitoring, environmental forecasting,
-        remote sensing analytics, and decision-ready intelligence.
-      </p>
-
-      <div class="buttons">
-        <a href="#projects" class="btn btn-primary">Explore Projects</a>
-        <a href="#contact" class="btn btn-secondary">Contact GEBA</a>
+  <div class="two-col">
+    <div>
+      <div class="highlights">
+        <div class="highlight">County-scale corn, soybean, and wheat yield prediction</div>
+        <div class="highlight">In-season forecasting using available monthly data</div>
+        <div class="highlight">Adaptive modeling with environmental and regional conditions</div>
+        <div class="highlight">Decision support for food security and agricultural resilience</div>
       </div>
     </div>
-  </main>
+    <div class="image-card">
+      <img src="assets/images/Food1.png" alt="Crop yield prediction maps">
+    </div>
+  </div>
+</section>
 
-  <section id="solutions">
-    <h2 class="section-title">Solutions</h2>
-    <p class="section-text">
-      GEBA integrates remote sensing, machine learning, environmental modeling, and spatial analytics
-      to support agricultural and environmental decision-making.
-    </p>
+<section id="environment">
+  <div class="section-header">
+    <div class="section-kicker">Disease Risk, Biodiversity & Ecosystem Intelligence</div>
+    <h2 class="section-title">Environmental Monitoring</h2>
+    <p class="section-text">Environmental intelligence systems for disease risk mapping, biodiversity monitoring, drought assessment, and ecosystem analysis.</p>
+  </div>
 
-    <div class="cards">
-      <div class="card">
-        <h3>GeoAI Modeling</h3>
-        <p>Machine learning and deep learning workflows for spatial prediction, risk mapping, and environmental analytics.</p>
-      </div>
-
-      <div class="card">
-        <h3>Remote Sensing Analytics</h3>
-        <p>Multi-sensor analysis using optical, SAR, microwave, and climate data for land and agricultural monitoring.</p>
-      </div>
-
-      <div class="card">
-        <h3>Agricultural Intelligence</h3>
-        <p>Crop yield forecasting, biomass estimation, soil moisture mapping, and field-scale decision support.</p>
+  <div class="two-col">
+    <div class="image-card">
+      <img src="assets/images/Env1_TBDMAP.png" alt="Tick-borne disease risk maps">
+    </div>
+    <div>
+      <div class="highlights">
+        <div class="highlight">Tick-borne disease forecasting and early-warning systems</div>
+        <div class="highlight">Biodiversity and ecological hotspot mapping</div>
+        <div class="highlight">Environmental driver analysis using explainable AI</div>
+        <div class="highlight">Climate-sensitive risk assessment and monitoring</div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section id="projects">
-    <h2 class="section-title">Projects</h2>
-    <p class="section-text">
-      Featured projects include GeoAI-based disease risk mapping, CONUS-scale crop yield forecasting,
-      SAR–optical integration, NISAR applications, and soil moisture intelligence.
-    </p>
+  <div class="gallery">
+    <div class="image-card"><img src="assets/images/Env2_FeatureContribution.png" alt="Environmental driver contribution"></div>
+    <div class="image-card"><img src="assets/images/Env3_Modeling.png" alt="Environmental modeling workflow"></div>
+  </div>
+</section>
 
-    <div class="cards">
-      <div class="card">
-        <h3>GEOAI-LYME</h3>
-        <p>Spatial AI framework for Lyme disease risk monitoring, forecasting, and environmental driver analysis.</p>
-      </div>
+<section id="ai" class="light">
+  <div class="section-header">
+    <div class="section-kicker">Explainable, Adaptive & Scientific AI</div>
+    <h2 class="section-title">Advanced AI</h2>
+    <p class="section-text">Development of interpretable and adaptive AI systems for Earth observation, environmental analytics, and data-driven decision-making.</p>
+  </div>
 
-      <div class="card">
-        <h3>CONUS Yield Intelligence</h3>
-        <p>County-scale crop yield prediction using Earth observation, meteorological data, and GeoAI modeling.</p>
-      </div>
+  <div class="gallery">
+    <div class="image-card"><img src="assets/images/AI1.png" alt="AI model and SHAP interpretation"></div>
+    <div class="image-card"><img src="assets/images/AI2.png" alt="Advanced AI workflow"></div>
+  </div>
 
-      <div class="card">
-        <h3>NISAR & SAR Analytics</h3>
-        <p>Advanced radar-based monitoring for vegetation, soil moisture, and agricultural applications.</p>
+  <div class="highlights">
+    <div class="highlight">Machine learning and deep learning for geospatial applications</div>
+    <div class="highlight">Explainable AI using SHAP and feature contribution analysis</div>
+    <div class="highlight">Adaptive modeling across regions and environmental conditions</div>
+    <div class="highlight">AI-assisted trend analysis and knowledge discovery</div>
+  </div>
+</section>
+
+<section id="multisensor">
+  <div class="section-header">
+    <div class="section-kicker">SAR, Optical, Climate & Environmental Data Fusion</div>
+    <h2 class="section-title">Multisensor Integration & Interoperability</h2>
+    <p class="section-text">Bridging SAR, optical, climate, and environmental observations into interoperable Earth observation systems for mission-ready monitoring.</p>
+  </div>
+
+  <div class="two-col">
+    <div class="image-card"><img src="assets/images/Multi1.png" alt="Multisensor integration concept"></div>
+    <div>
+      <div class="highlights">
+        <div class="highlight">SAR–Optical interoperability</div>
+        <div class="highlight">Multi-frequency satellite integration</div>
+        <div class="highlight">Cross-sensor consistency assessment</div>
+        <div class="highlight">Mission-ready agricultural and environmental monitoring</div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section id="about">
-    <h2 class="section-title">About</h2>
-    <p class="section-text">
-      GEBA Consulting LLC focuses on GeoAI, remote sensing, and environmental intelligence for agricultural,
-      hydrological, ecological, and public-health applications.
-    </p>
-  </section>
+  <div class="image-card" style="margin-top:26px;">
+    <img src="assets/images/Interoperating2.png" alt="NISAR interoperability and agricultural monitoring">
+  </div>
+</section>
 
-  <section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <p class="section-text">
-      Email: info@gebaconsulting.com
-    </p>
-  </section>
+<section id="dialogue" class="light">
+  <div class="section-header">
+    <div class="section-kicker">Environmental Cooperation + Human-Centered Communication</div>
+    <h2 class="section-title">Dialogue, Trust & Conflict Mitigation</h2>
+    <p class="section-text">Creating shared grounds for dialogue through environmental cooperation, coaching, mentoring, and Nonviolent Communication.</p>
+  </div>
 
-  <footer>
-    © 2026 GEBA Consulting LLC. All rights reserved.
-  </footer>
+  <div class="two-col">
+    <div>
+      <h3>Environmental Cooperation in Geo-Conflict Regions</h3>
+      <p class="section-text">Using Earth observation, environmental intelligence, and ecological risk assessment to identify shared environmental challenges and opportunities for collaboration in geopolitically sensitive regions.</p>
+
+      <h3 style="margin-top:28px;">Coaching, Mentoring & Nonviolent Communication</h3>
+      <p class="section-text">Supporting individuals, leaders, families, and organizations through coaching, mentoring, and Nonviolent Communication practices that strengthen trust, empathy, and constructive dialogue.</p>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/images/Conflict2.png" alt="Dialogue, trust, and conflict mitigation">
+    </div>
+  </div>
+
+  <div class="highlights">
+    <div class="highlight">Shared environmental risk assessment</div>
+    <div class="highlight">Collaborative dialogue and trust-building</div>
+    <div class="highlight">Conflict coaching and leadership mentoring</div>
+    <div class="highlight">Nonviolent Communication and relationship development</div>
+  </div>
+</section>
+
+<section id="about" class="light">
+  <div class="section-header">
+    <div class="section-kicker">Who We Are</div>
+    <h2 class="section-title">About GEBA & Contact</h2>
+    <p class="section-text">GEBA LLC develops practical GeoAI solutions that transform Earth observation data into actionable intelligence for agriculture, environmental monitoring, sustainability, and collaborative decision-making.</p>
+  </div>
+
+  <div class="about-grid">
+    <div class="profile-card">
+      <h3>Dr. Geba</h3>
+      <p>Dr. Geba is a GeoAI scientist and remote sensing researcher with more than two decades of experience in Earth observation, environmental analytics, and geospatial data science. His work focuses on transforming satellite observations into actionable intelligence for agriculture, environmental monitoring, and sustainability applications.</p>
+      <p>His research has been recognized internationally, including the GeoGov Summit Achievement in Geospatial Research Award for advancing interoperability between radar and optical Earth observation systems.</p>
+      <a href="https://scholar.google.com/citations?user=IykeXGAAAAAJ&hl=en" target="_blank">Google Scholar</a>
+    </div>
+
+    <div class="profile-card">
+      <h3>Mia</h3>
+      <p>Mia is a doctoral researcher whose work centers on intercultural engagement, relationship-centered communication, and human development. Drawing from extensive international and cross-cultural experience, she supports individuals, leaders, families, and organizations through coaching, mentoring, and Nonviolent Communication.</p>
+      <p>Her approach emphasizes empathy, trust-building, constructive dialogue, and collaborative problem solving across personal, organizational, and multicultural contexts.</p>
+      <a href="https://scholar.google.com/citations?hl=en&user=8VhIQ-EAAAAJ" target="_blank">Google Scholar</a>
+    </div>
+  </div>
+
+  <div class="award-card">
+    <img src="assets/images/GeoGovAward.jpg" alt="GeoGov Summit award">
+    <div>
+      <h3>GeoGov Summit Achievement in Geospatial Research Award</h3>
+      <p>GEBA’s founding research was recognized for addressing a long-standing challenge in agricultural monitoring: how rainfall distorts radar signals and complicates vegetation mapping.</p>
+      <p>The work developed a practical framework to understand and correct precipitation effects on SAR-based vegetation indicators, improving SAR–optical interoperability and strengthening reliable Earth observation for agricultural monitoring and food-security applications.</p>
+    </div>
+  </div>
+
+  <div class="contact-box">
+    <h3>Let’s Collaborate</h3>
+    <p>For GeoAI solutions, environmental intelligence, agricultural applications, collaborative environmental initiatives, coaching, mentoring, or educational opportunities:</p>
+    <p style="margin-top:14px;">Email: <a href="mailto:info@gebaconsulting.com">info@gebaconsulting.com</a></p>
+    <p>Website: <a href="https://gebaconsulting.com">gebaconsulting.com</a></p>
+    <p>Location: Virginia, USA</p>
+  </div>
+</section>
+
+<footer>
+  © 2026 GEBA LLC. GeoAI • Remote Sensing • Environmental & Agricultural Intelligence
+</footer>
+
+<button class="chatbot" onclick="alert('GEBA AI assistant will be available soon.')">
+  💬 Ask GEBA
+</button>
 
 </body>
 </html>
