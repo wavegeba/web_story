@@ -63,22 +63,31 @@
       max-width: 980px;
     }
     
-    .geba-title {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: clamp(1.8rem, 4.2vw, 4.2rem);
-      line-height: 1.03;
+    .hero-label {
+      color: #7ee787;
+      font-size: 1rem;
       font-weight: 800;
-      margin-bottom: 30px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
     }
     
-    .geba-title span {
-      display: block;
-      color: #eaf5ef;
-      white-space: nowrap;
+    .geba-title {
+      font-size: clamp(2.6rem, 5.2vw, 5.2rem);
+      line-height: 1.05;
+      font-weight: 800;
+      max-width: 900px;
+      margin-bottom: 28px;
     }
-
+    
+    .hero-small {
+      color: #9be7a8;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 34px;
+    }
     .subtitle {
       font-size: clamp(1.2rem, 2.2vw, 2rem);
       color: #eaf5ef;
@@ -353,16 +362,18 @@
 <main class="hero">
   <div class="hero-content">
     <h1 class="geba-title">
-      <span><strong>G</strong>eo-Informatics</span>
-      <span><strong>E</strong>nvironment & Agriculture</span>
-      <span><strong>B</strong>ridging</span>
-      <span><strong>A</strong>rtificial Intelligence</span>
+      GeoAI for Agricultural & Environmental Intelligence
     </h1>
-  <p class="description">
-    Transforming Earth observation, environmental data, and artificial intelligence into practical GeoAI solutions.
-    GEBA LLC supports sustainable agriculture, environmental monitoring, multisensor interoperability,
-    and decision-ready intelligence.
-  </p>
+
+    <p class="description">
+      Transforming Earth observation, environmental data, and AI into practical decision-support solutions
+      for sustainable agriculture, environmental monitoring, and multisensor interoperability.
+    </p>
+
+    <div class="hero-small">
+      Geo-Informatics • Environment & Agriculture • Bridging AI
+    </div>
+
     <div class="buttons">
       <a href="#agriculture" class="btn btn-primary">Explore Solutions</a>
       <a href="#about" class="btn btn-secondary">Contact GEBA</a>
