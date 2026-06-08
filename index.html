@@ -421,7 +421,7 @@
   <nav>
     <a href="#agriculture">Sustainable Agriculture</a>
     <a href="#environment">Environmental Monitoring</a>
-    <a href="#ai">Advanced AI</a>
+    <a href="#ai">Multifaceted AI</a>
     <a href="#multisensor">Multisensor Integration</a>
     <a href="#dialogue">Conflict Mitigation</a>
     <a href="#about">Contact</a>
@@ -437,9 +437,7 @@
 
     <p class="description">
       Transforming Earth observation, environmental data, and AI into practical decision-support solutions
-      for sustainable agriculture, environmental monitoring, and multisensor interoperability.
-      <br><br>
-      Geo-Informatics Environment & Agriculture Bridging AI (GEBA) Consulting LLC
+      for sustainable agriculture, environmental monitoring, integrated modeling, and conflict mitigation. 
     </p>
  
 
@@ -454,7 +452,7 @@
   <div class="section-header">
     <div class="section-kicker">Food Security & Precision Agriculture</div>
     <h2 class="section-title">Sustainable Agriculture</h2>
-    <p class="section-text">GeoAI-enabled crop monitoring, yield forecasting, and precision agriculture applications using Earth observation and environmental data.</p>
+    <p class="section-text">GeoAI-enabled crop monitoring, yield forecasting, crop and vegetation biomass estimation, and precision agriculture applications using Earth observation and environmental data.</p>
   </div>
 
   <div class="two-col">
@@ -466,7 +464,7 @@
       <div class="highlights">
         <div class="highlight">County-scale corn, soybean, and wheat yield prediction</div>
         <div class="highlight">In-season forecasting using available monthly data</div>
-        <div class="highlight">Adaptive modeling with environmental and regional conditions</div>
+        <div class="highlight">Adaptive AI modeling with environmental and regional conditions</div>
         <div class="highlight">Decision support for food security and agricultural resilience</div>
       </div>
     </div>
@@ -477,7 +475,7 @@
   <div class="section-header">
     <div class="section-kicker">Disease Risk, Biodiversity & Ecosystem Intelligence</div>
     <h2 class="section-title">Environmental Monitoring</h2>
-    <p class="section-text">Environmental intelligence systems for disease risk mapping, biodiversity monitoring, drought assessment, and ecosystem analysis.</p>
+    <p class="section-text">Environmental intelligence systems for disease risk mapping, biodiversity monitoring, and ecosystem analysis.</p>
   </div>
 
   <div class="env-layout">
@@ -486,7 +484,7 @@
     </div>
 
     <div class="env-side-text">
-      <div class="highlight">Tick-borne disease forecasting and early-warning systems</div>
+      <div class="highlight">Disease-risk mapping, forecasting, and early-warning systems</div>
       <div class="highlight">Biodiversity and ecological hotspot mapping</div>
       <div class="highlight">Environmental driver analysis using explainable AI</div>
       <div class="highlight">Climate-sensitive risk assessment and monitoring</div>
@@ -501,7 +499,7 @@
 <section id="ai" class="light">
   <div class="section-header">
     <div class="section-kicker">Explainable, Adaptive & Scientific AI</div>
-    <h2 class="section-title">Advanced AI</h2>
+    <h2 class="section-title">Multifaceted AI</h2>
     <p class="section-text">Development of interpretable and adaptive AI systems for Earth observation, environmental analytics, and data-driven decision-making.</p>
   </div>
 
@@ -511,9 +509,9 @@
   </div>
 
   <div class="highlights">
-    <div class="highlight">Machine learning and deep learning for geospatial applications</div>
-    <div class="highlight">Explainable AI using SHAP and feature contribution analysis</div>
-    <div class="highlight">Adaptive AI modeling across regions and environmental conditions</div>
+    <div class="highlight">Advanced machine learning and deep learning modeling for geospatial and environmental applications</div>
+    <div class="highlight">Explainable AI using SHAP, feature contribution analysis, and interpretable model diagnostics</div>
+    <div class="highlight">NLP/LLM-based trend analysis, and network analysis for extracting knowledge from historical and textual data</div>
     <div class="highlight">AI-Powered Applications & Decision Support</div>
   </div>
 </section>
@@ -571,16 +569,21 @@
   <div class="section-header">
     <div class="section-kicker">Who We Are</div>
     <h2 class="section-title">About & Contact</h2>
-    <p class="section-text">GEBA LLC develops practical GeoAI solutions that transform Earth observation data into actionable intelligence for agriculture, environmental monitoring, sustainability, and collaborative decision-making.</p>
+    <p class="section-text">Geo-Informatics Environment & Agriculture Bridging AI (GEBA) Consulting LLC develops practical GeoAI solutions that transform Earth observation data into actionable intelligence for agriculture, environmental monitoring, sustainability, and collaborative decision-making.</p>
   </div>
 
-  <div class="contact-box">
-    <h3>Let’s Collaborate</h3>
-    <p>For GeoAI consulting, environmental intelligence, collaborative initiatives, and educational opportunities, we welcome your inquiry.</p>
-    <p style="margin-top:14px;">Email: <a href="mailto:info@gebaconsulting.com">info@gebaconsulting.com</a></p>
-    <p>Website: <a href="https://gebaconsulting.com">gebaconsulting.com</a></p>
-    <p>Location: Virginia, USA</p>
-  </div>
+<div class="contact-box">
+  <h3>Project, Business & Coaching Inquiries</h3>
+  <p>
+    We welcome inquiries for GeoAI consulting, crop yield prediction, biomass estimation,
+    biodiversity monitoring, disease-risk mapping, environmental intelligence,
+    integrated modeling, collaborative projects, educational opportunities,
+    and personal, organizational, and cross-cultural coaching for conflict mitigation.
+  </p>
+  <p style="margin-top:14px;">Email: <a href="mailto:info@gebaconsulting.com">info@gebaconsulting.com</a></p>
+  <p>Website: <a href="https://gebaconsulting.com">gebaconsulting.com</a></p>
+  <p>Location: Virginia, USA</p>
+</div>
   
   <div class="about-grid">
   <div class="profile-card">
@@ -616,13 +619,19 @@
   💬 Ask GEO67
 </button> -->
 <div id="chatbox" class="chatbox">
-  <div class="chat-header">GEBA AI Assistant</div>
+  <div class="chat-header">Geo67 AI Assistant</div>
   <div id="chat-messages" class="chat-messages">
-    <div class="bot-message">Hello. How can GEBA assist you today?</div>
+    <div class="bot-message">Hello. How can Geo67 assist you today?</div>
   </div>
   <div class="chat-input-row">
     <input id="chat-input" type="text" placeholder="Ask GEBA AI..." />
     <button onclick="sendGEBAChat()">Send</button>
+    document.getElementById("chat-input").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendGEBAChat();
+      }
+    });
   </div>
 </div>
 
@@ -651,12 +660,12 @@ async function sendGEBAChat() {
 
   try {
     const response = await fetch("https://geba-chat.vercel.app/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ message })
-      });
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
 
     const data = await response.json();
 
@@ -669,6 +678,13 @@ async function sendGEBAChat() {
 
   messages.scrollTop = messages.scrollHeight;
 }
+
+document.getElementById("chat-input").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    sendGEBAChat();
+  }
+});
 </script>
 
 </body>
