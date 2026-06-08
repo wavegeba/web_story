@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GEBA Consulting LLC </title>
+  <title>GEBA Consulting LLC</title>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,25 +29,19 @@
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .text-logo {
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      color: #eaf5ef;
-      white-space: nowrap;
-    }
     .logo-img {
       height: 48px;
       width: auto;
       display: block;
     }
-    
+
     .logo-link {
       display: flex;
       align-items: center;
       text-decoration: none;
       flex-shrink: 0;
     }
+
     nav a {
       color: #eaf5ef;
       text-decoration: none;
@@ -73,7 +67,7 @@
     .hero-content {
       max-width: 980px;
     }
-    
+
     .hero-label {
       color: #7ee787;
       font-size: 1rem;
@@ -82,7 +76,7 @@
       text-transform: uppercase;
       margin-bottom: 18px;
     }
-    
+
     .geba-title {
       font-size: clamp(2.2rem, 4.5vw, 4.4rem);
       line-height: 1.05;
@@ -90,7 +84,7 @@
       max-width: 900px;
       margin-bottom: 28px;
     }
-    
+
     .hero-small {
       color: #9be7a8;
       font-size: 0.95rem;
@@ -99,6 +93,7 @@
       text-transform: uppercase;
       margin-bottom: 34px;
     }
+
     .subtitle {
       font-size: clamp(1.2rem, 2.2vw, 2rem);
       color: #eaf5ef;
@@ -204,6 +199,51 @@
       display: block;
     }
 
+    .multi-video-card {
+      position: relative;
+    }
+
+    .multi-video-btn {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 5;
+      text-decoration: none;
+      border-radius: 999px;
+      background: rgba(6, 18, 15, 0.82);
+      color: #ffffff;
+      padding: 9px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+    }
+
+    .multi-video-btn:hover {
+      background: rgba(15, 45, 32, 0.92);
+      color: #7ee787;
+    }
+
+    .multi-video-icon {
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .video-source-badge {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      z-index: 5;
+      background: rgba(0,0,0,0.62);
+      color: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
     .highlights {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -239,11 +279,13 @@
       gap: 22px;
       align-items: stretch;
     }
+
     .env-side-text {
-     display: grid;
-     gap: 16px;
-     align-content: center;
-     }
+      display: grid;
+      gap: 16px;
+      align-content: center;
+    }
+
     .env-main img,
     .env-small img {
       height: 100%;
@@ -337,79 +379,84 @@
       box-shadow: 0 14px 36px rgba(0,0,0,0.28);
       cursor: pointer;
     }
-.chatbox {
-  position: fixed;
-  right: 24px;
-  bottom: 86px;
-  width: 340px;
-  height: 460px;
-  background: white;
-  color: #102018;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-  z-index: 1300;
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-}
 
-.chat-header {
-  background: #0b281d;
-  color: white;
-  padding: 16px;
-  font-weight: 800;
-}
+    .chatbox {
+      position: fixed;
+      right: 24px;
+      bottom: 86px;
+      width: 340px;
+      height: 460px;
+      background: white;
+      color: #102018;
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      z-index: 1300;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
 
-.chat-messages {
-  flex: 1;
-  padding: 16px;
-  overflow-y: auto;
-  font-size: 0.92rem;
-}
+    .chat-header {
+      background: #0b281d;
+      color: white;
+      padding: 16px;
+      font-weight: 800;
+    }
 
-.bot-message,
-.user-message {
-  padding: 10px 12px;
-  border-radius: 14px;
-  margin-bottom: 10px;
-  max-width: 86%;
-}
+    .chat-messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      font-size: 0.92rem;
+    }
 
-.bot-message {
-  background: #edf7f0;
-  color: #102018;
-}
+    .bot-message,
+    .user-message {
+      padding: 10px 12px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      max-width: 86%;
+    }
 
-.user-message {
-  background: #7ee787;
-  color: #06120f;
-  margin-left: auto;
-}
+    .bot-message {
+      background: #edf7f0;
+      color: #102018;
+    }
 
-.chat-input-row {
-  display: flex;
-  border-top: 1px solid #e1e8e3;
-}
+    .user-message {
+      background: #7ee787;
+      color: #06120f;
+      margin-left: auto;
+    }
 
-.chat-input-row input {
-  flex: 1;
-  border: none;
-  padding: 14px;
-  font-size: 0.9rem;
-  outline: none;
-}
+    .chat-input-row {
+      display: flex;
+      border-top: 1px solid #e1e8e3;
+    }
 
-.chat-input-row button {
-  border: none;
-  background: #7ee787;
-  color: #06120f;
-  font-weight: 800;
-  padding: 0 16px;
-  cursor: pointer;
-}
-    
+    .chat-input-row input {
+      flex: 1;
+      border: none;
+      padding: 14px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .chat-input-row button {
+      border: none;
+      background: #7ee787;
+      color: #06120f;
+      font-weight: 800;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+
     @media (max-width: 900px) {
       nav { display: none; }
+
+      .logo-img {
+        height: 42px;
+      }
 
       .two-col,
       .about-grid,
@@ -429,9 +476,10 @@
 <body>
 
 <header>
-    <a href="#" class="logo-link" aria-label="GEBA Consulting Home">
-    <img src="assets/logo/logo1.png" alt="GEO6757" class="logo-img">
+  <a href="#" class="logo-link" aria-label="GEBA Consulting Home">
+    <img src="assets/logo/logo1.png" alt="GEBA Consulting LLC" class="logo-img">
   </a>
+
   <nav>
     <a href="#agriculture">Sustainable Agriculture</a>
     <a href="#environment">Environmental Monitoring</a>
@@ -440,7 +488,6 @@
     <a href="#dialogue">Conflict Mitigation</a>
     <a href="#about">Contact</a>
   </nav>
-  <!-- <div class="text-logo">GEBA</div> -->
 </header>
 
 <main class="hero">
@@ -451,9 +498,8 @@
 
     <p class="description">
       Transforming Earth observation, environmental data, and AI into practical decision-support solutions
-      for sustainable agriculture, environmental monitoring, integrated modeling, and conflict mitigation. 
+      for sustainable agriculture, environmental monitoring, integrated modeling, and conflict mitigation.
     </p>
- 
 
     <div class="buttons">
       <a href="#agriculture" class="btn btn-primary">Explore Solutions</a>
@@ -483,8 +529,9 @@
       </div>
     </div>
   </div>
+
   <div class="image-card" style="margin-top:26px;">
-  <img src="assets/images/Food2.png" alt="Precision Agriculture">
+    <img src="assets/images/Food2.png" alt="Precision Agriculture">
   </div>
 </section>
 
@@ -507,9 +554,11 @@
       <div class="highlight">Climate-sensitive risk assessment and monitoring</div>
     </div>
   </div>
+
   <div class="image-card" style="margin-top:26px;">
     <img src="assets/images/Env2_ECM.png" alt="Environmental modeling workflow">
   </div>
+
   <!-- <div class="image-card" style="margin-top:26px;">
     <img src="assets/images/Env3_Modeling.png" alt="Environmental modeling workflow">
   </div> -->
@@ -523,8 +572,12 @@
   </div>
 
   <div class="gallery">
-    <div class="image-card"><img src="assets/images/AI1.png" alt="Adaptive AI and  AI-empowered app  "></div>
-    <div class="image-card"><img src="assets/images/AI2.png" alt="AI optimization and SHAP interpretation "></div>
+    <div class="image-card">
+      <img src="assets/images/AI1.png" alt="Adaptive AI and AI-empowered app">
+    </div>
+    <div class="image-card">
+      <img src="assets/images/AI2.png" alt="AI optimization and SHAP interpretation">
+    </div>
   </div>
 
   <div class="highlights">
@@ -539,11 +592,25 @@
   <div class="section-header">
     <div class="section-kicker">SAR, Optical, Climate & Environmental Data Fusion</div>
     <h2 class="section-title">Multisensor Integration & Interoperability</h2>
-    <p class="section-text">Leveraging complementary Earth observation systems to improve environmental intelligence through multisensor interoperability. </p>
+    <p class="section-text">Leveraging complementary Earth observation systems to improve environmental intelligence through multisensor interoperability.</p>
   </div>
 
   <div class="two-col">
-    <div class="image-card"><img src="assets/images/Multi.png" alt="Multisensor integration concept"></div>
+    <div class="image-card multi-video-card">
+      <a href="assets/videos/Multisensor_NISAR.mp4"
+         target="_blank"
+         rel="noopener"
+         class="multi-video-btn"
+         aria-label="Open NASA NISAR video">
+        <span class="multi-video-icon">▶</span>
+        <span>Video</span>
+      </a>
+
+      <img src="assets/images/Multi.png" alt="Multisensor integration concept">
+
+      <div class="video-source-badge">Source: NASA</div>
+    </div>
+
     <div>
       <div class="highlights">
         <div class="highlight">SAR–Optical interoperability</div>
@@ -591,39 +658,39 @@
     <p class="section-text">Geo-Informatics Environment & Agriculture Bridging AI (GEBA) Consulting LLC develops practical GeoAI solutions that transform Earth observation data into actionable intelligence for agriculture, environmental monitoring, sustainability, and collaborative decision-making.</p>
   </div>
 
-<div class="contact-box">
-  <h3>Project, Business & Coaching Inquiries</h3>
-  <p>
-    We welcome inquiries for GeoAI consulting, crop yield prediction, biomass estimation,
-    biodiversity monitoring, disease-risk mapping, environmental intelligence,
-    integrated modeling, collaborative projects, educational opportunities,
-    and personal, organizational, and cross-cultural coaching for conflict mitigation.
-  </p>
-  <p style="margin-top:14px;">Email: <a href="mailto:info@gebaconsulting.com">info@gebaconsulting.com</a></p>
-  <p>Website: <a href="https://gebaconsulting.com">gebaconsulting.com</a></p>
-  <p>Location: Fairfax, Virginia, USA</p>
-</div>
-  
-  <div class="about-grid">
-  <div class="profile-card">
-    <p class="role-label">Founder</p>
-    <h3>Dr. Geba</h3>
-    <p>Dr. Geba is a multidisciplinary expert with more than 20 years of experience across electrical engineering, environmental engineering, remote sensing, GeoAI, and data science. His work focuses on developing practical geospatial intelligence for agricultural and environmental applications.</p>
-    <p>His recent work has been recognized with the GeoGov Award – Innovation in Geospatial Research for advancing SAR–optical interoperability and improving the reliability of Earth observation for agricultural monitoring.</p>
+  <div class="contact-box">
+    <h3>Project, Business & Coaching Inquiries</h3>
+    <p>
+      We welcome inquiries for GeoAI consulting, crop yield prediction, biomass estimation,
+      biodiversity monitoring, disease-risk mapping, environmental intelligence,
+      integrated modeling, collaborative projects, educational opportunities,
+      and personal, organizational, and cross-cultural coaching for conflict mitigation.
+    </p>
+    <p style="margin-top:14px;">Email: <a href="mailto:info@gebaconsulting.com">info@gebaconsulting.com</a></p>
+    <p>Website: <a href="https://gebaconsulting.com">gebaconsulting.com</a></p>
+    <p>Location: Fairfax, Virginia, USA</p>
   </div>
 
-  <div class="profile-card">
-    <p class="role-label">Co-Founder</p>
-    <h3>Mia</h3>
-    <p>Mia is a doctoral researcher whose work centers on intercultural engagement, relationship-centered communication, and human development. Drawing from extensive international and cross-cultural experience, she supports individuals, leaders, families, and organizations through coaching, mentoring, and Nonviolent Communication.</p>
-    <p>Her approach emphasizes empathy, trust-building, constructive dialogue, and collaborative problem solving across personal, organizational, and multicultural contexts.</p>
+  <div class="about-grid">
+    <div class="profile-card">
+      <p class="role-label">Founder</p>
+      <h3>Dr. Geba</h3>
+      <p>Dr. Geba is a multidisciplinary expert with more than 20 years of experience across electrical engineering, environmental engineering, remote sensing, GeoAI, and data science. His work focuses on developing practical geospatial intelligence for agricultural and environmental applications.</p>
+      <p>His recent work has been recognized with the GeoGov Award – Innovation in Geospatial Research for advancing SAR–optical interoperability and improving the reliability of Earth observation for agricultural monitoring.</p>
+    </div>
+
+    <div class="profile-card">
+      <p class="role-label">Co-Founder</p>
+      <h3>Mia</h3>
+      <p>Mia is a doctoral researcher whose work centers on intercultural engagement, relationship-centered communication, and human development. Drawing from extensive international and cross-cultural experience, she supports individuals, leaders, families, and organizations through coaching, mentoring, and Nonviolent Communication.</p>
+      <p>Her approach emphasizes empathy, trust-building, constructive dialogue, and collaborative problem solving across personal, organizational, and multicultural contexts.</p>
+    </div>
   </div>
-</div>
 
   <div class="award-card">
     <img src="assets/images/GeoGovAward.jpg" alt="GeoGov Summit award">
     <div>
-      <h3> GeoGov Award – Innovation in Geospatial Research</h3>
+      <h3>GeoGov Award – Innovation in Geospatial Research</h3>
       <p>Dr. Geba was recognized for addressing a long-standing challenge in agricultural monitoring: how rainfall distorts radar signals and affects vegetation mapping accuracy.</p>
       <p>The work developed a practical framework to understand and correct precipitation effects on SAR-based vegetation indicators, improving SAR–optical interoperability and strengthening reliable Earth observation for agricultural monitoring and food-security applications.</p>
     </div>
@@ -633,10 +700,6 @@
 <footer>
   © 2026 GEBA LLC. GeoAI • Remote Sensing • Environmental & Agricultural Intelligence
 </footer>
-
-<!-- <button class="chatbot" onclick="alert('GEBA AI assistant will be available soon.')">
-  💬 Ask GEBA
-</button> -->
 
 <div id="chatbox" class="chatbox">
   <div class="chat-header">GEBA AI Assistant</div>
