@@ -645,6 +645,16 @@ function toggleChatbox() {
   chatbox.style.display = chatbox.style.display === "flex" ? "none" : "flex";
 }
 
+function addMessage(text, className) {
+  const messages = document.getElementById("chat-messages");
+  const div = document.createElement("div");
+  div.className = className;
+  div.textContent = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+  return div;
+}
+
 async function sendGEBAChat() {
   const input = document.getElementById("chat-input");
   const messages = document.getElementById("chat-messages");
@@ -652,11 +662,10 @@ async function sendGEBAChat() {
 
   if (!message) return;
 
-  messages.innerHTML += `<div class="user-message">${message}</div>`;
+  addMessage(message, "user-message");
   input.value = "";
 
-  messages.innerHTML += `<div class="bot-message">Thinking...</div>`;
-  messages.scrollTop = messages.scrollHeight;
+  const thinking = addMessage("Thinking...", "bot-message");
 
   try {
     const response = await fetch("https://geba-chat.vercel.app/api/chat", {
@@ -667,23 +676,31 @@ async function sendGEBAChat() {
       body: JSON.stringify({ message })
     });
 
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
     const data = await response.json();
 
-    const thinking = messages.querySelector(".bot-message:last-child");
-    thinking.textContent = data.reply || "Sorry, GEBA AI is temporarily unavailable.";
+    thinking.textContent =
+      data.reply || "Sorry, GEBA AI is temporarily unavailable.";
   } catch (error) {
-    const thinking = messages.querySelector(".bot-message:last-child");
+    console.error("GEBA chat error:", error);
     thinking.textContent = "Sorry, GEBA AI is temporarily unavailable.";
   }
 
   messages.scrollTop = messages.scrollHeight;
 }
 
-document.getElementById("chat-input").addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    sendGEBAChat();
-  }
+document.addEventListener("DOMContentLoaded", function() {
+  const input = document.getElementById("chat-input");
+
+  input.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      sendGEBAChat();
+    }
+  });
 });
 </script>
 
