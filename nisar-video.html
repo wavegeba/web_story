@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NISAR Video | GEBA Consulting LLC</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #030907;
+      color: #eaf5ef;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+    }
+
+    .video-page {
+      width: min(1100px, 96vw);
+    }
+
+    .video-header {
+      margin-bottom: 18px;
+    }
+
+    .video-header h1 {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .video-header p {
+      color: #9be7a8;
+      font-size: 0.98rem;
+    }
+
+    .video-frame {
+      background: #000;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 26px 70px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    video {
+      width: 100%;
+      display: block;
+      background: #000;
+    }
+
+    .video-credit {
+      margin-top: 14px;
+      color: #b9cfc2;
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
+    .video-credit span {
+      color: #7ee787;
+      font-weight: 800;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #7ee787;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="video-page">
+    <div class="video-header">
+      <h1>NISAR SAR Imaging Video</h1>
+      <p>Multisensor integration and SAR-based Earth observation example.</p>
+    </div>
+
+    <div class="video-frame">
+      <video controls autoplay playsinline preload="metadata">
+        <source src="assets/videos/NISAR_PAR_SARImaging_first5_last5.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="video-credit">
+      Source by <span>NASA</span>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to GEBA Consulting</a>
+  </main>
+</body>
+</html>
