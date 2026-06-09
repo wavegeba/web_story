@@ -43,13 +43,23 @@ header {
       flex-shrink: 0;
     }
 
-    nav a {
-      color: #eaf5ef;
-      text-decoration: none;
-      margin-left: 22px;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
+ nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  flex: 1;
+}
+
+nav a {
+  color: #eaf5ef;
+  text-decoration: none;
+  margin-left: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
 
     nav a:hover { color: #7ee787; }
 
