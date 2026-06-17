@@ -352,6 +352,7 @@
               <option value="SAR–Optical / Multisensor">SAR–Optical / Multisensor</option>
               <option value="Coaching / Mentoring">Coaching / Mentoring</option>
               <option value="Collaboration / Partnership">Collaboration / Partnership / Internship</option>
+              <option value="Internship Opportunities">Internship Opportunities</option>
               <option value="General Inquiry">General Inquiry</option>
             </select>
 
@@ -401,21 +402,10 @@ const GEBA_EMAIL = "info@gebaconsulting.com";
 
 // 2) Public message list
 // Keep this list privacy-safe. Do not paste full message content here.
-const publicMessages = [
-  {
-    date: "2026-06-11",
-    category: "GeoAI Consulting",
-    name: "G**",
-    preview: "Message received"
-  },
-  {
-    date: "2026-06-10",
-    category: "Collaboration / Partnership",
-    name: "K**",
-    preview: "Message received"
-  }
-];
+const recentDates = Array.from({ length: 3 }, (_, i) => { const date = new Date(); date.setDate(date.getDate() - i); return date.toISOString().split("T")[0]; }); 
+const publicMessages = [ { date: recentDates[0], category: "GeoAI Consulting", name: "G**", preview: "Message received" }, { date: recentDates[1], category: "Collaboration / Partnership", name: "K**", preview: "Message received" }, { date: recentDates[2], category: "Internship Opportunities", name: "S**", preview: "Message received" } ];
 
+  
 function maskName(name) {
   const clean = (name || "").trim();
   if (!clean) return "A**";
