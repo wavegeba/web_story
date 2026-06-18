@@ -74,7 +74,17 @@ nav a {
       background-size: cover;
       background-position: center;
     }
-
+    .inline-text-link {
+      color: #7ee787;
+      font-weight: 800;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(126, 231, 135, 0.65);
+    }
+    
+    .inline-text-link:hover {
+      color: #ffffff;
+      border-bottom-color: #ffffff;
+    }
     .hero-content {
       max-width: 980px;
     }
@@ -621,13 +631,28 @@ nav a {
   <div class="section-header">
     <div class="section-kicker">Disease Risk, Biodiversity & Ecosystem Intelligence</div>
     <h2 class="section-title">Environmental Monitoring</h2>
-  <p class="section-text">
+  <!-- <p class="section-text">
   Environmental intelligence systems for disease risk mapping, biodiversity monitoring, and ecosystem analysis.  <a href="https://www.sciencedirect.com/science/article/abs/pii/S1574954123003485"
      target="_blank"
      rel="noopener"
      class="paper-link"
      aria-label="Open related biodiversity monitoring paper"
      title="Related paper">Related paper ✎</a>
+</p> -->
+  <p class="section-text">
+  Environmental intelligence systems for
+  <a href="lyme-alert/" class="inline-text-link">disease risk mapping</a>,biodiversity monitoring, and ecosystem analysis.
+  <a href="https://www.sciencedirect.com/science/article/abs/pii/S1574954123003485"
+     target="_blank"
+     rel="noopener"
+     class="paper-link"
+     aria-label="Open related biodiversity monitoring paper"
+     title="Related paper">Related paper ✎</a>
+
+  <a href="lyme-alert/"
+     class="map-link"
+     aria-label="Open GEBA Lyme and Tick Alert Center"
+     title="GEBA Lyme & Tick Alert Center">Lyme Alert 🗺️</a>
 </p>
     </div>
 
@@ -642,15 +667,8 @@ nav a {
       <div class="highlight">Environmental driver analysis using explainable AI</div>
       <div class="highlight">Climate-sensitive risk assessment and monitoring</div>
     </div>
-  </div>
-
-  <!-- <div class="image-card" style="margin-top:26px;">
-    <img src="assets/images/Env2_ECM.png" alt="Environmental modeling workflow">
-  </div> -->
-
-  <!-- <div class="image-card" style="margin-top:26px;">
-    <img src="assets/images/Env3_Modeling.png" alt="Environmental modeling workflow">
-  </div> -->
+  </div> 
+  
 </section>
 
 <section id="ai" class="light">
