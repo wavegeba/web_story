@@ -1,1 +1,477 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Weekly Lyme & Tick High-Risk County Alert | GEBA</title>
+  <meta name="description" content="GEBA weekly Lyme and tick high-risk county alert page showing current high-risk counties, weekly map links, and recent weekly alert records." />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #06120f;
+      color: #eaf5ef;
+      line-height: 1.6;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 10px 3.5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      background: rgba(3, 13, 20, 0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo-img {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    nav a {
+      color: #eaf5ef;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    nav a:hover { color: #7ee787; }
+
+    .hero {
+      padding: 145px 7% 70px;
+      background:
+        linear-gradient(90deg, rgba(3,12,18,0.95), rgba(3,12,18,0.76), rgba(3,12,18,0.55)),
+        radial-gradient(circle at top right, rgba(126,231,135,0.18), transparent 42%);
+    }
+
+    .kicker {
+      color: #7ee787;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4.3vw, 4.2rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+      max-width: 980px;
+    }
+
+    .lead {
+      max-width: 880px;
+      color: #b9cfc2;
+      font-size: clamp(1rem, 1.5vw, 1.18rem);
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .updated {
+      display: inline-flex;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(126,231,135,0.12);
+      color: #9be7a8;
+      font-size: 0.85rem;
+      font-weight: 800;
+      border: 1px solid rgba(126,231,135,0.25);
+    }
+
+    section {
+      padding: 80px 7%;
+      background: #06120f;
+    }
+
+    section.light {
+      background: #f6faf7;
+      color: #102018;
+    }
+
+    .section-header {
+      max-width: 900px;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      color: #7ee787;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    .light .section-kicker { color: #226b35; }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.2vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: #b9cfc2;
+      font-size: 1.04rem;
+      max-width: 850px;
+    }
+
+    .light .section-text { color: #46584e; }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    .btn-primary {
+      background: #7ee787;
+      color: #06120f;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.55);
+      color: #ffffff;
+    }
+
+    .light .btn-secondary {
+      border-color: rgba(16,32,24,0.35);
+      color: #102018;
+    }
+
+    .map-placeholder {
+      min-height: 280px;
+      border-radius: 22px;
+      border: 1px dashed rgba(126,231,135,0.45);
+      background:
+        linear-gradient(135deg, rgba(126,231,135,0.08), rgba(255,255,255,0.03));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9be7a8;
+      text-align: center;
+      padding: 24px;
+      font-weight: 800;
+    }
+
+    .county-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #ffffff;
+      color: #102018;
+      box-shadow: 0 20px 48px rgba(0,0,0,0.12);
+    }
+
+    .county-table th,
+    .county-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      vertical-align: top;
+    }
+
+    .county-table th {
+      background: #0b281d;
+      color: #ffffff;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: #e8f7eb;
+      color: #0b5a2a;
+    }
+
+    .badge.high {
+      background: #ffe9d6;
+      color: #8a3b00;
+    }
+
+    .badge.very-high {
+      background: #ffe2e2;
+      color: #8a1010;
+    }
+
+    .badge.moderate {
+      background: #edf7f0;
+      color: #226b35;
+    }
+
+    .archive-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .archive-item {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .archive-item strong {
+      color: #7ee787;
+    }
+
+    .note-box {
+      margin-top: 28px;
+      padding: 22px;
+      border-radius: 18px;
+      background: rgba(126,231,135,0.10);
+      border: 1px solid rgba(126,231,135,0.22);
+      color: #dbe9e0;
+    }
+
+    footer {
+      padding: 34px 7%;
+      background: #030907;
+      color: #9fb5a8;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .logo-img { height: 38px; }
+
+      .county-table,
+      .county-table thead,
+      .county-table tbody,
+      .county-table th,
+      .county-table td,
+      .county-table tr {
+        display: block;
+      }
+
+      .county-table thead {
+        display: none;
+      }
+
+      .county-table tr {
+        border-bottom: 1px solid rgba(0,0,0,0.12);
+      }
+
+      .county-table td {
+        border-bottom: none;
+      }
+
+      .county-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 800;
+        color: #0b3b25;
+        margin-bottom: 4px;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<header>
+  <a href="../../" class="logo-link" aria-label="GEBA Consulting Home">
+    <img src="../../assets/logo/logo0.png" alt="GEBA Consulting LLC" class="logo-img">
+  </a>
+
+  <nav>
+    <a href="../../">Home</a>
+    <a href="../">Lyme Alert Center</a>
+    <a href="#current">Current Alert</a>
+    <a href="#counties">High-Risk Counties</a>
+    <a href="#recent">Recent Alerts</a>
+  </nav>
+</header>
+
+<main class="hero">
+  <div class="kicker">Weekly Lyme & Tick Early-Warning Map</div>
+
+  <h1>Weekly High-Risk County Alert</h1>
+
+  <p class="lead">
+    This weekly page summarizes counties where Lyme and tick activity may be elevated
+    based on GEBA’s environmental GeoAI indicators, historical Lyme patterns, seasonal conditions,
+    and search-trend signals. Map layers will be connected here after the GEE App is ready.
+  </p>
+
+  <div class="updated">Updated: June 18, 2026</div>
+
+  <div class="buttons">
+    <a href="#" target="_blank" rel="noopener" class="btn btn-primary">Open Weekly GEE App</a>
+    <a href="../" class="btn btn-secondary">Back to Lyme Alert Center</a>
+  </div>
+</main>
+
+<section id="current">
+  <div class="section-header">
+    <div class="section-kicker">Current Weekly Map</div>
+    <h2 class="section-title">This Week’s Lyme & Tick Alert Map</h2>
+    <p class="section-text">
+      The interactive weekly map will be added here. Until then, this page provides the structure
+      for weekly high-risk county communication, public-health awareness, and app linkage.
+    </p>
+  </div>
+
+  <div class="map-placeholder">
+    Weekly Lyme/tick alert map placeholder<br>
+    Replace later with GEE App iframe, map image, or GEE App button.
+  </div>
+</section>
+
+<section id="counties" class="light">
+  <div class="section-header">
+    <div class="section-kicker">High-Risk Counties</div>
+    <h2 class="section-title">This Week’s Selected High-Risk Counties</h2>
+    <p class="section-text">
+      Replace the example rows below with the weekly model output. Start with 5–10 counties.
+      Keep the text simple, searchable, and public-health oriented.
+    </p>
+  </div>
+
+  <table class="county-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>County</th>
+        <th>State</th>
+        <th>Alert Level</th>
+        <th>Main Signal</th>
+        <th>Weekly Note</th>
+      </tr>
+    </thead>
+
+```
+<tbody>
+  <tr>
+    <td data-label="Rank">1</td>
+    <td data-label="County">Fairfax County</td>
+    <td data-label="State">VA</td>
+    <td data-label="Alert Level"><span class="badge high">High</span></td>
+    <td data-label="Main Signal">Seasonal tick activity + search-trend signal</td>
+    <td data-label="Weekly Note">Elevated awareness recommended for tick bite prevention and rash monitoring.</td>
+  </tr>
+
+  <tr>
+    <td data-label="Rank">2</td>
+    <td data-label="County">Loudoun County</td>
+    <td data-label="State">VA</td>
+    <td data-label="Alert Level"><span class="badge high">High</span></td>
+    <td data-label="Main Signal">Environmental suitability + historical Lyme burden</td>
+    <td data-label="Weekly Note">Outdoor exposure and prevention messaging may be especially relevant this week.</td>
+  </tr>
+
+  <tr>
+    <td data-label="Rank">3</td>
+    <td data-label="County">Montgomery County</td>
+    <td data-label="State">MD</td>
+    <td data-label="Alert Level"><span class="badge moderate">Moderate–High</span></td>
+    <td data-label="Main Signal">Monthly seasonality + regional search activity</td>
+    <td data-label="Weekly Note">Continue monitoring county-level tick and rash-related signals.</td>
+  </tr>
+</tbody>
+```
+
+  </table>
+
+  <div class="note-box">
+    <strong>Public-health note:</strong>
+    This alert is for awareness and prevention support only. It is not a medical diagnosis.
+    People with symptoms after a tick bite should contact qualified healthcare professionals
+    or local public-health authorities.
+  </div>
+</section>
+
+<section id="recent">
+  <div class="section-header">
+    <div class="section-kicker">Recent Weekly Records</div>
+    <h2 class="section-title">Recent Weekly Alert Summaries</h2>
+    <p class="section-text">
+      Keep several weeks of summary records here. This provides continuity without creating
+      a separate HTML page for every week.
+    </p>
+  </div>
+
+  <div class="archive-list">
+    <div class="archive-item">
+      <strong>Week 25, 2026</strong><br>
+      Example high-risk counties: Fairfax County, VA; Loudoun County, VA; Montgomery County, MD.
+    </div>
+
+```
+<div class="archive-item">
+  <strong>Week 24, 2026</strong><br>
+  Add previous weekly summary here after the first update cycle.
+</div>
+
+<div class="archive-item">
+  <strong>Week 23, 2026</strong><br>
+  Add previous weekly summary here after the first update cycle.
+</div>
+```
+
+  </div>
+
+  <div class="buttons">
+    <a href="#" target="_blank" rel="noopener" class="btn btn-primary">Open Weekly GEE App</a>
+    <a href="../" class="btn btn-secondary">Back to Main Lyme Alert Page</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 GEBA LLC. Weekly Lyme & Tick High-Risk County Alert • Environmental GeoAI
+</footer>
+
+</body>
+</html>
 
