@@ -114,7 +114,21 @@ nav a {
       text-transform: uppercase;
       margin-bottom: 34px;
     }
-
+    .agriculture-layout {
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 34px;
+      align-items: center;
+    }
+    
+    .agriculture-layout .image-card img {
+      width: 100%;
+    }
+    
+    .agriculture-highlights {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 0;
+    }
     .subtitle {
       font-size: clamp(1.2rem, 2.2vw, 2rem);
       color: #eaf5ef;
@@ -589,7 +603,7 @@ nav a {
     <p class="section-text">GeoAI-enabled crop monitoring, in-year yield forecasting, crop and vegetation biomass estimation, and precision agriculture applications using Earth observation and environmental data.</p>
   </div>
 
-  <div class="two-col">
+  <!-- <div class="two-col">
     <div class="image-card">
       <img src="assets/images/Food1.png" alt="Crop yield prediction maps">
     </div>
@@ -597,12 +611,27 @@ nav a {
     <div>
       <div class="highlights">
         <div class="highlight">Crop yield prediction from field to national monitoring</div>
-        <!-- <div class="highlight">In-Year forecasting of crop yield several months before harvest </div> -->
+        <div class="highlight">In-Year forecasting of crop yield several months before harvest </div>
         <div class="highlight">Adaptive AI modeling across crops, eco-regions, environmental conditions</div>
         <div class="highlight">Decision support for precision management and food-security monitoring</div>
       </div>
     </div>
+  </div> -->
+
+  <div class="two-col agriculture-layout">
+  <div class="image-card">
+    <img src="assets/images/Food1.png" alt="Crop yield prediction maps">
   </div>
+
+  <div>
+    <div class="highlights agriculture-highlights">
+      <div class="highlight">Crop yield prediction from local field examples to regional and national monitoring</div>
+      <div class="highlight">In-Year forecasting of crop yield several months before harvest</div>
+      <div class="highlight">Adaptive AI modeling across crops, eco-regions, and environmental conditions</div>
+      <div class="highlight">Decision support for precision management, production outlooks, and food-security monitoring</div>
+    </div>
+  </div>
+</div>
   
 <p class="section-text" style="margin-top:16px;">
   <br><br>
