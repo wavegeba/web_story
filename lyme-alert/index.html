@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -258,6 +257,27 @@
       box-shadow: 0 20px 48px rgba(0,0,0,0.14);
     }
 
+    .resource-card img.resource-logo {
+      width: 100%;
+      height: 120px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 16px auto;
+      padding: 10px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.94);
+    }
+
+    .resource-card img.resource-photo {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 16px auto;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.08);
+    }
+
     .resource-card h3 {
       color: #7ee787;
       margin-bottom: 10px;
@@ -268,6 +288,33 @@
       color: #b9cfc2;
       font-size: 0.94rem;
       margin-bottom: 16px;
+    }
+
+    .tick-image-band {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 0.55fr 1.45fr;
+      gap: 22px;
+      align-items: center;
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .tick-image-band img {
+      width: 100%;
+      display: block;
+      border-radius: 18px;
+    }
+
+    .tick-image-band h3 {
+      color: #7ee787;
+      margin-bottom: 10px;
+    }
+
+    .tick-image-band p {
+      color: #b9cfc2;
     }
 
     .archive-list {
@@ -314,20 +361,22 @@
       .resource-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .tick-image-band {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 900px) {
       nav { display: none; }
       .logo-img { height: 38px; }
-      .county-list {
-        grid-template-columns: 1fr;
-      }
+
+      .county-list,
       .resource-grid {
         grid-template-columns: 1fr;
       }
     }
   </style>
-
 </head>
 
 <body>
@@ -339,7 +388,7 @@
 
   <nav>
     <a href="../../">Home</a>
-    <a href="../">Lyme Alert Center</a>
+    <a href="../">GEBA LLC</a>
     <a href="#map">Weekly Map</a>
     <a href="#counties">County List</a>
     <a href="#resources">Resources</a>
@@ -394,66 +443,66 @@
     <h3>2026 June Week 3 — processed through June 21, 2026</h3>
     <p>
       Search the county list below. The latest full report includes the complete high-risk county table and PDF map.
-    </p> 
-<input id="countySearch"
-       class="county-search"
-       type="text"
-       placeholder="Search county or state, e.g., Delaware, Michigan, Monmouth, Ohio..." />
+    </p>
 
-<div id="countyList" class="county-list">
-  <div class="county-item">Delaware — New Castle County <span class="badge">Very High</span></div>
-  <div class="county-item">Delaware — Sussex County <span class="badge">Very High</span></div>
-  <div class="county-item">Delaware — Kent County <span class="badge">Very High</span></div>
-  <div class="county-item">Michigan — Grand Traverse County <span class="badge">Very High</span></div>
-  <div class="county-item">Michigan — Isabella County <span class="badge">Very High</span></div>
-  <div class="county-item">Michigan — Clare County <span class="badge">Very High</span></div>
-  <div class="county-item">Michigan — Midland County <span class="badge">Very High</span></div>
-  <div class="county-item">Michigan — Kent County <span class="badge">Very High</span></div>
-  <div class="county-item">Michigan — Newaygo County <span class="badge">Very High</span></div>
-  <div class="county-item">Wisconsin — Marinette County <span class="badge">Very High</span></div>
-  <div class="county-item">Wisconsin — Shawano County <span class="badge">Very High</span></div>
-  <div class="county-item">Wisconsin — Outagamie County <span class="badge">Very High</span></div>
-  <div class="county-item">Wisconsin — Oconto County <span class="badge">Very High</span></div>
-  <div class="county-item">Wisconsin — Waupaca County <span class="badge">Very High</span></div>
-  <div class="county-item">New Jersey — Monmouth County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Washington County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Athens County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Crawford County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Hamilton County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Wood County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Clermont County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Gallia County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Warren County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Miami County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Franklin County <span class="badge">Very High</span></div>
-  <div class="county-item">Ohio — Montgomery County <span class="badge">Very High</span></div>
-  <div class="county-item">Kentucky — Campbell County <span class="badge">Very High</span></div>
-  <div class="county-item">Kentucky — Boone County <span class="badge">Very High</span></div>
-  <div class="county-item">Kentucky — Kenton County <span class="badge">Very High</span></div>
-  <div class="county-item">Kentucky — Boyd County <span class="badge">Very High</span></div>
-  <div class="county-item">Oregon — Umatilla County <span class="badge">Very High</span></div>
-  <div class="county-item">Indiana — Delaware County <span class="badge">Very High</span></div>
-  <div class="county-item">Indiana — Brown County <span class="badge">Very High</span></div>
-  <div class="county-item">Indiana — Vigo County <span class="badge">Very High</span></div>
-  <div class="county-item">Indiana — Monroe County <span class="badge">Very High</span></div>
-  <div class="county-item">Rhode Island — Providence County <span class="badge">Very High</span></div>
-  <div class="county-item">Rhode Island — Washington County <span class="badge">Very High</span></div>
-  <div class="county-item">Rhode Island — Kent County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Otsego County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Madison County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Saratoga County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Oneida County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Warren County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Dutchess County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Fulton County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Greene County <span class="badge">Very High</span></div>
-  <div class="county-item">New York — Montgomery County <span class="badge">Very High</span></div>
-</div>
+    <input id="countySearch"
+           class="county-search"
+           type="text"
+           placeholder="Search county or state, e.g., Delaware, Michigan, Monmouth, Ohio..." />
 
-<div class="buttons">
-  <a href="weekly-lyme-alert-2026-06-21.html" class="btn btn-dark">Open Full County Index</a>
-</div> 
+    <div id="countyList" class="county-list">
+      <div class="county-item">Delaware — New Castle County <span class="badge">Very High</span></div>
+      <div class="county-item">Delaware — Sussex County <span class="badge">Very High</span></div>
+      <div class="county-item">Delaware — Kent County <span class="badge">Very High</span></div>
+      <div class="county-item">Michigan — Grand Traverse County <span class="badge">Very High</span></div>
+      <div class="county-item">Michigan — Isabella County <span class="badge">Very High</span></div>
+      <div class="county-item">Michigan — Clare County <span class="badge">Very High</span></div>
+      <div class="county-item">Michigan — Midland County <span class="badge">Very High</span></div>
+      <div class="county-item">Michigan — Kent County <span class="badge">Very High</span></div>
+      <div class="county-item">Michigan — Newaygo County <span class="badge">Very High</span></div>
+      <div class="county-item">Wisconsin — Marinette County <span class="badge">Very High</span></div>
+      <div class="county-item">Wisconsin — Shawano County <span class="badge">Very High</span></div>
+      <div class="county-item">Wisconsin — Outagamie County <span class="badge">Very High</span></div>
+      <div class="county-item">Wisconsin — Oconto County <span class="badge">Very High</span></div>
+      <div class="county-item">Wisconsin — Waupaca County <span class="badge">Very High</span></div>
+      <div class="county-item">New Jersey — Monmouth County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Washington County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Athens County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Crawford County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Hamilton County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Wood County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Clermont County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Gallia County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Warren County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Miami County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Franklin County <span class="badge">Very High</span></div>
+      <div class="county-item">Ohio — Montgomery County <span class="badge">Very High</span></div>
+      <div class="county-item">Kentucky — Campbell County <span class="badge">Very High</span></div>
+      <div class="county-item">Kentucky — Boone County <span class="badge">Very High</span></div>
+      <div class="county-item">Kentucky — Kenton County <span class="badge">Very High</span></div>
+      <div class="county-item">Kentucky — Boyd County <span class="badge">Very High</span></div>
+      <div class="county-item">Oregon — Umatilla County <span class="badge">Very High</span></div>
+      <div class="county-item">Indiana — Delaware County <span class="badge">Very High</span></div>
+      <div class="county-item">Indiana — Brown County <span class="badge">Very High</span></div>
+      <div class="county-item">Indiana — Vigo County <span class="badge">Very High</span></div>
+      <div class="county-item">Indiana — Monroe County <span class="badge">Very High</span></div>
+      <div class="county-item">Rhode Island — Providence County <span class="badge">Very High</span></div>
+      <div class="county-item">Rhode Island — Washington County <span class="badge">Very High</span></div>
+      <div class="county-item">Rhode Island — Kent County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Otsego County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Madison County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Saratoga County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Oneida County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Warren County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Dutchess County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Fulton County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Greene County <span class="badge">Very High</span></div>
+      <div class="county-item">New York — Montgomery County <span class="badge">Very High</span></div>
+    </div>
 
+    <div class="buttons">
+      <a href="weekly-lyme-alert-2026-06-21.html" class="btn btn-dark">Open Full County Index</a>
+    </div>
   </div>
 </section>
 
@@ -469,6 +518,7 @@
 
   <div class="resource-grid">
     <div class="resource-card">
+      <img src="/asset/cdc.png" alt="CDC logo" class="resource-logo">
       <h3>CDC Lyme Information</h3>
       <p>Learn about Lyme disease, symptoms, prevention, testing, diagnosis, and treatment from CDC.</p>
       <a href="https://www.cdc.gov/lyme/"
@@ -476,34 +526,47 @@
          rel="noopener"
          class="btn btn-primary">Open CDC</a>
     </div>
- 
-<div class="resource-card">
-  <h3>HHS Lyme Resources</h3>
-  <p>Access HHS Lyme disease information and federal resources for patients and families.</p>
-  <a href="https://www.hhs.gov/lyme/index.html"
-     target="_blank"
-     rel="noopener"
-     class="btn btn-primary">Open HHS</a>
-</div>
 
-<div class="resource-card">
-  <h3>Lyme Symptoms Video</h3>
-  <p>Open educational YouTube results about Lyme symptoms, tick bites, rash, and prevention.</p>
-  <a href="https://www.youtube.com/results?search_query=Lyme+disease+rash+tick+bite"
-     target="_blank"
-     rel="noopener"
-     class="btn btn-primary">Open YouTube</a>
-</div>
+    <div class="resource-card">
+      <img src="/asset/HHS.png" alt="HHS logo" class="resource-logo">
+      <h3>HHS Lyme Resources</h3>
+      <p>Access HHS Lyme disease information and federal resources for patients and families.</p>
+      <a href="https://www.hhs.gov/lyme/index.html"
+         target="_blank"
+         rel="noopener"
+         class="btn btn-primary">Open HHS</a>
+    </div>
 
-<div class="resource-card">
-  <h3>Nearby Care</h3>
-  <p>Find nearby urgent care, hospitals, or clinics if symptoms appear after a tick bite.</p>
-  <a href="https://www.google.com/maps/search/urgent+care+hospital+near+me+Lyme+disease+tick+bite"
-     target="_blank"
-     rel="noopener"
-     class="btn btn-primary">Find Nearby Care</a>
-</div> 
+    <div class="resource-card">
+      <img src="/asset/tickbite.png" alt="Tick bite and Lyme symptom information" class="resource-photo">
+      <h3>Lyme Symptoms Video</h3>
+      <p>Open educational YouTube results about Lyme symptoms, tick bites, rash, and prevention.</p>
+      <a href="https://www.youtube.com/results?search_query=Lyme+disease+rash+tick+bite"
+         target="_blank"
+         rel="noopener"
+         class="btn btn-primary">Open YouTube</a>
+    </div>
 
+    <div class="resource-card">
+      <img src="/asset/blacklegged%20ticks2.png" alt="Blacklegged tick image" class="resource-photo">
+      <h3>Nearby Care</h3>
+      <p>Find nearby urgent care, hospitals, or clinics if symptoms appear after a tick bite.</p>
+      <a href="https://www.google.com/maps/search/urgent+care+hospital+near+me+Lyme+disease+tick+bite"
+         target="_blank"
+         rel="noopener"
+         class="btn btn-primary">Find Nearby Care</a>
+    </div>
+  </div>
+
+  <div class="tick-image-band">
+    <img src="/asset/blacklegged%20ticks2.png" alt="Blacklegged ticks educational image">
+    <div>
+      <h3>Tick bite awareness</h3>
+      <p>
+        Use the weekly alert map as an awareness layer for prevention planning. Check for ticks after outdoor activity,
+        monitor possible rash or flu-like symptoms, and seek professional care when symptoms appear after a tick bite.
+      </p>
+    </div>
   </div>
 
   <div class="note-box">
