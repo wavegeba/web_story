@@ -658,6 +658,7 @@ document.addEventListener("DOMContentLoaded", async function() {
   const countyPanel = document.querySelector(".county-panel[data-report-url]");
   const countyList = document.getElementById("countyList");
   const countyPanelTitle = document.getElementById("countyPanelTitle");
+  const countyToggleBtn = document.getElementById("countyToggleBtn");
 
   if (!countyPanel || !countyList) return;
 
@@ -670,6 +671,24 @@ document.addEventListener("DOMContentLoaded", async function() {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  function setupCountyToggle() {
+    if (!countyToggleBtn || !countyList) return;
+
+    countyToggleBtn.addEventListener("click", function() {
+      const isExpanded = countyList.classList.contains("is-expanded");
+
+      if (isExpanded) {
+        countyList.classList.remove("is-expanded");
+        countyList.classList.add("is-collapsed");
+        countyToggleBtn.textContent = "Show all counties";
+      } else {
+        countyList.classList.remove("is-collapsed");
+        countyList.classList.add("is-expanded");
+        countyToggleBtn.textContent = "Show fewer counties";
+      }
+    });
   }
 
   function renderCountyList(counties) {
@@ -685,17 +704,27 @@ document.addEventListener("DOMContentLoaded", async function() {
       const risk = escapeHTML(item.risk);
 
       return `
-        <div class="county-item">
+        <div class="county-item" title="${rank}${county}, ${state} ${risk}">
           <strong>${rank}${county}, ${state}</strong>
           ${risk ? `<span class="badge">${risk}</span>` : ""}
         </div>
       `;
     }).join("");
 
+    countyList.classList.remove("is-expanded");
+    countyList.classList.add("is-collapsed");
+
+    if (countyToggleBtn) {
+      countyToggleBtn.textContent = "Show all counties";
+      countyToggleBtn.style.display = counties.length > 9 ? "inline-block" : "none";
+    }
+
     if (countyPanelTitle) {
       countyPanelTitle.textContent = "Latest weekly high-risk counties (" + counties.length + ")";
     }
   }
+
+  setupCountyToggle();
 
   try {
     const response = await fetch(reportUrl + "?v=" + Date.now(), { cache: "no-store" });
@@ -716,6 +745,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     renderCountyList(counties);
   } catch (error) {
     countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
+    if (countyToggleBtn) countyToggleBtn.style.display = "none";
     console.error("County list loading error:", error);
   }
 });
