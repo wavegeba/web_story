@@ -259,7 +259,11 @@
     .county-item strong {
       color: #0b3b25;
     }
-
+    @media (max-width: 900px) {
+      .county-list {
+        grid-template-columns: 1fr;
+      }
+    }
     .badge {
       display: inline-flex;
       margin-left: 6px;
@@ -399,7 +403,6 @@
     @media (max-width: 900px) {
       nav { display: none; }
       .logo-img { height: 38px; }
-
       .county-list,
       .resource-grid {
         grid-template-columns: 1fr;
@@ -450,26 +453,19 @@
 </section>
 
 <section id="counties" class="light">
+  <div class="section-header">
+    <div class="section-kicker">High-Risk County List</div>
+    <h2 class="section-title">Latest County Alert List</h2>
+    <p class="section-text">
+      High-risk counties are loaded directly from the latest weekly Lyme alert report.
+    </p>
+  </div>
+
   <div class="county-panel" data-report-url="/lyme-alert/weekly/weekly-lyme-alert-latest.html">
     <h3 id="countyPanelTitle">Latest weekly high-risk counties</h3>
-    <p>
-      This county list is loaded from the latest weekly Lyme alert HTML report.
-      Search by county or state to find Lyme alert areas, tick bite risk locations, and high-alert counties.
-    </p>
-
-    <input id="countySearch"
-           class="county-search"
-           type="text"
-           placeholder="Search county or state, e.g., Delaware, Michigan, Monmouth, Ohio..." />
 
     <div id="countyList" class="county-list">
       <div class="county-item">Loading latest county list...</div>
-    </div>
-
-    <div class="buttons">
-      <a id="latestCountyReportLink"
-         href="/lyme-alert/weekly/weekly-lyme-alert-latest.html"
-         class="btn btn-dark">Open Full Report</a>
     </div>
   </div>
 </section>
@@ -612,13 +608,11 @@
 document.addEventListener("DOMContentLoaded", async function() {
   const countyPanel = document.querySelector(".county-panel[data-report-url]");
   const countyList = document.getElementById("countyList");
-  const searchInput = document.getElementById("countySearch");
-  const reportLink = document.getElementById("latestCountyReportLink");
+  const countyPanelTitle = document.getElementById("countyPanelTitle");
 
   if (!countyPanel || !countyList) return;
 
-  const reportUrl = countyPanel.getAttribute("data-report-url") || "weekly-lyme-alert-latest.html";
-  let counties = [];
+  const reportUrl = countyPanel.getAttribute("data-report-url");
 
   function escapeHTML(value) {
     return String(value || "")
@@ -629,13 +623,13 @@ document.addEventListener("DOMContentLoaded", async function() {
       .replace(/'/g, "&#039;");
   }
 
-  function renderCountyList(items, emptyMessage) {
-    if (!items || items.length === 0) {
-      countyList.innerHTML = `<div class="county-item">${emptyMessage || "No county list found in the latest report."}</div>`;
+  function renderCountyList(counties) {
+    if (!counties || counties.length === 0) {
+      countyList.innerHTML = '<div class="county-item">No county list found in the latest report.</div>';
       return;
     }
 
-    countyList.innerHTML = items.map(function(item) {
+    countyList.innerHTML = counties.map(function(item) {
       const rank = item.rank ? escapeHTML(item.rank) + ". " : "";
       const county = escapeHTML(item.county);
       const state = escapeHTML(item.state);
@@ -648,18 +642,17 @@ document.addEventListener("DOMContentLoaded", async function() {
         </div>
       `;
     }).join("");
+
+    if (countyPanelTitle) {
+      countyPanelTitle.textContent = "Latest weekly high-risk counties (" + counties.length + ")";
+    }
   }
 
   try {
-    if (reportLink) {
-      reportLink.href = reportUrl;
-    }
-
-    const fetchUrl = reportUrl + "?v=" + Date.now();
-    const response = await fetch(fetchUrl, { cache: "no-store" });
+    const response = await fetch(reportUrl + "?v=" + Date.now(), { cache: "no-store" });
 
     if (!response.ok) {
-      throw new Error("Could not fetch latest report");
+      throw new Error("Could not load latest report");
     }
 
     const htmlText = await response.text();
@@ -667,41 +660,14 @@ document.addEventListener("DOMContentLoaded", async function() {
     const dataTag = latestDoc.getElementById("countyData");
 
     if (!dataTag) {
-      throw new Error("countyData not found in latest report");
+      throw new Error("countyData not found");
     }
 
-    counties = JSON.parse((dataTag.textContent || "[]").trim());
-    renderCountyList(counties, "No county list found in the latest report.");
+    const counties = JSON.parse((dataTag.textContent || "[]").trim());
+    renderCountyList(counties);
   } catch (error) {
     countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
     console.error("County list loading error:", error);
-  }
-
-  if (searchInput) {
-    searchInput.addEventListener("input", function() {
-      const query = searchInput.value.toLowerCase().trim();
-
-      if (!query) {
-        renderCountyList(counties, "No county list found in the latest report.");
-        return;
-      }
-
-      const filtered = counties.filter(function(item) {
-        const text = [
-          item.rank,
-          item.county,
-          item.state,
-          item.risk,
-          item.annual,
-          item.monthly,
-          item.weekly
-        ].join(" ").toLowerCase();
-
-        return text.includes(query);
-      });
-
-      renderCountyList(filtered, "No matching county found.");
-    });
   }
 });
 </script>
