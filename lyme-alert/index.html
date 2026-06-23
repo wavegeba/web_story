@@ -126,34 +126,36 @@
       background: #0b281d;
       color: #ffffff;
     }
-.urgent-alert-text {
-  margin: 0 0 16px 0;
-  padding: 12px 14px;
-  border-radius: 14px;
-  background: rgba(255, 80, 80, 0.18);
-  border: 1px solid rgba(255, 120, 120, 0.65);
-  color: #fff1f1 !important;
-  font-weight: 900;
-  line-height: 1.45;
-  animation: urgentBlink 1.2s ease-in-out infinite;
-}
 
-@keyframes urgentBlink {
-  0%, 100% {
-    opacity: 1;
-    box-shadow: 0 0 0 rgba(255, 80, 80, 0);
-  }
-  50% {
-    opacity: 0.55;
-    box-shadow: 0 0 18px rgba(255, 80, 80, 0.65);
-  }
-}
+    .urgent-alert-text {
+      margin: 0 0 16px 0;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255, 80, 80, 0.18);
+      border: 1px solid rgba(255, 120, 120, 0.65);
+      color: #fff1f1 !important;
+      font-weight: 900;
+      line-height: 1.45;
+      animation: urgentBlink 1.2s ease-in-out infinite;
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  .urgent-alert-text {
-    animation: none;
-  }
-}
+    @keyframes urgentBlink {
+      0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 rgba(255, 80, 80, 0);
+      }
+      50% {
+        opacity: 0.55;
+        box-shadow: 0 0 18px rgba(255, 80, 80, 0.65);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .urgent-alert-text {
+        animation: none;
+      }
+    }
+
     section {
       padding: 62px 7%;
       background: #06120f;
@@ -238,7 +240,26 @@
       margin-bottom: 18px;
     }
 
-    
+    .county-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .county-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #f3f8f4;
+      border: 1px solid rgba(0,0,0,0.08);
+      color: #102018;
+      font-size: 0.94rem;
+    }
+
+    .county-item strong {
+      color: #0b3b25;
+    }
+
     .badge {
       display: inline-flex;
       margin-left: 6px;
@@ -394,14 +415,14 @@
     <img src="../../assets/logo/logo0.png" alt="GEBA Consulting LLC" class="logo-img">
   </a>
 
-<nav>
-  <a href="../../">Home</a> 
-  <a href="#map">Weekly Map</a>
-  <a href="#counties">County List</a>
-  <a href="#resources">Resources</a>
-  <a href="#faq">FAQ</a>
-  <a href="#reports">Reports</a>
-</nav>
+  <nav>
+    <a href="../../">Home</a> 
+    <a href="#map">Weekly Map</a>
+    <a href="#counties">County List</a>
+    <a href="#resources">Resources</a>
+    <a href="#faq">FAQ</a>
+    <a href="#reports">Reports</a>
+  </nav>
 </header>
 
 <main class="hero">
@@ -415,15 +436,15 @@
 <section id="map">
   <div class="section-header"> 
     <h2 class="section-title">County-Level Weekly Lyme Alert Map</h2>
-<p class="section-text">
-  This weekly Lyme alert map supports public awareness of tick bite risk, possible Lyme disease exposure,
-  blacklegged tick activity, and areas where rash or flu-like symptoms after outdoor exposure should be monitored.
-  Open the full weekly report for the PDF map, county index, and data links.
-</p>
+    <p class="section-text">
+      This weekly Lyme alert map supports public awareness of tick bite risk, possible Lyme disease exposure,
+      blacklegged tick activity, and areas where rash or flu-like symptoms after outdoor exposure should be monitored.
+      Open the full weekly report for the PDF map, county index, and data links.
+    </p>
   </div>
 
   <div class="main-image-card">
-    <a href="weekly-lyme-alert-2026-06-21.html" aria-label="Open latest weekly Lyme alert report">
+    <a href="weekly-lyme-alert-latest.html" aria-label="Open latest weekly Lyme alert report">
       <img src="/assets/images/WeeklyAlert.png" alt="County-level weekly Lyme alert map by GEBA GeoAI and TrendAI">
     </a>
   </div>
@@ -438,29 +459,29 @@
     </p>
   </div>
 
- <div class="county-panel" data-report-url="weekly-lyme-alert-latest.html">
-  <h3 id="countyPanelTitle">Latest weekly high-risk counties</h3>
+  <div class="county-panel" data-report-url="weekly-lyme-alert-latest.html">
+    <h3 id="countyPanelTitle">Latest weekly high-risk counties</h3>
 
-  <p>
-    This county list is loaded from the latest weekly Lyme alert HTML report.
-    Search by county or state to find Lyme alert areas, tick bite risk locations, and high-alert counties.
-  </p>
+    <p>
+      This county list is loaded from the latest weekly Lyme alert HTML report.
+      Search by county or state to find Lyme alert areas, tick bite risk locations, and high-alert counties.
+    </p>
 
-  <input id="countySearch"
-         class="county-search"
-         type="text"
-         placeholder="Search county or state, e.g., Delaware, Michigan, Monmouth, Ohio..." />
+    <input id="countySearch"
+           class="county-search"
+           type="text"
+           placeholder="Search county or state, e.g., Delaware, Michigan, Monmouth, Ohio..." />
 
-  <div id="countyList" class="county-list">
-    <div class="county-item">Loading latest county list...</div>
+    <div id="countyList" class="county-list">
+      <div class="county-item">Loading latest county list...</div>
+    </div>
+
+    <div class="buttons">
+      <a id="latestCountyReportLink"
+         href="/lyme-alert/weekly/weekly-lyme-alert-latest.html"
+         class="btn btn-dark">Open Full Report</a>
+    </div>
   </div>
-
-  <div class="buttons">
-  <a id="latestCountyReportLink"
-   href="/lyme-alert/weekly/weekly-lyme-alert-latest.html"
-   class="btn btn-dark">Open Full Report</a>
-  </div>
-</div>
 </section>
 
 <section id="resources">
@@ -472,13 +493,15 @@
       GEBA alerts are for awareness and prevention support only.
     </p>
   </div>
-<div class="note-box">
-  <strong>Lyme, tick bite, and rash awareness:</strong>
-  Lyme disease is commonly associated with bites from infected blacklegged ticks.
-  People who spend time outdoors in high-alert counties should check for ticks, monitor for a possible expanding rash,
-  including a bullseye-like rash, and watch for fever, fatigue, headache, muscle aches, or joint pain after a tick bite.
-  This page does not provide medical diagnosis, but it helps connect weekly GeoAI tick alert information with public-health resources.
-</div>
+
+  <div class="note-box">
+    <strong>Lyme, tick bite, and rash awareness:</strong>
+    Lyme disease is commonly associated with bites from infected blacklegged ticks.
+    People who spend time outdoors in high-alert counties should check for ticks, monitor for a possible expanding rash,
+    including a bullseye-like rash, and watch for fever, fatigue, headache, muscle aches, or joint pain after a tick bite.
+    This page does not provide medical diagnosis, but it helps connect weekly GeoAI tick alert information with public-health resources.
+  </div>
+
   <div class="resource-grid">
     <div class="resource-card">
       <img src="/assets/images/cdc.png" alt="CDC logo" class="resource-logo">
@@ -511,7 +534,7 @@
     </div>
 
     <div class="resource-card">
-      <img src="/assets/images/tickbite.png" alt="Tick bite " class="resource-photo">
+      <img src="/assets/images/tickbite.png" alt="Tick bite" class="resource-photo">
       <h3>Nearby Care</h3>
       <p class="urgent-alert-text">
         If you are in a Lyme alert area and have symptoms (rash) after a tick bite, seek medical care promptly.
@@ -542,38 +565,38 @@
   </div>
 </section>
 
-  <section id="faq" class="light">
+<section id="faq" class="light">
   <div class="section-header">
     <div class="section-kicker">Lyme Alert FAQ</div>
     <h2 class="section-title">Lyme Disease, Tick Bite, and Rash Awareness</h2>
   </div>
 
-<div class="county-panel">
-  <h3>Am I in a weekly Lyme alert area?</h3>
-  <p>
-    A weekly Lyme alert means that GEBA GeoAI and TrendAI signals suggest increased local awareness may be useful.
-    If your county appears in a high-alert area, take extra care with tick bite prevention, tick checks, and outdoor exposure.
-  </p>
+  <div class="county-panel">
+    <h3>Am I in a weekly Lyme alert area?</h3>
+    <p>
+      A weekly Lyme alert means that GEBA GeoAI and TrendAI signals suggest increased local awareness may be useful.
+      If your county appears in a high-alert area, take extra care with tick bite prevention, tick checks, and outdoor exposure.
+    </p>
 
-  <h3>What should I do if I have symptoms after a tick bite?</h3>
-  <p>
-    If you are in a Lyme alert area and develop an expanding rash, bullseye-like rash, fever, fatigue, headache,
-    muscle aches, or joint pain after a tick bite, seek medical care promptly.
-  </p>
+    <h3>What should I do if I have symptoms after a tick bite?</h3>
+    <p>
+      If you are in a Lyme alert area and develop an expanding rash, bullseye-like rash, fever, fatigue, headache,
+      muscle aches, or joint pain after a tick bite, seek medical care promptly.
+    </p>
 
-  <h3>Why do blacklegged ticks matter?</h3>
-  <p>
-    Lyme disease in many U.S. regions is linked to infected blacklegged ticks, also called deer ticks.
-    Checking your body, clothing, children, and pets after outdoor activity can help reduce risk.
-  </p>
+    <h3>Why do blacklegged ticks matter?</h3>
+    <p>
+      Lyme disease in many U.S. regions is linked to infected blacklegged ticks, also called deer ticks.
+      Checking your body, clothing, children, and pets after outdoor activity can help reduce risk.
+    </p>
 
-  <h3>How should I use this page?</h3>
-  <p>
-    Use this weekly Lyme alert as an awareness tool: check the map, review high-alert counties, watch for rash or symptoms,
-    and connect to CDC, HHS, YouTube education, or nearby care resources when needed.
-    GEBA alerts are not medical diagnosis or treatment advice.
-  </p>
-</div>
+    <h3>How should I use this page?</h3>
+    <p>
+      Use this weekly Lyme alert as an awareness tool: check the map, review high-alert counties, watch for rash or symptoms,
+      and connect to CDC, HHS, YouTube education, or nearby care resources when needed.
+      GEBA alerts are not medical diagnosis or treatment advice.
+    </p>
+  </div>
 </section>
   
 <section id="reports" class="light">
@@ -596,18 +619,98 @@
 </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
+  const countyPanel = document.querySelector(".county-panel[data-report-url]");
+  const countyList = document.getElementById("countyList");
   const searchInput = document.getElementById("countySearch");
-  const countyItems = document.querySelectorAll(".county-item");
+  const reportLink = document.getElementById("latestCountyReportLink");
+
+  if (!countyPanel || !countyList) return;
+
+  const reportUrl = countyPanel.getAttribute("data-report-url") || "weekly-lyme-alert-latest.html";
+  let counties = [];
+
+  function escapeHTML(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function renderCountyList(items, emptyMessage) {
+    if (!items || items.length === 0) {
+      countyList.innerHTML = `<div class="county-item">${emptyMessage || "No county list found in the latest report."}</div>`;
+      return;
+    }
+
+    countyList.innerHTML = items.map(function(item) {
+      const rank = item.rank ? escapeHTML(item.rank) + ". " : "";
+      const county = escapeHTML(item.county);
+      const state = escapeHTML(item.state);
+      const risk = escapeHTML(item.risk);
+
+      return `
+        <div class="county-item">
+          <strong>${rank}${county}, ${state}</strong>
+          ${risk ? `<span class="badge">${risk}</span>` : ""}
+        </div>
+      `;
+    }).join("");
+  }
+
+  try {
+    if (reportLink) {
+      reportLink.href = reportUrl;
+    }
+
+    const fetchUrl = reportUrl + "?v=" + Date.now();
+    const response = await fetch(fetchUrl, { cache: "no-store" });
+
+    if (!response.ok) {
+      throw new Error("Could not fetch latest report");
+    }
+
+    const htmlText = await response.text();
+    const latestDoc = new DOMParser().parseFromString(htmlText, "text/html");
+    const dataTag = latestDoc.getElementById("countyData");
+
+    if (!dataTag) {
+      throw new Error("countyData not found in latest report");
+    }
+
+    counties = JSON.parse((dataTag.textContent || "[]").trim());
+    renderCountyList(counties, "No county list found in the latest report.");
+  } catch (error) {
+    countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
+    console.error("County list loading error:", error);
+  }
 
   if (searchInput) {
     searchInput.addEventListener("input", function() {
       const query = searchInput.value.toLowerCase().trim();
 
-      countyItems.forEach(function(item) {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(query) ? "block" : "none";
+      if (!query) {
+        renderCountyList(counties, "No county list found in the latest report.");
+        return;
+      }
+
+      const filtered = counties.filter(function(item) {
+        const text = [
+          item.rank,
+          item.county,
+          item.state,
+          item.risk,
+          item.annual,
+          item.monthly,
+          item.weekly
+        ].join(" ").toLowerCase();
+
+        return text.includes(query);
       });
+
+      renderCountyList(filtered, "No matching county found.");
     });
   }
 });
