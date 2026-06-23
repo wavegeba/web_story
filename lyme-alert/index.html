@@ -126,7 +126,34 @@
       background: #0b281d;
       color: #ffffff;
     }
+.urgent-alert-text {
+  margin: 0 0 16px 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 80, 80, 0.18);
+  border: 1px solid rgba(255, 120, 120, 0.65);
+  color: #fff1f1 !important;
+  font-weight: 900;
+  line-height: 1.45;
+  animation: urgentBlink 1.2s ease-in-out infinite;
+}
 
+@keyframes urgentBlink {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 rgba(255, 80, 80, 0);
+  }
+  50% {
+    opacity: 0.55;
+    box-shadow: 0 0 18px rgba(255, 80, 80, 0.65);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .urgent-alert-text {
+    animation: none;
+  }
+}
     section {
       padding: 62px 7%;
       background: #06120f;
@@ -556,7 +583,12 @@
     <div class="resource-card">
       <img src="/assets/images/tickbite.png" alt="Tick bite " class="resource-photo">
       <h3>Nearby Care</h3>
-      <p>Find nearby urgent care, hospitals, or clinics if symptoms appear after a tick bite.</p>
+      <p class="urgent-alert-text">
+        If you are in a Lyme alert area and have symptoms such as rash, fever, fatigue, headache, muscle aches, or joint pain after a tick bite, seek medical care promptly.
+      </p>
+      <p>
+        Find nearby urgent care, hospitals, or clinics if symptoms appear after a tick bite.
+      </p>
       <a href="https://www.google.com/maps/search/urgent+care+hospital+near+me+Lyme+disease+tick+bite"
          target="_blank"
          rel="noopener"
