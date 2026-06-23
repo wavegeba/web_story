@@ -230,37 +230,64 @@
       margin-bottom: 8px;
     }
  
+.county-list-wrap {
+  position: relative;
+}
+
 .county-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
-  max-height: 620px;
-  overflow-y: auto;
+  max-height: none;
+  overflow: hidden;
   padding-right: 4px;
+  transition: max-height 0.35s ease;
 }
+
+.county-list.is-collapsed {
+  max-height: 96px;
+}
+
+.county-list.is-expanded {
+  max-height: 900px;
+  overflow-y: auto;
+}
+
+.county-list.is-collapsed::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 48px;
+  height: 42px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff);
+}
+
 .county-item {
-  padding: 6px 8px;
-  border-radius: 9px;
+  padding: 5px 7px;
+  border-radius: 8px;
   background: #edf7f0;
   color: #183325;
   border: 1px solid rgba(34,107,53,0.12);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.badge {
-  display: inline-flex;
-  margin-left: 4px;
-  padding: 1px 5px;
+.county-toggle-btn {
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+  background: #0b281d;
+  color: #ffffff;
+  padding: 9px 16px;
   border-radius: 999px;
-  font-size: 0.62rem;
-  font-weight: 900;
-  background: #ffe2e2;
-  color: #8a1010;
+  font-weight: 800;
+  font-size: 0.82rem;
 }
 
 @media (max-width: 1100px) {
@@ -276,6 +303,10 @@
 
   .county-item {
     white-space: normal;
+  }
+
+  .county-list.is-collapsed {
+    max-height: 110px;
   }
 }
     .badge {
@@ -477,9 +508,15 @@
   <div class="county-panel" data-report-url="/lyme-alert/weekly/weekly-lyme-alert-latest.html">
     <h3 id="countyPanelTitle">Latest weekly high-risk counties</h3>
 
-    <div id="countyList" class="county-list">
-      <div class="county-item">Loading latest county list...</div>
-    </div>
+<div class="county-list-wrap">
+  <div id="countyList" class="county-list is-collapsed">
+    <div class="county-item">Loading latest county list...</div>
+  </div>
+</div>
+
+<button id="countyToggleBtn" class="county-toggle-btn" type="button">
+  Show all counties
+</button>
   </div>
 </section>
 
