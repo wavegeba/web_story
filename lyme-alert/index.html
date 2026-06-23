@@ -1,41 +1,559 @@
-<section id="weekly" class="light">
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Weekly Lyme Alert | GEBA</title>
+  <meta name="description" content="GEBA Weekly Lyme Alert page with county-level Lyme and tick alert map, high-risk county list, interactive map link, public-health resources, and weekly report archive." />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #06120f;
+      color: #eaf5ef;
+      line-height: 1.6;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 10px 3.5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      background: rgba(3, 13, 20, 0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo-img {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    nav a {
+      color: #eaf5ef;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    nav a:hover { color: #7ee787; }
+
+    .hero {
+      padding: 145px 7% 54px;
+      background:
+        linear-gradient(90deg, rgba(3,12,18,0.95), rgba(3,12,18,0.76), rgba(3,12,18,0.55)),
+        radial-gradient(circle at top right, rgba(126,231,135,0.18), transparent 42%);
+    }
+
+    .kicker {
+      color: #7ee787;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4.2vw, 4.2rem);
+      line-height: 1.05;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+
+    .lead {
+      max-width: 900px;
+      color: #b9cfc2;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      font-weight: 600;
+      margin-bottom: 26px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    .btn-primary {
+      background: #7ee787;
+      color: #06120f;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.55);
+      color: #ffffff;
+    }
+
+    .btn-dark {
+      background: #0b281d;
+      color: #ffffff;
+    }
+
+    section {
+      padding: 62px 7%;
+      background: #06120f;
+    }
+
+    section.light {
+      background: #f6faf7;
+      color: #102018;
+    }
+
+    .section-header {
+      max-width: 940px;
+      margin-bottom: 30px;
+    }
+
+    .section-kicker {
+      color: #7ee787;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    .light .section-kicker { color: #226b35; }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3.2vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: #b9cfc2;
+      font-size: 1.03rem;
+      max-width: 900px;
+    }
+
+    .light .section-text { color: #46584e; }
+
+    .main-image-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+    }
+
+    .main-image-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .county-panel {
+      margin-top: 28px;
+      padding: 24px;
+      border-radius: 22px;
+      background: #ffffff;
+      color: #102018;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.12);
+    }
+
+    .county-panel h3 {
+      color: #0b3b25;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .county-panel p {
+      color: #46584e;
+      margin-bottom: 16px;
+    }
+
+    .county-search {
+      width: 100%;
+      padding: 13px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.16);
+      font-size: 0.95rem;
+      outline: none;
+      margin-bottom: 18px;
+    }
+
+    .county-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .county-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #edf7f0;
+      color: #183325;
+      border: 1px solid rgba(34,107,53,0.12);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .badge {
+      display: inline-flex;
+      margin-left: 6px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      background: #ffe2e2;
+      color: #8a1010;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .resource-card {
+      padding: 22px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.14);
+    }
+
+    .resource-card h3 {
+      color: #7ee787;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .resource-card p {
+      color: #b9cfc2;
+      font-size: 0.94rem;
+      margin-bottom: 16px;
+    }
+
+    .archive-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .archive-item {
+      padding: 18px;
+      border-radius: 16px;
+      background: #ffffff;
+      color: #102018;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .archive-item a {
+      color: #0b5a2a;
+      text-decoration: none;
+      font-weight: 900;
+    }
+
+    .archive-item a:hover {
+      text-decoration: underline;
+    }
+
+    .note-box {
+      margin-top: 28px;
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(126,231,135,0.10);
+      border: 1px solid rgba(126,231,135,0.22);
+      color: #dbe9e0;
+    }
+
+    footer {
+      padding: 34px 7%;
+      background: #030907;
+      color: #9fb5a8;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1000px) {
+      .resource-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .logo-img { height: 38px; }
+      .county-list {
+        grid-template-columns: 1fr;
+      }
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<header>
+  <a href="../../" class="logo-link" aria-label="GEBA Consulting Home">
+    <img src="../../assets/logo/logo0.png" alt="GEBA Consulting LLC" class="logo-img">
+  </a>
+
+  <nav>
+    <a href="../../">Home</a>
+    <a href="../">Lyme Alert Center</a>
+    <a href="#map">Weekly Map</a>
+    <a href="#counties">County List</a>
+    <a href="#resources">Resources</a>
+    <a href="#reports">Reports</a>
+  </nav>
+</header>
+
+<main class="hero">
+  <div class="kicker">Weekly Lyme & Tick Alert</div>
+
+  <h1>GEBA Weekly Lyme Alert</h1>
+
+  <p class="lead">
+    County-level weekly Lyme and tick alert information generated by GEBA GeoAI and TrendAI.
+    This page provides the latest weekly alert map, high-risk county list, public-health resource links,
+    and weekly report archive.
+  </p>
+
+  <div class="buttons">
+    <a href="weekly-lyme-alert-2026-06-21.html" class="btn btn-primary">Open Latest Report</a>
+    <a href="YOUR_WEEKLY_GEE_APP_URL_HERE" target="_blank" rel="noopener" class="btn btn-secondary">Open Interactive Map 🗺️</a>
+  </div>
+</main>
+
+<section id="map">
   <div class="section-header">
-    <div class="section-kicker">Weekly Lyme Alert</div>
-    <h2 class="section-title">Weekly Lyme Alert Reports</h2>
+    <div class="section-kicker">Current Weekly Map</div>
+    <h2 class="section-title">County-Level Weekly Lyme Alert Map</h2>
     <p class="section-text">
-      Open the latest GEBA weekly Lyme and tick alert report, including the PDF map,
-      high-risk county list, and county index.
+      Latest weekly Lyme and tick alert map. Use the interactive map link above when available,
+      or open the full weekly report for the PDF map, county index, and data links.
     </p>
   </div>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Recent Reports</h3>
-      <p>
-        <a href="lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">
-          2026 June Week 3 (2026.06.21)
-        </a>
-      </p>
-      <a href="lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html"
-         class="btn btn-primary">
-        Open Latest Report
-      </a>
-    </div>
+  <div class="main-image-card">
+    <a href="weekly-lyme-alert-2026-06-21.html" aria-label="Open latest weekly Lyme alert report">
+      <img src="../../asset/WeeklyAlert.png" alt="County-level weekly Lyme alert map by GEBA GeoAI and TrendAI">
+    </a>
+  </div>
+</section>
+
+<section id="counties" class="light">
+  <div class="section-header">
+    <div class="section-kicker">High-Risk County List</div>
+    <h2 class="section-title">Latest County Alert List</h2>
+    <p class="section-text">
+      Selected counties from the latest weekly Lyme alert report. Open the full report for the complete county index.
+    </p>
+  </div>
+
+  <div class="county-panel">
+    <h3>2026 June Week 3 — processed through June 21, 2026</h3>
+    <p>
+      Search the county list below. The latest full report includes the complete high-risk county table and PDF map.
+    </p>
 
 ```
-<div class="card">
-  <h3>Interactive Map</h3>
-  <p>
-    Open the interactive GEBA weekly Lyme alert map.
-  </p>
-  <a href="YOUR_WEEKLY_GEE_APP_URL_HERE"
-     target="_blank"
-     rel="noopener"
-     class="btn btn-secondary">
-    Open Interactive Map 🗺️
-  </a>
+<input id="countySearch"
+       class="county-search"
+       type="text"
+       placeholder="Search county or state, e.g., Delaware, Michigan, Monmouth, Ohio..." />
+
+<div id="countyList" class="county-list">
+  <div class="county-item">Delaware — New Castle County <span class="badge">Very High</span></div>
+  <div class="county-item">Delaware — Sussex County <span class="badge">Very High</span></div>
+  <div class="county-item">Delaware — Kent County <span class="badge">Very High</span></div>
+  <div class="county-item">Michigan — Grand Traverse County <span class="badge">Very High</span></div>
+  <div class="county-item">Michigan — Isabella County <span class="badge">Very High</span></div>
+  <div class="county-item">Michigan — Clare County <span class="badge">Very High</span></div>
+  <div class="county-item">Michigan — Midland County <span class="badge">Very High</span></div>
+  <div class="county-item">Michigan — Kent County <span class="badge">Very High</span></div>
+  <div class="county-item">Michigan — Newaygo County <span class="badge">Very High</span></div>
+  <div class="county-item">Wisconsin — Marinette County <span class="badge">Very High</span></div>
+  <div class="county-item">Wisconsin — Shawano County <span class="badge">Very High</span></div>
+  <div class="county-item">Wisconsin — Outagamie County <span class="badge">Very High</span></div>
+  <div class="county-item">Wisconsin — Oconto County <span class="badge">Very High</span></div>
+  <div class="county-item">Wisconsin — Waupaca County <span class="badge">Very High</span></div>
+  <div class="county-item">New Jersey — Monmouth County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Washington County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Athens County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Crawford County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Hamilton County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Wood County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Clermont County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Gallia County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Warren County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Miami County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Franklin County <span class="badge">Very High</span></div>
+  <div class="county-item">Ohio — Montgomery County <span class="badge">Very High</span></div>
+  <div class="county-item">Kentucky — Campbell County <span class="badge">Very High</span></div>
+  <div class="county-item">Kentucky — Boone County <span class="badge">Very High</span></div>
+  <div class="county-item">Kentucky — Kenton County <span class="badge">Very High</span></div>
+  <div class="county-item">Kentucky — Boyd County <span class="badge">Very High</span></div>
+  <div class="county-item">Oregon — Umatilla County <span class="badge">Very High</span></div>
+  <div class="county-item">Indiana — Delaware County <span class="badge">Very High</span></div>
+  <div class="county-item">Indiana — Brown County <span class="badge">Very High</span></div>
+  <div class="county-item">Indiana — Vigo County <span class="badge">Very High</span></div>
+  <div class="county-item">Indiana — Monroe County <span class="badge">Very High</span></div>
+  <div class="county-item">Rhode Island — Providence County <span class="badge">Very High</span></div>
+  <div class="county-item">Rhode Island — Washington County <span class="badge">Very High</span></div>
+  <div class="county-item">Rhode Island — Kent County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Otsego County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Madison County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Saratoga County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Oneida County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Warren County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Dutchess County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Fulton County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Greene County <span class="badge">Very High</span></div>
+  <div class="county-item">New York — Montgomery County <span class="badge">Very High</span></div>
+</div>
+
+<div class="buttons">
+  <a href="weekly-lyme-alert-2026-06-21.html" class="btn btn-dark">Open Full County Index</a>
 </div>
 ```
 
   </div>
 </section>
+
+<section id="resources">
+  <div class="section-header">
+    <div class="section-kicker">Public-Health Resources</div>
+    <h2 class="section-title">Lyme Information and Next Steps</h2>
+    <p class="section-text">
+      These external links provide general public-health information and care-seeking resources.
+      GEBA alerts are for awareness and prevention support only.
+    </p>
+  </div>
+
+  <div class="resource-grid">
+    <div class="resource-card">
+      <h3>CDC Lyme Information</h3>
+      <p>Learn about Lyme disease, symptoms, prevention, testing, diagnosis, and treatment from CDC.</p>
+      <a href="https://www.cdc.gov/lyme/"
+         target="_blank"
+         rel="noopener"
+         class="btn btn-primary">Open CDC</a>
+    </div>
+
+```
+<div class="resource-card">
+  <h3>HHS Lyme Resources</h3>
+  <p>Access HHS Lyme disease information and federal resources for patients and families.</p>
+  <a href="https://www.hhs.gov/lyme/index.html"
+     target="_blank"
+     rel="noopener"
+     class="btn btn-primary">Open HHS</a>
+</div>
+
+<div class="resource-card">
+  <h3>Lyme Symptoms Video</h3>
+  <p>Open educational YouTube results about Lyme symptoms, tick bites, rash, and prevention.</p>
+  <a href="https://www.youtube.com/results?search_query=Lyme+disease+symptoms+rash+tick+bite"
+     target="_blank"
+     rel="noopener"
+     class="btn btn-primary">Open YouTube</a>
+</div>
+
+<div class="resource-card">
+  <h3>Nearby Care</h3>
+  <p>Find nearby urgent care, hospitals, or clinics if symptoms appear after a tick bite.</p>
+  <a href="https://www.google.com/maps/search/urgent+care+hospital+near+me+Lyme+disease+tick+bite"
+     target="_blank"
+     rel="noopener"
+     class="btn btn-primary">Find Nearby Care</a>
+</div>
+```
+
+  </div>
+
+  <div class="note-box">
+    <strong>Public-health note:</strong>
+    GEBA weekly Lyme alerts are not medical diagnosis. People with symptoms after a tick bite should contact qualified healthcare professionals or local public-health authorities.
+  </div>
+</section>
+
+<section id="reports" class="light">
+  <div class="section-header">
+    <div class="section-kicker">Weekly Report Archive</div>
+    <h2 class="section-title">Weekly Alert HTML Reports</h2>
+    <p class="section-text">
+      Recent GEBA weekly Lyme alert reports are listed below.
+    </p>
+  </div>
+
+  <div class="archive-list">
+    <div class="archive-item">
+      <a href="weekly-lyme-alert-2026-06-21.html">2026 June Week 3 Weekly Lyme Alert Report (2026.06.21)</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 GEBA LLC. Weekly Lyme Alert • GeoAI & TrendAI • Environmental Public-Health Intelligence
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const searchInput = document.getElementById("countySearch");
+  const countyItems = document.querySelectorAll(".county-item");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", function() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      countyItems.forEach(function(item) {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(query) ? "block" : "none";
+      });
+    });
+  }
+});
+</script>
+
+</body>
+</html>
