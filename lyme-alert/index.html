@@ -653,104 +653,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", async function() {
-  const countyPanel = document.querySelector(".county-panel[data-report-url]");
-  const countyList = document.getElementById("countyList");
-  const countyPanelTitle = document.getElementById("countyPanelTitle");
-  const countyToggleBtn = document.getElementById("countyToggleBtn");
-
-  if (!countyPanel || !countyList) return;
-
-  const reportUrl = countyPanel.getAttribute("data-report-url");
-
-  function escapeHTML(value) {
-    return String(value || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  function setupCountyToggle() {
-    if (!countyToggleBtn || !countyList) return;
-
-    countyToggleBtn.addEventListener("click", function() {
-      const isExpanded = countyList.classList.contains("is-expanded");
-
-      if (isExpanded) {
-        countyList.classList.remove("is-expanded");
-        countyList.classList.add("is-collapsed");
-        countyToggleBtn.textContent = "Show all counties";
-      } else {
-        countyList.classList.remove("is-collapsed");
-        countyList.classList.add("is-expanded");
-        countyToggleBtn.textContent = "Show fewer counties";
-      }
-    });
-  }
-
-  function renderCountyList(counties) {
-    if (!counties || counties.length === 0) {
-      countyList.innerHTML = '<div class="county-item">No county list found in the latest report.</div>';
-      return;
-    }
-
-    countyList.innerHTML = counties.map(function(item) {
-      const rank = item.rank ? escapeHTML(item.rank) + ". " : "";
-      const county = escapeHTML(item.county);
-      const state = escapeHTML(item.state);
-      const risk = escapeHTML(item.risk);
-
-      return `
-        <div class="county-item" title="${rank}${county}, ${state} ${risk}">
-          <strong>${rank}${county}, ${state}</strong>
-          ${risk ? `<span class="badge">${risk}</span>` : ""}
-        </div>
-      `;
-    }).join("");
-
-    countyList.classList.remove("is-expanded");
-    countyList.classList.add("is-collapsed");
-
-    if (countyToggleBtn) {
-      countyToggleBtn.textContent = "Show all counties";
-      countyToggleBtn.style.display = counties.length > 9 ? "inline-block" : "none";
-    }
-
-    if (countyPanelTitle) {
-      countyPanelTitle.textContent = "Latest weekly high-risk counties (" + counties.length + ")";
-    }
-  }
-
-  setupCountyToggle();
-
-  try {
-    const response = await fetch(reportUrl + "?v=" + Date.now(), { cache: "no-store" });
-
-    if (!response.ok) {
-      throw new Error("Could not load latest report");
-    }
-
-    const htmlText = await response.text();
-    const latestDoc = new DOMParser().parseFromString(htmlText, "text/html");
-    const dataTag = latestDoc.getElementById("countyData");
-
-    if (!dataTag) {
-      throw new Error("countyData not found");
-    }
-
-    const counties = JSON.parse((dataTag.textContent || "[]").trim());
-    renderCountyList(counties);
-  } catch (error) {
-    countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
-    if (countyToggleBtn) countyToggleBtn.style.display = "none";
-    console.error("County list loading error:", error);
-  }
-});
-document.addEventListener("DOMContentLoaded", async function() {
   const archiveList = document.getElementById("archiveList");
   if (!archiveList) return;
 
+  const githubApiUrl = "https://api.github.com/repos/wavegeba/web_story/contents/lyme-alert/weekly?ref=main";
+
   function escapeHTML(value) {
     return String(value || "")
       .replace(/&/g, "&amp;")
@@ -760,33 +667,83 @@ document.addEventListener("DOMContentLoaded", async function() {
       .replace(/'/g, "&#039;");
   }
 
-  try {
-    const response = await fetch("/lyme-alert/weekly/reports.json?v=" + Date.now(), { cache: "no-store" });
+  function makeTitleFromFilename(filename) {
+    const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2})\.html$/);
 
-    if (!response.ok) {
-      throw new Error("reports.json not found");
+    if (!match) {
+      return filename.replace(".html", "").replaceAll("-", " ");
     }
 
-    const reports = await response.json();
+    const year = match[1];
+    const month = match[2];
+    const day = match[3];
+
+    return `Weekly Lyme Alert Report (${year}.${month}.${day})`;
+  }
+
+  function makeDateFromFilename(filename) {
+    const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2})\.html$/);
+    if (!match) return "";
+    return `${match[1]}-${match[2]}-${match[3]}`;
+  }
+
+  try {
+    const response = await fetch(githubApiUrl, { cache: "no-store" });
+
+    if (!response.ok) {
+      throw new Error("Could not load GitHub folder list");
+    }
+
+    const files = await response.json();
+
+    const reports = files
+      .filter(function(file) {
+        return file.type === "file" &&
+               file.name.endsWith(".html") &&
+               file.name.startsWith("weekly-lyme-alert-") &&
+               file.name !== "weekly-lyme-alert-latest.html";
+      })
+      .map(function(file) {
+        return {
+          name: file.name,
+          date: makeDateFromFilename(file.name),
+          title: makeTitleFromFilename(file.name),
+          url: "/lyme-alert/weekly/" + file.name
+        };
+      })
+      .sort(function(a, b) {
+        return b.date.localeCompare(a.date);
+      });
+
+    if (reports.length === 0) {
+      archiveList.innerHTML = `
+        <div class="archive-item">
+          No weekly HTML reports found yet.
+        </div>
+      `;
+      return;
+    }
 
     archiveList.innerHTML = reports.map(function(report) {
       return `
         <div class="archive-item">
           <a href="${escapeHTML(report.url)}">
-            ${escapeHTML(report.title)} (${escapeHTML(report.date)})
+            ${escapeHTML(report.title)}
           </a>
         </div>
       `;
     }).join("");
+
   } catch (error) {
     archiveList.innerHTML = `
       <div class="archive-item">
         <a href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">
-          2026 June Week 3 Weekly Lyme Alert Report (2026.06.21)
+          Weekly Lyme Alert Report (2026.06.21)
         </a>
       </div>
     `;
-    console.error("Report archive loading error:", error);
+
+    console.error("Weekly report archive loading error:", error);
   }
 });
 </script>
