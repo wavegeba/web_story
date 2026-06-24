@@ -642,11 +642,9 @@
     </p>
   </div>
 
-  <div class="archive-list">
-    <div class="archive-item">
-      <a href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">2026 June Week 3 Weekly Lyme Alert Report (2026.06.21)</a>
-    </div>
-  </div>
+<div id="archiveList" class="archive-list">
+  <div class="archive-item">Loading weekly reports...</div>
+</div>
 </section>
 
 <footer>
@@ -747,6 +745,48 @@ document.addEventListener("DOMContentLoaded", async function() {
     countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
     if (countyToggleBtn) countyToggleBtn.style.display = "none";
     console.error("County list loading error:", error);
+  }
+});
+document.addEventListener("DOMContentLoaded", async function() {
+  const archiveList = document.getElementById("archiveList");
+  if (!archiveList) return;
+
+  function escapeHTML(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  try {
+    const response = await fetch("/lyme-alert/weekly/reports.json?v=" + Date.now(), { cache: "no-store" });
+
+    if (!response.ok) {
+      throw new Error("reports.json not found");
+    }
+
+    const reports = await response.json();
+
+    archiveList.innerHTML = reports.map(function(report) {
+      return `
+        <div class="archive-item">
+          <a href="${escapeHTML(report.url)}">
+            ${escapeHTML(report.title)} (${escapeHTML(report.date)})
+          </a>
+        </div>
+      `;
+    }).join("");
+  } catch (error) {
+    archiveList.innerHTML = `
+      <div class="archive-item">
+        <a href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">
+          2026 June Week 3 Weekly Lyme Alert Report (2026.06.21)
+        </a>
+      </div>
+    `;
+    console.error("Report archive loading error:", error);
   }
 });
 </script>
