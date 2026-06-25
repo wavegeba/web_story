@@ -290,7 +290,60 @@
       font-weight: 800;
       font-size: 0.82rem;
     }
+.county-search-box {
+display: flex;
+gap: 8px;
+margin-bottom: 12px;
+}
 
+.county-search-box input {
+flex: 1;
+padding: 10px 13px;
+border-radius: 999px;
+border: 1px solid rgba(34,107,53,0.22);
+font-size: 0.9rem;
+outline: none;
+}
+
+.county-search-box input {
+border-color: #226b35;
+box-shadow: 0 0 0 3px rgba(34,107,53,0.12);
+}
+
+.county-search-box button {
+border: none;
+cursor: pointer;
+background: #0b281d;
+color: #ffffff;
+padding: 10px 16px;
+border-radius: 999px;
+font-weight: 800;
+font-size: 0.85rem;
+}
+
+.county-search-result {
+margin-bottom: 12px;
+font-size: 0.86rem;
+font-weight: 700;
+color: #183325;
+}
+
+.county-search-result .found {
+display: inline-block;
+padding: 8px 11px;
+border-radius: 12px;
+background: #edf7f0;
+border: 1px solid rgba(34,107,53,0.18);
+}
+
+.county-search-result .not-found {
+display: inline-block;
+padding: 8px 11px;
+border-radius: 12px;
+background: #fff3e6;
+color: #7a3b00;
+border: 1px solid rgba(217,119,6,0.22);
+}
     .badge {
       display: inline-flex;
       margin-left: 6px;
@@ -578,8 +631,21 @@
 <section id="counties" class="light">
   <div class="section-kicker">High-Risk County List</div>
 
+  <!-- <div class="county-panel" data-report-url="/lyme-alert/weekly/weekly-lyme-alert-latest.html">
+    <h3 id="countyPanelTitle">Latest weekly high-risk counties</h3> -->
+
   <div class="county-panel" data-report-url="/lyme-alert/weekly/weekly-lyme-alert-latest.html">
-    <h3 id="countyPanelTitle">Latest weekly high-risk counties</h3>
+  <div class="county-search-box">
+    <input
+      type="text"
+      id="countySearchInput"
+      placeholder="Search county or state, e.g., Fairfax or VA"
+      aria-label="Search county or state"
+    >
+    <button id="countySearchBtn" type="button">Search</button>
+  </div>
+  <div id="countySearchResult" class="county-search-result"></div>
+  <h3 id="countyPanelTitle">Latest weekly high-risk counties</h3>
 
     <div class="county-list-wrap">
       <div id="countyList" class="county-list is-collapsed">
@@ -731,6 +797,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const countyPanelTitle = document.getElementById("countyPanelTitle");
   const countyToggleBtn = document.getElementById("countyToggleBtn");
   const archiveList = document.getElementById("archiveList");
+  const countySearchInput = document.getElementById("countySearchInput");
+  const countySearchBtn = document.getElementById("countySearchBtn");
+  const countySearchResult = document.getElementById("countySearchResult");
+  let latestCountyItems = [];
   const githubApiUrl = "https://api.github.com/repos/wavegeba/web_story/contents/lyme-alert/weekly?ref=main";
 
   function escapeHTML(value) {
@@ -765,6 +835,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function renderCountyList(items, reportDateText) {
+    latestCountyItems = items || [];
     if (!countyList) return;
 
     if (!items || items.length === 0) {
@@ -902,47 +973,72 @@ function extractReportDateFromReport(doc) {
 
   return "";
 } 
+  
+function countyItemToSearchText(item) {
+if (typeof item === "string") {
+return cleanText(item);
+}
 
-  async function loadCountyList() {
-    if (!countyPanel || !countyList) return;
+const rank = item.rank ? item.rank + ". " : "";
+const county = item.county || item.County || "";
+const state = item.state || item.State || "";
+const risk = item.risk || item["Risk label"] || item.alert || "";
 
-    const reportUrl = countyPanel.getAttribute("data-report-url");
+return cleanText(`${rank}${county}${state ? ", " + state : ""} ${risk}`);
+}
 
-    try {
-      const response = await fetch(reportUrl + "?v=" + Date.now(), { cache: "no-store" });
+function setupCountySearch() {
+if (!countySearchInput || !countySearchBtn || !countySearchResult) return;
 
-      if (!response.ok) {
-        throw new Error("Could not load latest report");
-      }
+function runSearch() {
+const query = cleanText(countySearchInput.value).toLowerCase();
 
-      const htmlText = await response.text();
-      const latestDoc = new DOMParser().parseFromString(htmlText, "text/html");
-      const counties = extractCountyListFromReport(latestDoc);
-      const reportDateText = extractReportDateFromReport(latestDoc);
-      
-      renderCountyList(counties, reportDateText);
-    } catch (error) {
-      countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
-      if (countyToggleBtn) countyToggleBtn.style.display = "none";
-      console.error("County list loading error:", error);
-    }
-  }
+```
+if (!query) {
+  countySearchResult.innerHTML = "";
+  return;
+}
 
-  function makeTitleFromFilename(filename) {
-    const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2})\.html$/);
+const matches = latestCountyItems
+  .map(function(item) {
+    return countyItemToSearchText(item);
+  })
+  .filter(function(text) {
+    return text.toLowerCase().includes(query);
+  });
 
-    if (!match) {
-      return filename.replace(".html", "").replaceAll("-", " ");
-    }
+if (matches.length === 0) {
+  countySearchResult.innerHTML =
+    '<span class="not-found">Not found in the latest high-risk county list.</span>';
+  return;
+}
 
-    return `Weekly Lyme Alert Report (${match[1]}.${match[2]}.${match[3]})`;
-  }
+countySearchResult.innerHTML = matches.slice(0, 8).map(function(text) {
+  return '<span class="found">' + escapeHTML(text) + '</span>';
+}).join(" ");
 
-  function makeDateFromFilename(filename) {
-    const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2})\.html$/);
-    if (!match) return "";
-    return `${match[1]}-${match[2]}-${match[3]}`;
-  }
+if (matches.length > 8) {
+  countySearchResult.innerHTML +=
+    ' <span class="found">+' + (matches.length - 8) + ' more</span>';
+}
+```
+
+}
+
+countySearchBtn.addEventListener("click", runSearch);
+
+countySearchInput.addEventListener("keydown", function(event) {
+if (event.key === "Enter") {
+runSearch();
+}
+});
+
+countySearchInput.addEventListener("input", function() {
+if (!cleanText(countySearchInput.value)) {
+countySearchResult.innerHTML = "";
+}
+});
+}
 
   async function loadArchiveList() {
     if (!archiveList) return;
@@ -1002,12 +1098,13 @@ function extractReportDateFromReport(doc) {
     }
   }
 
-  setupCountyToggle();
-  loadCountyList();
-  loadArchiveList();
+setupCountyToggle();
+setupCountySearch();
+loadCountyList();
+loadArchiveList();
 });
 </script>
 
 </body>
 </html>
-```
+ 
