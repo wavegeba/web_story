@@ -93,7 +93,7 @@
     }
 
     main {
-      max-width: 1180px;
+      max-width: 1320px;
       margin: -24px auto 36px;
       padding: 0 18px 34px;
       position: relative;
@@ -186,7 +186,7 @@
 
     .result-layout {
       display: grid;
-      grid-template-columns: 0.78fr 1.22fr;
+      grid-template-columns: minmax(240px, 0.82fr) minmax(0, 1.85fr);
       gap: 24px;
       align-items: stretch;
     }
@@ -227,13 +227,13 @@
     }
 
     #previewWrap {
-      min-height: 330px;
+      min-height: 300px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px dashed #bfd0df;
       border-radius: 18px;
-      padding: 14px;
+      padding: 12px;
       background: linear-gradient(135deg, #ffffff, #f8fbff);
       overflow: hidden;
     }
@@ -241,7 +241,7 @@
     #preview {
       display: none;
       max-width: 100%;
-      max-height: 360px;
+      max-height: 315px;
       border-radius: 16px;
       border: 1px solid #d6dee8;
       box-shadow: 0 18px 36px rgba(0,0,0,0.12);
@@ -255,11 +255,11 @@
     }
 
     #resultBox {
-      min-height: 330px;
+      min-height: 380px;
       background: linear-gradient(180deg, #ffffff 0%, #f9fbfd 100%);
       border: 1px solid #dce7f0;
       border-radius: 18px;
-      padding: 22px;
+      padding: 24px 28px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -272,7 +272,7 @@
     .result-kicker {
       display: inline-block;
       width: fit-content;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 12px;
@@ -284,32 +284,18 @@
       border: 1px solid #fecaca;
     }
 
-    .result-title {
-      margin: 0 0 10px;
-      font-size: clamp(22px, 3vw, 30px);
-      line-height: 1.2;
-      color: #0f172a;
-      letter-spacing: -0.4px;
-    }
-
-    .result-text {
-      margin: 0 0 18px;
-      color: #334155;
-      font-size: 15px;
-    }
-
     .chart-wrap {
-      margin-top: 10px;
-      padding-top: 18px;
-      border-top: 1px solid #e3ebf3;
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
     }
 
     .chart-grid {
-      height: 300px;
+      height: 320px;
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
-      gap: 18px;
+      gap: 22px;
       padding: 8px 8px 0;
     }
 
@@ -339,9 +325,9 @@
 
     .bar-track-vertical {
       align-self: end;
-      width: 78px;
-      height: 190px;
-      border-radius: 20px;
+      width: 88px;
+      height: 210px;
+      border-radius: 22px;
       background: #e9eef4;
       display: flex;
       align-items: flex-end;
@@ -353,7 +339,7 @@
     .bar-fill-vertical {
       width: 100%;
       height: 0%;
-      border-radius: 20px 20px 0 0;
+      border-radius: 22px 22px 0 0;
       transition: height 0.5s ease;
       position: relative;
     }
@@ -398,6 +384,17 @@
 
     .level-other {
       color: var(--other-dark);
+    }
+
+    .result-explain {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      font-size: 15px;
+      line-height: 1.55;
     }
 
     .legend {
@@ -453,7 +450,7 @@
       padding: 28px 18px 42px;
     }
 
-    @media (max-width: 920px) {
+    @media (max-width: 760px) {
       .result-layout {
         grid-template-columns: 1fr;
       }
@@ -499,12 +496,14 @@
     <section class="card">
       <div class="control-panel">
         <div class="control-copy">
-          <strong>Upload a skin image</strong> 
+          <strong>Upload a skin image</strong>
+          <span>The result will appear automatically beside the image after upload.</span>
         </div>
- 
+
+```
     <div class="file-control">
       <input id="imageUpload" type="file" accept="image/*" />
-      <button type="button" onclick="analyzeImage()">Check Image</button>
+      <button type="button" onclick="analyzeImage()">Re-check Image</button>
       <a class="link-button" href="index.html">Back to Alert Home</a>
     </div>
   </div>
@@ -590,8 +589,10 @@
 
     async function loadModel() {
       if (model !== null) return;
+
       const modelURL = MODEL_URL + "model.json";
       const metadataURL = MODEL_URL + "metadata.json";
+
       model = await tmImage.load(modelURL, metadataURL);
     }
 
@@ -600,12 +601,14 @@
     }
 
     function findPrediction(predictions, aliases) {
-      return predictions.find(item => aliases.map(normalizeName).includes(normalizeName(item.className)));
+      const normalizedAliases = aliases.map(normalizeName);
+      return predictions.find(item => normalizedAliases.includes(normalizeName(item.className)));
     }
 
     function buildOrderedPredictions(predictions) {
       return CLASS_CONFIG.map(cfg => {
         const found = findPrediction(predictions, cfg.aliases);
+
         return {
           key: cfg.key,
           label: cfg.label,
@@ -622,44 +625,44 @@
       return "Low match";
     }
 
-function finalInterpretation(items) {
-  const rashP = items.find(x => x.key === "rash")?.probability || 0;
-  const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
-  const otherP = items.find(x => x.key === "other")?.probability || 0;
+    function finalInterpretation(items) {
+      const rashP = items.find(x => x.key === "rash")?.probability || 0;
+      const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
+      const otherP = items.find(x => x.key === "other")?.probability || 0;
 
-  if (rashP >= 0.70) {
-    return {
-      kicker: "Pattern alert",
-      text: "The uploaded image shows a strong visual match with the Lyme-like rash examples used in this tool."
-    };
-  }
+      if (rashP >= 0.70) {
+        return {
+          kicker: "Pattern alert",
+          text: "The uploaded image shows a strong visual match with the Lyme-like rash examples used in this tool."
+        };
+      }
 
-  if (rashP >= 0.40) {
-    return {
-      kicker: "Review suggested",
-      text: "The uploaded image shows some visual similarity to the Lyme-like rash examples used in this tool."
-    };
-  }
+      if (rashP >= 0.40) {
+        return {
+          kicker: "Review suggested",
+          text: "The uploaded image shows some visual similarity to the Lyme-like rash examples used in this tool."
+        };
+      }
 
-  if (confuserP >= 0.40) {
-    return {
-      kicker: "Similar pattern",
-      text: "The uploaded image looks similar to rash patterns that can resemble Lyme-like rashes, but it does not strongly match the Lyme-like reference examples used in this tool."
-    };
-  }
+      if (confuserP >= 0.40) {
+        return {
+          kicker: "Similar pattern",
+          text: "The uploaded image looks similar to rash patterns that can resemble Lyme-like rashes, but it does not strongly match the Lyme-like reference examples used in this tool."
+        };
+      }
 
-  if (otherP >= 0.50) {
-    return {
-      kicker: "Lower match",
-      text: "The uploaded image appears visually closer to other skin-pattern examples than to the Lyme-like rash examples used in this tool."
-    };
-  }
+      if (otherP >= 0.50) {
+        return {
+          kicker: "Lower match",
+          text: "The uploaded image appears visually closer to other skin-pattern examples than to the Lyme-like rash examples used in this tool."
+        };
+      }
 
-  return {
-    kicker: "Unclear",
-    text: "The uploaded image does not strongly match one visual category. A clearer image may help."
-  };
-}
+      return {
+        kicker: "Unclear",
+        text: "The uploaded image does not strongly match one visual category. A clearer image may help."
+      };
+    }
 
     document.getElementById("imageUpload").addEventListener("change", function(event) {
       const file = event.target.files[0];
@@ -757,13 +760,15 @@ function finalInterpretation(items) {
         resultBox.className = "result-ready";
         resultBox.innerHTML = `
           <div class="result-kicker">${summary.kicker}</div>
-          <h2 class="result-title">${summary.title}</h2>
-          <p class="result-text">${summary.text}</p>
 
           <div class="chart-wrap">
             <div class="chart-grid">
               ${chartHtml}
             </div>
+          </div>
+
+          <div class="result-explain">
+            ${summary.text}
           </div>
 
           <div class="legend">
@@ -780,7 +785,10 @@ function finalInterpretation(items) {
               <span>Other skin pattern</span>
             </div>
           </div>
- 
+
+          <div class="note">
+            Bar height reflects the model's internal visual-match score. The displayed categories are qualitative and should not be interpreted as medical probability.
+          </div>
         `;
       } catch (error) {
         resultBox.className = "";
