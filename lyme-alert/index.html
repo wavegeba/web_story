@@ -1,5 +1,4 @@
-<a href="teachablemachine.html">Try Lyme-like Rash Visual Similarity Check</a>
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,7 @@
 
   <title>Weekly Lyme Alert | GEBA</title>
   <meta name="description" content="GEBA Weekly Lyme Alert provides county-level Lyme disease, tick bite, blacklegged tick, rash, and public-health awareness information using GeoAI and TrendAI weekly alert maps." />
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -231,86 +231,67 @@
       color: #46584e;
       margin-bottom: 8px;
     }
- 
-.county-list-wrap {
-  position: relative;
-}
 
-.county-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
-  max-height: none;
-  overflow: hidden;
-  padding-right: 4px;
-  transition: max-height 0.35s ease;
-}
+    .county-list-wrap {
+      position: relative;
+    }
 
-.county-list.is-collapsed {
-  max-height: 78px;
-}
+    .county-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      max-height: none;
+      overflow: hidden;
+      padding-right: 4px;
+      transition: max-height 0.35s ease;
+    }
 
-.county-list.is-expanded {
-  max-height: 900px;
-  overflow-y: auto;
-}
+    .county-list.is-collapsed {
+      max-height: 78px;
+    }
 
-.county-list.is-collapsed::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 48px;
-  height: 42px;
-  pointer-events: none;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff);
-}
+    .county-list.is-expanded {
+      max-height: 900px;
+      overflow-y: auto;
+    }
 
-.county-item {
-  padding: 5px 7px;
-  border-radius: 8px;
-  background: #edf7f0;
-  color: #183325;
-  border: 1px solid rgba(34,107,53,0.12);
-  font-size: 0.68rem;
-  font-weight: 600;
-  line-height: 1.1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    .county-list.is-collapsed::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 48px;
+      height: 42px;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff);
+    }
 
-.county-toggle-btn {
-  margin-top: 10px;
-  border: none;
-  cursor: pointer;
-  background: #0b281d;
-  color: #ffffff;
-  padding: 9px 16px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 0.82rem;
-}
+    .county-item {
+      padding: 5px 7px;
+      border-radius: 8px;
+      background: #edf7f0;
+      color: #183325;
+      border: 1px solid rgba(34,107,53,0.12);
+      font-size: 0.68rem;
+      font-weight: 600;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-@media (max-width: 1100px) {
-  .county-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
+    .county-toggle-btn {
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+      background: #0b281d;
+      color: #ffffff;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
 
-@media (max-width: 700px) {
-  .county-list {
-    grid-template-columns: 1fr;
-  }
-
-  .county-item {
-    white-space: normal;
-  }
-
-  .county-list.is-collapsed {
-    max-height: 110px;
-  }
-}
     .badge {
       display: inline-flex;
       margin-left: 6px;
@@ -373,9 +354,9 @@
     .tick-image-band {
       margin-top: 30px;
       display: grid;
-      grid-template-columns: 0.55fr 1.45fr;
+      grid-template-columns: 0.48fr 1fr 0.9fr;
       gap: 22px;
-      align-items: center;
+      align-items: stretch;
       padding: 22px;
       border-radius: 22px;
       background: rgba(255,255,255,0.06);
@@ -384,6 +365,9 @@
 
     .tick-image-band img {
       width: 100%;
+      height: 100%;
+      min-height: 190px;
+      object-fit: cover;
       display: block;
       border-radius: 18px;
     }
@@ -395,6 +379,39 @@
 
     .tick-image-band p {
       color: #b9cfc2;
+    }
+
+    .tick-awareness-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .rash-check-card {
+      padding: 20px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(126,231,135,0.13), rgba(255,255,255,0.06));
+      border: 1px solid rgba(126,231,135,0.24);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 18px 42px rgba(0,0,0,0.16);
+    }
+
+    .rash-check-card h3 {
+      color: #7ee787;
+      margin-bottom: 10px;
+    }
+
+    .rash-check-card p {
+      color: #b9cfc2;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .rash-check-card .btn {
+      width: fit-content;
     }
 
     .archive-list {
@@ -437,6 +454,12 @@
       font-size: 0.9rem;
     }
 
+    @media (max-width: 1100px) {
+      .county-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 1000px) {
       .resource-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -444,6 +467,11 @@
 
       .tick-image-band {
         grid-template-columns: 1fr;
+      }
+
+      .tick-image-band img {
+        height: auto;
+        min-height: auto;
       }
     }
 
@@ -453,6 +481,20 @@
       .county-list,
       .resource-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .county-list {
+        grid-template-columns: 1fr;
+      }
+
+      .county-item {
+        white-space: normal;
+      }
+
+      .county-list.is-collapsed {
+        max-height: 110px;
       }
     }
   </style>
@@ -466,7 +508,7 @@
   </a>
 
   <nav>
-    <a href="../../">Home</a> 
+    <a href="../../">Home</a>
     <a href="#map">Weekly Map</a>
     <a href="#counties">County List</a>
     <a href="#resources">Resources</a>
@@ -482,8 +524,9 @@
     <a href="https://ssucrg.projects.earthengine.app/view/weeklyalert" target="_blank" rel="noopener" class="btn btn-secondary">Interactive Alert Map🗺️</a>
   </div>
 </main>
+
 <section id="map">
-  <div class="section-header"> 
+  <div class="section-header">
     <h2 class="section-title">County-Level Weekly Lyme Alert Map</h2>
     <p class="section-text">
       This weekly Lyme alert map supports public awareness of tick bite risk, possible Lyme disease exposure,
@@ -491,6 +534,7 @@
       Open the full weekly report for the PDF map, county index, and data links.
     </p>
   </div>
+
   <div class="main-image-card">
     <a href="weekly-lyme-alert-latest.html" aria-label="Open latest weekly Lyme alert report">
       <img src="/assets/images/WeeklyAlert.png" alt="County-level weekly Lyme alert map by GEBA GeoAI and TrendAI">
@@ -499,26 +543,20 @@
 </section>
 
 <section id="counties" class="light">
-  <!-- <div class="section-header">
-    <div class="section-kicker">High-Risk County List</div>
-    <h2 class="section-title">Latest County Alert List</h2>
-    <p class="section-text">
-      High-risk counties are loaded directly from the latest weekly Lyme alert report.
-    </p>
-  </div> -->
- <div class="section-kicker">High-Risk County List</div>
+  <div class="section-kicker">High-Risk County List</div>
+
   <div class="county-panel" data-report-url="/lyme-alert/weekly/weekly-lyme-alert-latest.html">
     <h3 id="countyPanelTitle">Latest weekly high-risk counties</h3>
 
-<div class="county-list-wrap">
-  <div id="countyList" class="county-list is-collapsed">
-    <div class="county-item">Loading latest county list...</div>
-  </div>
-</div>
+    <div class="county-list-wrap">
+      <div id="countyList" class="county-list is-collapsed">
+        <div class="county-item">Loading latest county list...</div>
+      </div>
+    </div>
 
-<button id="countyToggleBtn" class="county-toggle-btn" type="button">
-  Show all counties
-</button>
+    <button id="countyToggleBtn" class="county-toggle-btn" type="button">
+      Show all counties
+    </button>
   </div>
 </section>
 
@@ -572,7 +610,6 @@
 
     <div class="resource-card">
       <img src="/assets/images/tickbite.png" alt="Tick bite" class="resource-photo">
-      <!-- <h3>Nearby Care</h3> -->
       <p class="urgent-alert-text">
         If you are in a Lyme alert area and have symptoms after a tick bite, seek medical care promptly.
       </p>
@@ -585,19 +622,31 @@
 
   <div class="tick-image-band">
     <img src="/assets/images/blacklegged_ticks.png" alt="Blacklegged ticks educational image">
-    <div>
+
+    <div class="tick-awareness-copy">
       <h3>Tick bite awareness</h3>
       <p>
-        Use the weekly alert map as an awareness layer for prevention planning. 
-        Check for ticks after outdoor activity, monitor possible rash or flu-like symptoms, 
+        Use the weekly alert map as an awareness layer for prevention planning.
+        Check for ticks after outdoor activity, monitor possible rash or flu-like symptoms,
         and seek professional care when symptoms appear after a tick bite.
       </p>
+    </div>
+
+    <div class="rash-check-card">
+      <h3>Rash pattern check</h3>
+      <p>
+        Upload a skin image to compare its visual pattern with Lyme-like rash examples,
+        similar-looking rash patterns, and other skin patterns.
+      </p>
+      <a href="teachablemachine.html" class="btn btn-primary">
+        Try Rash Pattern Check
+      </a>
     </div>
   </div>
 
   <div class="note-box">
     <strong>Public-health note:</strong>
-    GeoAI & TrendAI weekly Lyme alerts are not medical diagnosis. 
+    GeoAI & TrendAI weekly Lyme alerts are not medical diagnosis.
     People with symptoms after a tick bite should contact qualified healthcare professionals or local public-health authorities.
   </div>
 </section>
@@ -629,24 +678,24 @@
 
     <h3>How should I use this page?</h3>
     <p>
-      Use this weekly Lyme alert to check the map, review high-alert counties, monitor possible rash or symptoms, 
-      and connect to trusted health resources when needed. 
-      This Lyme alerts are for awareness only and are not medical diagnosis or treatment advice.
+      Use this weekly Lyme alert to check the map, review high-alert counties, monitor possible rash or symptoms,
+      and connect to trusted health resources when needed.
+      These Lyme alerts are for awareness only and are not medical diagnosis or treatment advice.
     </p>
   </div>
 </section>
-  
+
 <section id="reports" class="light">
-  <div class="section-header"> 
+  <div class="section-header">
     <h2 class="section-title">Weekly Report Archive</h2>
     <p class="section-text">
       Recent weekly Lyme alert reports are listed below.
     </p>
   </div>
 
-<div id="archiveList" class="archive-list">
-  <div class="archive-item">Loading weekly reports...</div>
-</div>
+  <div id="archiveList" class="archive-list">
+    <div class="archive-item">Loading weekly reports...</div>
+  </div>
 </section>
 
 <footer>
@@ -891,5 +940,7 @@ document.addEventListener("DOMContentLoaded", function() {
   loadArchiveList();
 });
 </script>
+
 </body>
 </html>
+```
