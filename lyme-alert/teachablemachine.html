@@ -622,49 +622,44 @@
       return "Low match";
     }
 
-    function finalInterpretation(items) {
-      const rashP = items.find(x => x.key === "rash")?.probability || 0;
-      const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
-      const otherP = items.find(x => x.key === "other")?.probability || 0;
+function finalInterpretation(items) {
+  const rashP = items.find(x => x.key === "rash")?.probability || 0;
+  const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
+  const otherP = items.find(x => x.key === "other")?.probability || 0;
 
-      if (rashP >= 0.70) {
-        return {
-          kicker: "Pattern alert",
-          // title: "Strong match with Lyme-like rash pattern",
-          text: "The uploaded image shows a strong visual match with the Lyme-like rash examples used in this tool."
-        };
-      }
+  if (rashP >= 0.70) {
+    return {
+      kicker: "Pattern alert",
+      text: "The uploaded image shows a strong visual match with the Lyme-like rash examples used in this tool."
+    };
+  }
 
-      if (rashP >= 0.40) {
-        return {
-          kicker: "Review suggested",
-          // title: "Possible match with Lyme-like rash pattern",
-          text: "The uploaded image shows some visual similarity to the Lyme-like rash examples used in this tool."
-        };
-      }
+  if (rashP >= 0.40) {
+    return {
+      kicker: "Review suggested",
+      text: "The uploaded image shows some visual similarity to the Lyme-like rash examples used in this tool."
+    };
+  }
 
-      if (confuserP >= 0.40) {
-        return {
-          kicker: "Similar pattern",
-          // title: "Similar-looking rash pattern",
-          text: "The uploaded image looks similar to rash patterns that can resemble Lyme-like rashes, but it does not strongly match the Lyme-like reference examples used in this tool."
-        };
-      }
+  if (confuserP >= 0.40) {
+    return {
+      kicker: "Similar pattern",
+      text: "The uploaded image looks similar to rash patterns that can resemble Lyme-like rashes, but it does not strongly match the Lyme-like reference examples used in this tool."
+    };
+  }
 
-      if (otherP >= 0.50) {
-        return {
-          kicker: "Lower match",
-          // title: "Other skin pattern",
-          text: "The uploaded image appears visually closer to other skin-pattern examples than to the Lyme-like rash examples used in this tool."
-        };
-      }
+  if (otherP >= 0.50) {
+    return {
+      kicker: "Lower match",
+      text: "The uploaded image appears visually closer to other skin-pattern examples than to the Lyme-like rash examples used in this tool."
+    };
+  }
 
-      return {
-        kicker: "Unclear",
-        // title: "Unclear image pattern",
-        text: "The uploaded image does not strongly match one visual category. A clearer image may help."
-      };
-    }
+  return {
+    kicker: "Unclear",
+    text: "The uploaded image does not strongly match one visual category. A clearer image may help."
+  };
+}
 
     document.getElementById("imageUpload").addEventListener("change", function(event) {
       const file = event.target.files[0];
