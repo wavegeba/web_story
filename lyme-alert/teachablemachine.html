@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -275,28 +275,24 @@
       border-top: none;
     }
 
-    .chart-grid {
-      height: 315px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-around;
-      gap: 24px;
-      padding: 8px 8px 0;
-    }
-
-    .bar-col {
-      width: 32%;
-      min-width: 112px;
-      height: 100%;
+    .chart-bars {
+      height: 245px;
       display: grid;
-      grid-template-rows: 1fr auto;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
       align-items: end;
       justify-items: center;
-      gap: 10px;
+      padding: 6px 8px 0;
+    }
+
+    .bar-slot {
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
 
     .bar-track-vertical {
-      align-self: end;
       width: 88px;
       height: 225px;
       border-radius: 22px;
@@ -335,6 +331,15 @@
       background: linear-gradient(180deg, #cbd5e1, #64748b, #334155);
     }
 
+    .bar-label-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      padding: 0 8px;
+      margin-top: 10px;
+      align-items: start;
+    }
+
     .bar-name {
       font-size: 14px;
       font-weight: 900;
@@ -345,7 +350,6 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      margin-top: 2px;
     }
 
     .result-kicker {
@@ -373,31 +377,6 @@
       color: #334155;
       font-size: 15px;
       line-height: 1.55;
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-      font-size: 13px;
-      color: #52667a;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 9px;
-      border: 1px solid #e3ebf3;
-      border-radius: 999px;
-      background: white;
-    }
-
-    .legend-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
     }
 
     .note {
@@ -447,13 +426,9 @@
         justify-content: center;
       }
 
-      .chart-grid {
-        height: 280px;
+      .chart-bars {
+        height: 210px;
         gap: 12px;
-      }
-
-      .bar-col {
-        min-width: 88px;
       }
 
       .bar-track-vertical {
@@ -461,11 +436,16 @@
         height: 190px;
       }
 
+      .bar-label-row {
+        gap: 12px;
+      }
+
       .bar-name {
         font-size: 12px;
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -486,49 +466,52 @@
           <span>The result will appear automatically beside the image after upload.</span>
         </div>
 
-        <div class="file-control">
-          <input id="imageUpload" type="file" accept="image/*" />
-          <button type="button" onclick="analyzeImage()">Re-check Image</button>
-          <a class="link-button" href="index.html">Back to Alert Home</a>
-        </div>
+```
+    <div class="file-control">
+      <input id="imageUpload" type="file" accept="image/*" />
+      <button type="button" onclick="analyzeImage()">Re-check Image</button>
+      <a class="link-button" href="index.html">Back to Alert Home</a>
+    </div>
+  </div>
+
+  <div class="result-layout">
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Uploaded Image</h3>
+        <span class="mini-badge">Preview</span>
       </div>
 
-      <div class="result-layout">
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Uploaded Image</h3>
-            <span class="mini-badge">Preview</span>
-          </div>
-
-          <div id="previewWrap">
-            <div id="previewPlaceholder" class="placeholder">
-              Your uploaded image will appear here.
-            </div>
-            <img id="preview" alt="Uploaded skin image preview" />
-          </div>
+      <div id="previewWrap">
+        <div id="previewPlaceholder" class="placeholder">
+          Your uploaded image will appear here.
         </div>
+        <img id="preview" alt="Uploaded skin image preview" />
+      </div>
+    </div>
 
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Screening Result</h3>
-            <span class="mini-badge">Visual match</span>
-          </div>
-
-          <div id="resultBox">
-            <div class="placeholder">
-              Upload an image to view the result automatically.
-            </div>
-          </div>
-        </div>
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Screening Result</h3>
+        <span class="mini-badge">Visual match</span>
       </div>
 
-      <div class="disclaimer">
-        <strong>Important:</strong> This tool provides visual similarity screening only.
-        It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
-        If you have an expanding rash, recent tick exposure, fever, or any medical concern,
-        please consult a qualified healthcare professional.
+      <div id="resultBox">
+        <div class="placeholder">
+          Upload an image to view the result automatically.
+        </div>
       </div>
-    </section>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Important:</strong> This tool provides visual similarity screening only.
+    It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
+    If you have an expanding rash, recent tick exposure, fever, or any medical concern,
+    please consult a qualified healthcare professional.
+  </div>
+</section>
+```
+
   </main>
 
   <footer>
@@ -536,6 +519,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
   <script>
@@ -712,26 +696,34 @@
         const items = buildOrderedPredictions(rawPredictions);
         const summary = finalInterpretation(items);
 
-        let chartHtml = "";
+        let chartBarsHtml = "";
+        let chartLabelsHtml = "";
 
         items.forEach(item => {
           const height = Math.max(item.probability * 100, 6);
 
-          chartHtml += `
-            <div class="bar-col">
+          chartBarsHtml += `
+            <div class="bar-slot">
               <div class="bar-track-vertical">
                 <div class="bar-fill-vertical ${item.barClass}" style="height:${height}%"></div>
               </div>
-              <div class="bar-name">${item.label}</div>
             </div>
+          `;
+
+          chartLabelsHtml += `
+            <div class="bar-name">${item.label}</div>
           `;
         });
 
         resultBox.className = "result-ready";
         resultBox.innerHTML = `
           <div class="chart-wrap">
-            <div class="chart-grid">
-              ${chartHtml}
+            <div class="chart-bars">
+              ${chartBarsHtml}
+            </div>
+
+            <div class="bar-label-row">
+              ${chartLabelsHtml}
             </div>
           </div>
 
@@ -739,21 +731,6 @@
 
           <div class="result-explain">
             ${summary.text}
-          </div>
-
-          <div class="legend">
-            <div class="legend-item">
-              <span class="legend-dot" style="background:#e54646;"></span>
-              <span>Lyme-like rash pattern</span>
-            </div>
-            <div class="legend-item">
-              <span class="legend-dot" style="background:#f59e0b;"></span>
-              <span>Similar-looking rash pattern</span>
-            </div>
-            <div class="legend-item">
-              <span class="legend-dot" style="background:#64748b;"></span>
-              <span>Other skin pattern</span>
-            </div>
           </div>
 
           <div class="note">
@@ -771,5 +748,6 @@
       }
     }
   </script>
+
 </body>
-</html> 
+</html>
