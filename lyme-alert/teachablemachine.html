@@ -274,16 +274,38 @@
       padding-top: 0;
       border-top: none;
     }
+ 
+.chart-bars {
+  height: 235px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: end;
+  justify-items: center;
+  padding: 0 8px 0;
+}
 
-    .chart-bars {
-      height: 245px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-      align-items: end;
-      justify-items: center;
-      padding: 6px 8px 0;
-    }
+.bar-label-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding: 0 8px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  align-items: end;
+}
+
+.bar-name {
+  font-size: 14px;
+  font-weight: 900;
+  color: #1e293b;
+  text-align: center;
+  line-height: 1.25;
+  min-height: 38px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+} 
 
     .bar-slot {
       width: 100%;
@@ -331,26 +353,7 @@
       background: linear-gradient(180deg, #cbd5e1, #64748b, #334155);
     }
 
-    .bar-label-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-      padding: 0 8px;
-      margin-top: 10px;
-      align-items: start;
-    }
-
-    .bar-name {
-      font-size: 14px;
-      font-weight: 900;
-      color: #1e293b;
-      text-align: center;
-      line-height: 1.25;
-      min-height: 38px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
+    
 
     .result-kicker {
       display: inline-block;
@@ -577,45 +580,45 @@
         };
       });
     }
+ 
+function finalInterpretation(items) {
+  const rashP = items.find(x => x.key === "rash")?.probability || 0;
+  const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
+  const otherP = items.find(x => x.key === "other")?.probability || 0;
 
-    function finalInterpretation(items) {
-      const rashP = items.find(x => x.key === "rash")?.probability || 0;
-      const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
-      const otherP = items.find(x => x.key === "other")?.probability || 0;
+  if (rashP >= 0.70) {
+    return {
+      kicker: "Strong Lyme-like visual match",
+      text: "The uploaded image strongly matches the Lyme-like rash pattern examples in this visual AI screening tool."
+    };
+  }
 
-      if (rashP >= 0.70) {
-        return {
-          kicker: "Pattern alert",
-          text: "The uploaded image shows a strong visual match with the Lyme-like rash examples used in this tool."
-        };
-      }
+  if (rashP >= 0.40) {
+    return {
+      kicker: "Moderate Lyme-like visual match",
+      text: "The uploaded image shows a moderate visual match with the Lyme-like rash pattern examples in this tool."
+    };
+  }
 
-      if (rashP >= 0.40) {
-        return {
-          kicker: "Review suggested",
-          text: "The uploaded image shows some visual similarity to the Lyme-like rash examples used in this tool."
-        };
-      }
+  if (confuserP >= 0.40) {
+    return {
+      kicker: "Similar-looking rash pattern",
+      text: "The uploaded image does not strongly match the Lyme-like rash pattern examples, but it visually matches similar-looking rash patterns."
+    };
+  }
 
-      if (confuserP >= 0.40) {
-        return {
-          kicker: "Similar pattern",
-          text: "The uploaded image looks similar to rash patterns that can resemble Lyme-like rashes, but it does not strongly match the Lyme-like reference examples used in this tool."
-        };
-      }
+  if (otherP >= 0.50) {
+    return {
+      kicker: "Low Lyme-like visual match",
+      text: "The uploaded image shows a low visual match with the Lyme-like rash pattern examples and appears closer to other skin-pattern examples."
+    };
+  }
 
-      if (otherP >= 0.50) {
-        return {
-          kicker: "Lower match",
-          text: "The uploaded image appears visually closer to other skin-pattern examples than to the Lyme-like rash examples used in this tool."
-        };
-      }
-
-      return {
-        kicker: "Unclear",
-        text: "The uploaded image does not strongly match one visual category. A clearer image may help."
-      };
-    }
+  return {
+    kicker: "Unclear visual match",
+    text: "The uploaded image does not clearly match one visual rash-pattern category. A clearer or closer image may improve the visual screening result."
+  };
+} 
 
     document.getElementById("imageUpload").addEventListener("change", function(event) {
       const file = event.target.files[0];
@@ -710,26 +713,25 @@
           chartLabelsHtml += `
             <div class="bar-name">${item.label}</div>
           `;
-        });
+        }); 
+resultBox.className = "result-ready";
+resultBox.innerHTML = `
+  <div class="chart-wrap">
+    <div class="bar-label-row">
+      ${chartLabelsHtml}
+    </div>
 
-        resultBox.className = "result-ready";
-        resultBox.innerHTML = `
-          <div class="chart-wrap">
-            <div class="chart-bars">
-              ${chartBarsHtml}
-            </div>
+    <div class="chart-bars">
+      ${chartBarsHtml}
+    </div>
+  </div>
 
-            <div class="bar-label-row">
-              ${chartLabelsHtml}
-            </div>
-          </div>
+  <div class="result-kicker">${summary.kicker}</div>
 
-          <div class="result-kicker">${summary.kicker}</div>
-
-          <div class="result-explain">
-            ${summary.text}
-          </div>
-        `;
+  <div class="result-explain">
+    ${summary.text}
+  </div>
+`; 
       } catch (error) {
         resultBox.className = "";
         resultBox.innerHTML = `
