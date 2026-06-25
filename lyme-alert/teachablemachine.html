@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lyme-like Rash Visual Similarity Check | GEBA</title>
+  <meta name="description" content="GEBA Lyme-like rash visual similarity screening using a browser-based Teachable Machine image model. This tool is for educational information only and is not a medical diagnosis." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f8fb;
+      color: #142033;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #061c2f, #0b4f8a);
+      color: white;
+      padding: 36px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: 0.2px;
+    }
+    header p {
+      max-width: 760px;
+      margin: 12px auto 0;
+      color: #dbeafe;
+      font-size: 16px;
+    }
+    main {
+      max-width: 860px;
+      margin: 34px auto;
+      padding: 0 18px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #d9e2ec;
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 12px 30px rgba(15, 45, 80, 0.08);
+    }
+    .upload-box {
+      border: 2px dashed #9cb7cf;
+      border-radius: 16px;
+      padding: 22px;
+      text-align: center;
+      background: #f8fbfe;
+    }
+    input[type="file"] {
+      margin-top: 12px;
+      max-width: 100%;
+    }
+    #preview {
+      display: none;
+      margin: 22px auto 0;
+      max-width: 100%;
+      max-height: 360px;
+      border-radius: 14px;
+      border: 1px solid #d6dee8;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+    .button-row {
+      margin-top: 22px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    button, .link-button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 15px;
+    }
+    button {
+      background: #0b4f8a;
+      color: white;
+    }
+    button:hover {
+      background: #083d6b;
+    }
+    .link-button {
+      background: #e8f1f8;
+      color: #0b4f8a;
+    }
+    #resultBox {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 16px;
+      background: #f7fafc;
+      border: 1px solid #d9e2ec;
+    }
+    .result-high {
+      border-left: 6px solid #c2410c;
+    }
+    .result-moderate {
+      border-left: 6px solid #d97706;
+    }
+    .result-low {
+      border-left: 6px solid #15803d;
+    }
+    .result-unclear {
+      border-left: 6px solid #64748b;
+    }
+    .result-title {
+      margin: 0 0 8px;
+      font-size: 22px;
+      color: #0f172a;
+    }
+    .result-text {
+      margin: 0 0 16px;
+      color: #334155;
+    }
+    .likelihood-row {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: white;
+      border: 1px solid #e1e8f0;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+    }
+    .likelihood-label {
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .likelihood-value {
+      font-weight: 800;
+      color: #0b4f8a;
+    }
+    .note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    .disclaimer {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 14px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #7c2d12;
+      font-size: 14px;
+    }
+    footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 13px;
+      padding: 26px 18px 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lyme-like Rash Visual Similarity Check</h1>
+    <p>
+      Upload a skin image to compare its visual pattern with GEBA Lyme-like rash examples,
+      ring-like skin-condition examples, and other skin-condition examples.
+    </p>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="upload-box">
+        <strong>Select a skin image</strong>
+        <p style="margin:8px 0 0;color:#52667a;">
+          JPG, PNG, or other common image formats are supported.
+        </p>
+        <input id="imageUpload" type="file" accept="image/*" />
+        <img id="preview" alt="Uploaded skin image preview" />
+      </div>
+
+```
+  <div class="button-row">
+    <button type="button" onclick="analyzeImage()">Check Image</button>
+    <a class="link-button" href="index.html">Back to GEBA</a>
+  </div>
+
+  <div id="resultBox"></div>
+
+  <div class="disclaimer">
+    <strong>Important:</strong> This tool provides visual similarity screening only.
+    It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
+    If you have an expanding rash, fever, recent tick exposure, or medical concern,
+    please consult a qualified healthcare professional.
+  </div>
+</section>
+```
+
+  </main>
+
+  <footer>
+    GEBA Consulting LLC | Educational visual screening only
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+  <script>
+    const MODEL_URL = "https://teachablemachine.withgoogle.com/models/-TpW2hV2r/";
+
+    let model = null;
+    let uploadedImage = null;
+
+    async function loadModel() {
+      if (model !== null) return;
+      const modelURL = MODEL_URL + "model.json";
+      const metadataURL = MODEL_URL + "metadata.json";
+      model = await tmImage.load(modelURL, metadataURL);
+    }
+
+    function likelihoodLabel(value) {
+      if (value >= 0.70) return "High";
+      if (value >= 0.40) return "Moderate";
+      return "Low";
+    }
+
+    function displayName(className) {
+      if (className === "lyme_like") return "Lyme-like visual similarity";
+      if (className === "ring_like_confuser") return "Ring-like skin-condition similarity";
+      if (className === "other_skin_condition") return "Other skin-condition pattern";
+      return className.replaceAll("_", " ");
+    }
+
+    function getClassProbability(predictions, className) {
+      const found = predictions.find(item => item.className === className);
+      return found ? found.probability : 0;
+    }
+
+    function finalInterpretation(predictions) {
+      const lymeP = getClassProbability(predictions, "lyme_like");
+      const confuserP = getClassProbability(predictions, "ring_like_confuser");
+      const otherP = getClassProbability(predictions, "other_skin_condition");
+
+      if (lymeP >= 0.70) {
+        return {
+          title: "High Lyme-like visual similarity",
+          text: "The uploaded image shows strong visual similarity to GEBA Lyme-like rash examples.",
+          styleClass: "result-high"
+        };
+      }
+
+      if (lymeP >= 0.40) {
+        return {
+          title: "Moderate Lyme-like visual similarity",
+          text: "The uploaded image shows partial visual similarity to GEBA Lyme-like rash examples.",
+          styleClass: "result-moderate"
+        };
+      }
+
+      if (confuserP >= 0.40) {
+        return {
+          title: "Similar to another ring-like skin condition",
+          text: "The uploaded image appears visually closer to ring-like or Lyme-confusing skin examples than to the GEBA Lyme-like reference class.",
+          styleClass: "result-moderate"
+        };
+      }
+
+      if (otherP >= 0.50) {
+        return {
+          title: "Low Lyme-like visual similarity",
+          text: "The uploaded image appears visually closer to other skin-condition examples.",
+          styleClass: "result-low"
+        };
+      }
+
+      return {
+        title: "Unclear visual pattern",
+        text: "The uploaded image does not strongly match one visual category. A clearer image may be needed.",
+        styleClass: "result-unclear"
+      };
+    }
+
+    document.getElementById("imageUpload").addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      const preview = document.getElementById("preview");
+      const resultBox = document.getElementById("resultBox");
+
+      resultBox.style.display = "none";
+      resultBox.innerHTML = "";
+
+      if (!file) {
+        uploadedImage = null;
+        preview.style.display = "none";
+        preview.src = "";
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        preview.src = e.target.result;
+        preview.style.display = "block";
+        uploadedImage = preview;
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    async function analyzeImage() {
+      const resultBox = document.getElementById("resultBox");
+
+      if (!uploadedImage) {
+        resultBox.style.display = "block";
+        resultBox.className = "result-unclear";
+        resultBox.innerHTML = "<strong>Please upload an image first.</strong>";
+        return;
+      }
+
+      try {
+        resultBox.style.display = "block";
+        resultBox.className = "result-unclear";
+        resultBox.innerHTML = "Loading model and analyzing image...";
+
+        await loadModel();
+
+        const predictions = await model.predict(uploadedImage);
+        predictions.sort((a, b) => b.probability - a.probability);
+
+        const summary = finalInterpretation(predictions);
+
+        let rows = "";
+
+        predictions.forEach(item => {
+          rows += `
+            <div class="likelihood-row">
+              <span class="likelihood-label">${displayName(item.className)}</span>
+              <span class="likelihood-value">${likelihoodLabel(item.probability)}</span>
+            </div>
+          `;
+        });
+
+        resultBox.className = summary.styleClass;
+        resultBox.innerHTML = `
+          <h2 class="result-title">${summary.title}</h2>
+          <p class="result-text">${summary.text}</p>
+          ${rows}
+          <p class="note">
+            This result uses qualitative visual-similarity categories rather than medical probability.
+            It should not be used as a diagnosis.
+          </p>
+        `;
+      } catch (error) {
+        resultBox.style.display = "block";
+        resultBox.className = "result-unclear";
+        resultBox.innerHTML = `
+          <strong>Analysis failed.</strong>
+          <p>${error.message}</p>
+        `;
+      }
+    }
+  </script>
+
+</body>
+</html>
