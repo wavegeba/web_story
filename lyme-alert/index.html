@@ -993,7 +993,6 @@ if (!countySearchInput || !countySearchBtn || !countySearchResult) return;
 function runSearch() {
 const query = cleanText(countySearchInput.value).toLowerCase();
 
-```
 if (!query) {
   countySearchResult.innerHTML = "";
   return;
@@ -1020,8 +1019,7 @@ countySearchResult.innerHTML = matches.slice(0, 8).map(function(text) {
 if (matches.length > 8) {
   countySearchResult.innerHTML +=
     ' <span class="found">+' + (matches.length - 8) + ' more</span>';
-}
-```
+} 
 
 }
 
@@ -1040,63 +1038,102 @@ countySearchResult.innerHTML = "";
 });
 }
 
-  async function loadArchiveList() {
-    if (!archiveList) return;
+async function loadCountyList() {
+if (!countyPanel || !countyList) return;
 
-    try {
-      const response = await fetch(githubApiUrl, { cache: "no-store" });
+const reportUrl = countyPanel.getAttribute("data-report-url");
 
-      if (!response.ok) {
-        throw new Error("Could not load GitHub folder list");
-      }
+try {
+const response = await fetch(reportUrl + "?v=" + Date.now(), { cache: "no-store" });
+ 
+if (!response.ok) {
+  throw new Error("Could not load latest report");
+}
 
-      const files = await response.json();
+const htmlText = await response.text();
+const latestDoc = new DOMParser().parseFromString(htmlText, "text/html");
+const counties = extractCountyListFromReport(latestDoc);
+const reportDateText = extractReportDateFromReport(latestDoc);
 
-      const reports = files
-        .filter(function(file) {
-          return file.type === "file" &&
-                 file.name.endsWith(".html") &&
-                 file.name.startsWith("weekly-lyme-alert-") &&
-                 file.name !== "weekly-lyme-alert-latest.html";
-        })
-        .map(function(file) {
-          return {
-            name: file.name,
-            date: makeDateFromFilename(file.name),
-            title: makeTitleFromFilename(file.name),
-            url: "/lyme-alert/weekly/" + file.name
-          };
-        })
-        .sort(function(a, b) {
-          return b.date.localeCompare(a.date);
-        });
+renderCountyList(counties, reportDateText);
+ 
 
-      if (reports.length === 0) {
-        archiveList.innerHTML = '<div class="archive-item">No weekly HTML reports found yet.</div>';
-        return;
-      }
+} catch (error) {
+countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
+if (countyToggleBtn) countyToggleBtn.style.display = "none";
+console.error("County list loading error:", error);
+}
+}
 
-      archiveList.innerHTML = reports.map(function(report) {
-        return `
-          <div class="archive-item">
-            <a href="${escapeHTML(report.url)}">
-              ${escapeHTML(report.title)}
-            </a>
-          </div>
-        `;
-      }).join("");
+function makeTitleFromFilename(filename) {
+const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2}).html$/);
 
-    } catch (error) {
-      archiveList.innerHTML = `
-        <div class="archive-item">
-          <a href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">
-            Weekly Lyme Alert Report (2026.06.21)
-          </a>
-        </div>
-      `;
-      console.error("Weekly report archive loading error:", error);
-    }
-  }
+if (!match) {
+return filename.replace(".html", "").replaceAll("-", " ");
+}
+
+return `Weekly Lyme Alert Report (${match[1]}.${match[2]}.${match[3]})`;
+}
+
+function makeDateFromFilename(filename) {
+const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2}).html$/);
+if (!match) return "";
+return `${match[1]}-${match[2]}-${match[3]}`;
+}
+
+async function loadArchiveList() {
+if (!archiveList) return;
+
+try {
+const response = await fetch(githubApiUrl, { cache: "no-store" });
+ 
+if (!response.ok) {
+  throw new Error("Could not load GitHub folder list");
+}
+
+const files = await response.json();
+
+const reports = files
+  .filter(function(file) {
+    return file.type === "file" &&
+           file.name.endsWith(".html") &&
+           file.name.startsWith("weekly-lyme-alert-") &&
+           file.name !== "weekly-lyme-alert-latest.html";
+  })
+  .map(function(file) {
+    return {
+      name: file.name,
+      date: makeDateFromFilename(file.name),
+      title: makeTitleFromFilename(file.name),
+      url: "/lyme-alert/weekly/" + file.name
+    };
+  })
+  .sort(function(a, b) {
+    return b.date.localeCompare(a.date);
+  });
+
+if (reports.length === 0) {
+  archiveList.innerHTML = '<div class="archive-item">No weekly HTML reports found yet.</div>';
+  return;
+}
+
+archiveList.innerHTML = reports.map(function(report) {
+  return `
+    <div class="archive-item">
+      <a href="${escapeHTML(report.url)}">
+        ${escapeHTML(report.title)}
+      </a>
+    </div>
+  `;
+}).join(""); 
+
+} catch (error) {
+archiveList.innerHTML = `       <div class="archive-item">         <a href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">
+          Weekly Lyme Alert Report (2026.06.21)         </a>       </div>
+    `;
+console.error("Weekly report archive loading error:", error);
+}
+}
 
 setupCountyToggle();
 setupCountySearch();
