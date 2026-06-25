@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Lyme-like Rash Pattern Check | GEBA</title>
   <meta name="description" content="GEBA Lyme-like rash pattern screening using a browser-based Teachable Machine image model." />
 
@@ -13,22 +15,15 @@
 
     :root {
       --navy: #081a2c;
-      --navy-2: #123454;
       --blue: #0b4f8a;
       --blue-2: #276ca8;
       --gold: #d6a84f;
-      --paper: #f4f7fb;
-      --card: rgba(255,255,255,0.96);
-      --line: #dbe3ec;
       --text: #112235;
       --muted: #607287;
-
       --rash: #e54646;
       --rash-dark: #b91c1c;
-
       --confuser: #f59e0b;
       --confuser-dark: #b45309;
-
       --other: #64748b;
       --other-dark: #475569;
     }
@@ -46,8 +41,7 @@
     header {
       position: relative;
       overflow: hidden;
-      background:
-        linear-gradient(135deg, rgba(8,26,44,0.97), rgba(11,79,138,0.95));
+      background: linear-gradient(135deg, rgba(8,26,44,0.97), rgba(11,79,138,0.95));
       color: white;
       text-align: center;
       padding: 46px 20px 54px;
@@ -107,7 +101,7 @@
     }
 
     .card {
-      background: var(--card);
+      background: rgba(255,255,255,0.96);
       border: 1px solid rgba(219,227,236,0.95);
       border-radius: 28px;
       padding: 26px;
@@ -192,7 +186,7 @@
 
     .result-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 0.78fr 1.22fr;
       gap: 24px;
       align-items: stretch;
     }
@@ -233,13 +227,13 @@
     }
 
     #previewWrap {
-      min-height: 390px;
+      min-height: 330px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px dashed #bfd0df;
       border-radius: 18px;
-      padding: 16px;
+      padding: 14px;
       background: linear-gradient(135deg, #ffffff, #f8fbff);
       overflow: hidden;
     }
@@ -247,7 +241,7 @@
     #preview {
       display: none;
       max-width: 100%;
-      max-height: 430px;
+      max-height: 360px;
       border-radius: 16px;
       border: 1px solid #d6dee8;
       box-shadow: 0 18px 36px rgba(0,0,0,0.12);
@@ -257,11 +251,11 @@
       color: #6b7c8f;
       font-size: 15px;
       text-align: center;
-      max-width: 300px;
+      max-width: 320px;
     }
 
     #resultBox {
-      min-height: 390px;
+      min-height: 330px;
       background: linear-gradient(180deg, #ffffff 0%, #f9fbfd 100%);
       border: 1px solid #dce7f0;
       border-radius: 18px;
@@ -299,60 +293,53 @@
     }
 
     .result-text {
-      margin: 0 0 20px;
+      margin: 0 0 18px;
       color: #334155;
       font-size: 15px;
     }
 
     .chart-wrap {
-      margin-top: 12px;
+      margin-top: 10px;
       padding-top: 18px;
       border-top: 1px solid #e3ebf3;
     }
 
     .chart-grid {
-      height: 290px;
+      height: 300px;
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
       gap: 18px;
-      padding: 12px 8px 0;
+      padding: 8px 8px 0;
     }
 
     .bar-col {
       width: 32%;
-      min-width: 90px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      min-width: 112px;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      align-items: end;
+      justify-items: center;
       gap: 10px;
     }
 
-    .bar-level {
-      font-size: 13px;
+    .bar-name {
+      align-self: start;
+      font-size: 14px;
       font-weight: 900;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      color: #1e293b;
       text-align: center;
-      min-width: 96px;
-    }
-
-    .level-rash {
-      color: var(--rash-dark);
-    }
-
-    .level-confuser {
-      color: var(--confuser-dark);
-    }
-
-    .level-other {
-      color: var(--other-dark);
+      line-height: 1.25;
+      min-height: 38px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
     }
 
     .bar-track-vertical {
-      width: 72px;
+      align-self: end;
+      width: 78px;
       height: 190px;
       border-radius: 20px;
       background: #e9eef4;
@@ -390,13 +377,27 @@
       background: linear-gradient(180deg, #cbd5e1, #64748b, #334155);
     }
 
-    .bar-name {
-      font-size: 14px;
+    .bar-level {
+      font-size: 13px;
       font-weight: 900;
-      color: #1e293b;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
       text-align: center;
-      line-height: 1.35;
-      min-height: 40px;
+      min-width: 100px;
+    }
+
+    .level-rash {
+      color: var(--rash-dark);
+    }
+
+    .level-confuser {
+      color: var(--confuser-dark);
+    }
+
+    .level-other {
+      color: var(--other-dark);
     }
 
     .legend {
@@ -472,16 +473,16 @@
       }
 
       .chart-grid {
-        height: auto;
-        min-height: 0;
+        height: 280px;
       }
 
       .bar-track-vertical {
-        width: 62px;
+        width: 68px;
         height: 170px;
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -499,52 +500,55 @@
       <div class="control-panel">
         <div class="control-copy">
           <strong>Upload a skin image</strong>
-          <span>The result will appear beside the image using qualitative visual-match categories.</span>
+          <span>The result will appear automatically beside the image after upload.</span>
         </div>
 
-        <div class="file-control">
-          <input id="imageUpload" type="file" accept="image/*" />
-          <button type="button" onclick="analyzeImage()">Check Image</button>
-          <a class="link-button" href="index.html">Back to GEBA</a>
-        </div>
+```
+    <div class="file-control">
+      <input id="imageUpload" type="file" accept="image/*" />
+      <button type="button" onclick="analyzeImage()">Re-check Image</button>
+      <a class="link-button" href="index.html">Back to GEBA</a>
+    </div>
+  </div>
+
+  <div class="result-layout">
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Uploaded Image</h3>
+        <span class="mini-badge">Preview</span>
       </div>
 
-      <div class="result-layout">
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Uploaded Image</h3>
-            <span class="mini-badge">Preview</span>
-          </div>
-
-          <div id="previewWrap">
-            <div id="previewPlaceholder" class="placeholder">
-              Your uploaded image will appear here.
-            </div>
-            <img id="preview" alt="Uploaded skin image preview" />
-          </div>
+      <div id="previewWrap">
+        <div id="previewPlaceholder" class="placeholder">
+          Your uploaded image will appear here.
         </div>
+        <img id="preview" alt="Uploaded skin image preview" />
+      </div>
+    </div>
 
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Screening Result</h3>
-            <span class="mini-badge">Visual match</span>
-          </div>
-
-          <div id="resultBox">
-            <div class="placeholder">
-              Upload an image and click <strong>Check Image</strong> to view the result.
-            </div>
-          </div>
-        </div>
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Screening Result</h3>
+        <span class="mini-badge">Visual match</span>
       </div>
 
-      <div class="disclaimer">
-        <strong>Important:</strong> This tool provides visual similarity screening only.
-        It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
-        If you have an expanding rash, recent tick exposure, fever, or any medical concern,
-        please consult a qualified healthcare professional.
+      <div id="resultBox">
+        <div class="placeholder">
+          Upload an image to view the result automatically.
+        </div>
       </div>
-    </section>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Important:</strong> This tool provides visual similarity screening only.
+    It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
+    If you have an expanding rash, recent tick exposure, fever, or any medical concern,
+    please consult a qualified healthcare professional.
+  </div>
+</section>
+```
+
   </main>
 
   <footer>
@@ -552,6 +556,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
   <script>
@@ -559,6 +564,7 @@
 
     let model = null;
     let uploadedImage = null;
+    let analysisToken = 0;
 
     const CLASS_CONFIG = [
       {
@@ -596,7 +602,7 @@
     }
 
     function findPrediction(predictions, aliases) {
-      return predictions.find(item => aliases.includes(normalizeName(item.className)));
+      return predictions.find(item => aliases.map(normalizeName).includes(normalizeName(item.className)));
     }
 
     function buildOrderedPredictions(predictions) {
@@ -668,10 +674,12 @@
       const placeholder = document.getElementById("previewPlaceholder");
       const resultBox = document.getElementById("resultBox");
 
+      analysisToken += 1;
+
       resultBox.className = "";
       resultBox.innerHTML = `
         <div class="placeholder">
-          Upload an image and click <strong>Check Image</strong> to view the result.
+          Preparing image...
         </div>
       `;
 
@@ -680,16 +688,26 @@
         preview.style.display = "none";
         preview.src = "";
         placeholder.style.display = "block";
+        resultBox.innerHTML = `
+          <div class="placeholder">
+            Upload an image to view the result automatically.
+          </div>
+        `;
         return;
       }
 
       const reader = new FileReader();
 
       reader.onload = function(e) {
+        preview.onload = function() {
+          uploadedImage = preview;
+          analyzeImage();
+          preview.onload = null;
+        };
+
         preview.src = e.target.result;
         preview.style.display = "block";
         placeholder.style.display = "none";
-        uploadedImage = preview;
       };
 
       reader.readAsDataURL(file);
@@ -697,6 +715,7 @@
 
     async function analyzeImage() {
       const resultBox = document.getElementById("resultBox");
+      const currentToken = ++analysisToken;
 
       if (!uploadedImage) {
         resultBox.className = "";
@@ -719,6 +738,9 @@
         await loadModel();
 
         const rawPredictions = await model.predict(uploadedImage);
+
+        if (currentToken !== analysisToken) return;
+
         const items = buildOrderedPredictions(rawPredictions);
         const summary = finalInterpretation(items);
 
@@ -730,11 +752,11 @@
 
           chartHtml += `
             <div class="bar-col">
-              <div class="bar-level ${item.levelClass}">${level}</div>
+              <div class="bar-name">${item.label}</div>
               <div class="bar-track-vertical">
                 <div class="bar-fill-vertical ${item.barClass}" style="height:${height}%"></div>
               </div>
-              <div class="bar-name">${item.label}</div>
+              <div class="bar-level ${item.levelClass}">${level}</div>
             </div>
           `;
         });
@@ -781,5 +803,6 @@
       }
     }
   </script>
+
 </body>
 </html>
