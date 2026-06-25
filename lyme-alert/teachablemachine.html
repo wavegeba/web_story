@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -269,21 +269,6 @@
       justify-content: flex-start !important;
     }
 
-    .result-kicker {
-      display: inline-block;
-      width: fit-content;
-      margin-bottom: 14px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: #7f1d1d;
-      background: #fee2e2;
-      border: 1px solid #fecaca;
-    }
-
     .chart-wrap {
       margin-top: 0;
       padding-top: 0;
@@ -304,40 +289,16 @@
       min-width: 112px;
       height: 100%;
       display: grid;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: 1fr auto;
       align-items: end;
       justify-items: center;
       gap: 10px;
     }
 
-    .bar-level {
-      font-size: 13px;
-      font-weight: 900;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      text-align: center;
-      min-width: 100px;
-      align-self: start;
-    }
-
-    .level-rash {
-      color: var(--rash-dark);
-    }
-
-    .level-confuser {
-      color: var(--confuser-dark);
-    }
-
-    .level-other {
-      color: var(--other-dark);
-    }
-
     .bar-track-vertical {
       align-self: end;
       width: 88px;
-      height: 205px;
+      height: 225px;
       border-radius: 22px;
       background: #e9eef4;
       display: flex;
@@ -387,8 +348,24 @@
       margin-top: 2px;
     }
 
-    .result-explain {
+    .result-kicker {
+      display: inline-block;
+      width: fit-content;
       margin-top: 18px;
+      margin-bottom: 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #7f1d1d;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+    }
+
+    .result-explain {
+      margin-top: 12px;
       padding: 14px 16px;
       border-radius: 14px;
       background: #f8fafc;
@@ -481,21 +458,14 @@
 
       .bar-track-vertical {
         width: 68px;
-        height: 170px;
+        height: 190px;
       }
 
       .bar-name {
         font-size: 12px;
       }
-
-      .bar-level {
-        font-size: 12px;
-        min-width: 86px;
-        padding: 5px 8px;
-      }
     }
   </style>
-
 </head>
 
 <body>
@@ -515,50 +485,50 @@
           <strong>Upload a skin image</strong>
           <span>The result will appear automatically beside the image after upload.</span>
         </div>
-    <div class="file-control">
-      <input id="imageUpload" type="file" accept="image/*" />
-      <button type="button" onclick="analyzeImage()">Re-check Image</button>
-      <a class="link-button" href="index.html">Back to Alert Home</a>
-    </div>
-  </div>
 
-  <div class="result-layout">
-    <div class="panel">
-      <div class="panel-head">
-        <h3>Uploaded Image</h3>
-        <span class="mini-badge">Preview</span>
-      </div>
-
-      <div id="previewWrap">
-        <div id="previewPlaceholder" class="placeholder">
-          Your uploaded image will appear here.
-        </div>
-        <img id="preview" alt="Uploaded skin image preview" />
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head">
-        <h3>Screening Result</h3>
-        <span class="mini-badge">Visual match</span>
-      </div>
-
-      <div id="resultBox">
-        <div class="placeholder">
-          Upload an image to view the result automatically.
+        <div class="file-control">
+          <input id="imageUpload" type="file" accept="image/*" />
+          <button type="button" onclick="analyzeImage()">Re-check Image</button>
+          <a class="link-button" href="index.html">Back to Alert Home</a>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="disclaimer">
-    <strong>Important:</strong> This tool provides visual similarity screening only.
-    It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
-    If you have an expanding rash, recent tick exposure, fever, or any medical concern,
-    please consult a qualified healthcare professional.
-  </div>
-</section> 
+      <div class="result-layout">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Uploaded Image</h3>
+            <span class="mini-badge">Preview</span>
+          </div>
 
+          <div id="previewWrap">
+            <div id="previewPlaceholder" class="placeholder">
+              Your uploaded image will appear here.
+            </div>
+            <img id="preview" alt="Uploaded skin image preview" />
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Screening Result</h3>
+            <span class="mini-badge">Visual match</span>
+          </div>
+
+          <div id="resultBox">
+            <div class="placeholder">
+              Upload an image to view the result automatically.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <strong>Important:</strong> This tool provides visual similarity screening only.
+        It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
+        If you have an expanding rash, recent tick exposure, fever, or any medical concern,
+        please consult a qualified healthcare professional.
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -566,7 +536,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
   <script>
@@ -581,22 +550,19 @@
         key: "rash",
         aliases: ["rash", "lyme_like", "lyme-like rash pattern", "lyme_like rash", "Rash"],
         label: "Lyme-like rash pattern",
-        barClass: "bar-rash",
-        levelClass: "level-rash"
+        barClass: "bar-rash"
       },
       {
         key: "confuser",
         aliases: ["confuser", "ring_like_confuser", "similar-looking rash pattern", "Confuser"],
         label: "Similar-looking rash pattern",
-        barClass: "bar-confuser",
-        levelClass: "level-confuser"
+        barClass: "bar-confuser"
       },
       {
         key: "other",
         aliases: ["other skin", "other_skin_condition", "other skin pattern", "other_skin", "Other skin"],
         label: "Other skin pattern",
-        barClass: "bar-other",
-        levelClass: "level-other"
+        barClass: "bar-other"
       }
     ];
 
@@ -626,16 +592,9 @@
           key: cfg.key,
           label: cfg.label,
           barClass: cfg.barClass,
-          levelClass: cfg.levelClass,
           probability: found ? found.probability : 0
         };
       });
-    }
-
-    function qualitativeLabel(value) {
-      if (value >= 0.70) return "Strong match";
-      if (value >= 0.40) return "Possible match";
-      return "Low match";
     }
 
     function finalInterpretation(items) {
@@ -757,11 +716,9 @@
 
         items.forEach(item => {
           const height = Math.max(item.probability * 100, 6);
-          const level = qualitativeLabel(item.probability);
 
           chartHtml += `
             <div class="bar-col">
-              <div class="bar-level ${item.levelClass}">${level}</div>
               <div class="bar-track-vertical">
                 <div class="bar-fill-vertical ${item.barClass}" style="height:${height}%"></div>
               </div>
@@ -772,13 +729,13 @@
 
         resultBox.className = "result-ready";
         resultBox.innerHTML = `
-          <div class="result-kicker">${summary.kicker}</div>
-
           <div class="chart-wrap">
             <div class="chart-grid">
               ${chartHtml}
             </div>
           </div>
+
+          <div class="result-kicker">${summary.kicker}</div>
 
           <div class="result-explain">
             ${summary.text}
@@ -798,7 +755,10 @@
               <span>Other skin pattern</span>
             </div>
           </div>
- 
+
+          <div class="note">
+            Bar height reflects the model's internal visual-match score. The displayed categories are qualitative and should not be interpreted as medical probability.
+          </div>
         `;
       } catch (error) {
         resultBox.className = "";
@@ -811,6 +771,6 @@
       }
     }
   </script>
-
 </body>
 </html>
+```
