@@ -291,11 +291,11 @@
     }
 
     .chart-grid {
-      height: 320px;
+      height: 315px;
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
-      gap: 22px;
+      gap: 24px;
       padding: 8px 8px 0;
     }
 
@@ -310,23 +310,34 @@
       gap: 10px;
     }
 
-    .bar-name {
-      align-self: start;
-      font-size: 14px;
+    .bar-level {
+      font-size: 13px;
       font-weight: 900;
-      color: #1e293b;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
       text-align: center;
-      line-height: 1.25;
-      min-height: 38px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
+      min-width: 100px;
+      align-self: start;
+    }
+
+    .level-rash {
+      color: var(--rash-dark);
+    }
+
+    .level-confuser {
+      color: var(--confuser-dark);
+    }
+
+    .level-other {
+      color: var(--other-dark);
     }
 
     .bar-track-vertical {
       align-self: end;
       width: 88px;
-      height: 210px;
+      height: 205px;
       border-radius: 22px;
       background: #e9eef4;
       display: flex;
@@ -363,27 +374,17 @@
       background: linear-gradient(180deg, #cbd5e1, #64748b, #334155);
     }
 
-    .bar-level {
-      font-size: 13px;
+    .bar-name {
+      font-size: 14px;
       font-weight: 900;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      color: #1e293b;
       text-align: center;
-      min-width: 100px;
-    }
-
-    .level-rash {
-      color: var(--rash-dark);
-    }
-
-    .level-confuser {
-      color: var(--confuser-dark);
-    }
-
-    .level-other {
-      color: var(--other-dark);
+      line-height: 1.25;
+      min-height: 38px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      margin-top: 2px;
     }
 
     .result-explain {
@@ -471,11 +472,26 @@
 
       .chart-grid {
         height: 280px;
+        gap: 12px;
+      }
+
+      .bar-col {
+        min-width: 88px;
       }
 
       .bar-track-vertical {
         width: 68px;
         height: 170px;
+      }
+
+      .bar-name {
+        font-size: 12px;
+      }
+
+      .bar-level {
+        font-size: 12px;
+        min-width: 86px;
+        padding: 5px 8px;
       }
     }
   </style>
@@ -748,11 +764,11 @@
 
           chartHtml += `
             <div class="bar-col">
-              <div class="bar-name">${item.label}</div>
+              <div class="bar-level ${item.levelClass}">${level}</div>
               <div class="bar-track-vertical">
                 <div class="bar-fill-vertical ${item.barClass}" style="height:${height}%"></div>
               </div>
-              <div class="bar-level ${item.levelClass}">${level}</div>
+              <div class="bar-name">${item.label}</div>
             </div>
           `;
         });
