@@ -617,29 +617,42 @@
          rel="noopener"
          class="btn btn-primary">Find Nearby Care</a>
     </div>
-  </div>
+  </div> 
+.tick-image-band {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 0.45fr 0.85fr 1.25fr;
+  gap: 22px;
+  align-items: stretch;
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+}
 
-  <div class="tick-image-band">
-    <img src="/assets/images/VisualAI.png" alt="Visual AI">
-    <!-- <img src="/assets/images/blacklegged_ticks.png" alt="Blacklegged ticks educational image">
-    <div class="tick-awareness-copy">
-      <h3>Tick bite awareness</h3>
-      <p>
-        Use the weekly alert map as an awareness layer for prevention planning.
-        Check for ticks after outdoor activity, monitor possible rash or flu-like symptoms,
-        and seek professional care when symptoms appear after a tick bite.
-      </p>
-    </div> -->
-    <div class="rash-check-card">
-      <h3> Visual AI Rash Insight</h3>
-      <p>
-        Upload a skin image to screen visual rash patterns using a browser-based AI image model.
-      </p>
-      <a href="teachablemachine.html" class="btn btn-primary">
-        Try Rash Pattern Check
-      </a>
-    </div> 
-  </div>
+.visual-ai-card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(126,231,135,0.18);
+  background: rgba(255,255,255,0.08);
+} 
+<div class="rash-check-card">
+  <img src="/assets/images/VisualAI.png" alt="Visual AI rash pattern analysis" class="visual-ai-card-img">
+
+  <h3>Visual Rash Screening</h3>
+  <p>
+    Upload a skin image and let Visual AI compare its pattern with Lyme-like,
+    similar-looking, and other skin-pattern examples.
+  </p>
+  <a href="teachablemachine.html" class="btn btn-primary">
+    Try Rash Pattern Check
+  </a>
+</div> 
 
   <div class="note-box">
     <strong>Public-health note:</strong>
