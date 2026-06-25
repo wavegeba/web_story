@@ -764,7 +764,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  function renderCountyList(items) {
+  function renderCountyList(items, reportDateText) {
     if (!countyList) return;
 
     if (!items || items.length === 0) {
@@ -805,7 +805,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (countyPanelTitle) {
-      countyPanelTitle.textContent = "Latest weekly high-risk counties (" + items.length + ")";
+      const dateText = reportDateText ? " • Data date: " + reportDateText : "";
+      countyPanelTitle.textContent = "Latest weekly high-risk counties (" + items.length + ")" + dateText;
     }
   }
 
@@ -858,6 +859,49 @@ document.addEventListener("DOMContentLoaded", function() {
 
     return [...new Set(tableItems)];
   }
+  
+ function formatReportDate(value) {
+  const text = cleanText(value);
+  const match = text.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
+
+  if (!match) return text;
+
+  const year = match[1];
+  const month = String(match[2]).padStart(2, "0");
+  const day = String(match[3]).padStart(2, "0");
+
+  return `${year}.${month}.${day}`;
+}
+
+function extractReportDateFromReport(doc) {
+  const metaDate = doc.querySelector('meta[name="report-date"]');
+
+  if (metaDate && metaDate.getAttribute("content")) {
+    return formatReportDate(metaDate.getAttribute("content"));
+  }
+
+  const dateElement =
+    doc.getElementById("reportDate") ||
+    doc.querySelector(".report-date") ||
+    doc.querySelector("[data-report-date]");
+
+  if (dateElement) {
+    const dateValue =
+      dateElement.getAttribute("data-report-date") ||
+      dateElement.textContent;
+
+    return formatReportDate(dateValue);
+  }
+
+  const bodyText = cleanText(doc.body ? doc.body.textContent : "");
+  const dateMatch = bodyText.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
+
+  if (dateMatch) {
+    return formatReportDate(dateMatch[0]);
+  }
+
+  return "";
+} 
 
   async function loadCountyList() {
     if (!countyPanel || !countyList) return;
@@ -874,8 +918,9 @@ document.addEventListener("DOMContentLoaded", function() {
       const htmlText = await response.text();
       const latestDoc = new DOMParser().parseFromString(htmlText, "text/html");
       const counties = extractCountyListFromReport(latestDoc);
-
-      renderCountyList(counties);
+      const reportDateText = extractReportDateFromReport(latestDoc);
+      
+      renderCountyList(counties, reportDateText);
     } catch (error) {
       countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
       if (countyToggleBtn) countyToggleBtn.style.display = "none";
