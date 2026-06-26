@@ -1115,7 +1115,7 @@ if (reports.length === 0) {
 if (reports[0] && reports[0].date && countyPanelTitle) {
   const baseTitle = countyPanelTitle.textContent.replace(/ • Data date:.*/, "");
   countyPanelTitle.textContent =
-    baseTitle + " • Data date: " + formatReportDate(reports[0].date);
+    baseTitle + " • " + formatReportDate(reports[0].date);
 }
 
 archiveList.innerHTML = reports.map(function(report) {
