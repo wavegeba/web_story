@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>GEBA Internship Program | GeoAI & Data Science</title>
+  <meta name="description" content="GEBA GeoAI and Data Science Internship Program for high school and university students. A 12-week learning experience in data science, GeoAI, remote sensing, coding, and team project development." />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #06120f;
+      color: #eaf5ef;
+      line-height: 1.6;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 10px 3.5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      background: rgba(3, 13, 20, 0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo-img {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    nav a {
+      color: #eaf5ef;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    nav a:hover { color: #7ee787; }
+
+    .hero {
+      padding: 130px 7% 70px;
+      background:
+        linear-gradient(90deg, rgba(3,12,18,0.94), rgba(3,12,18,0.70), rgba(3,12,18,0.45)),
+        radial-gradient(circle at top right, rgba(126,231,135,0.20), transparent 42%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .kicker {
+      color: #7ee787;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4.6vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 18px;
+      max-width: 900px;
+    }
+
+    .lead {
+      max-width: 860px;
+      color: #b9cfc2;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      font-weight: 600;
+      margin-bottom: 26px;
+    }
+
+    .hero-image,
+    .image-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+    }
+
+    .hero-image img,
+    .image-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    .btn-primary {
+      background: #7ee787;
+      color: #06120f;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.55);
+      color: #ffffff;
+    }
+
+    section {
+      padding: 72px 7%;
+      background: #06120f;
+    }
+
+    section.light {
+      background: #f6faf7;
+      color: #102018;
+    }
+
+    .section-header {
+      max-width: 950px;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      color: #7ee787;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    .light .section-kicker { color: #226b35; }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 3.1rem);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: #b9cfc2;
+      font-size: 1.03rem;
+      max-width: 900px;
+    }
+
+    .light .section-text { color: #46584e; }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .highlight {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #dbe9e0;
+      font-weight: 700;
+    }
+
+    .light .highlight {
+      background: #ffffff;
+      color: #183325;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .week-card {
+      display: grid;
+      grid-template-columns: 0.38fr 1.62fr;
+      gap: 20px;
+      align-items: center;
+      padding: 18px;
+      border-radius: 18px;
+      background: #ffffff;
+      color: #102018;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.08);
+    }
+
+    .week-card img {
+      width: 100%;
+      border-radius: 14px;
+      display: block;
+      background: #edf7f0;
+    }
+
+    .week-card h3 {
+      color: #0b3b25;
+      margin-bottom: 8px;
+      font-size: 1.12rem;
+    }
+
+    .week-card p {
+      color: #46584e;
+      margin-bottom: 10px;
+    }
+
+    .week-card a {
+      color: #0b5a2a;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .week-card a:hover {
+      text-decoration: underline;
+    }
+
+    .note-box {
+      margin-top: 26px;
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(126,231,135,0.10);
+      border: 1px solid rgba(126,231,135,0.22);
+      color: #dbe9e0;
+    }
+
+    .contact-box {
+      padding: 28px;
+      border-radius: 22px;
+      background: #0b281d;
+      color: #ffffff;
+    }
+
+    .contact-box a {
+      color: #7ee787;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    footer {
+      padding: 34px 7%;
+      background: #030907;
+      color: #9fb5a8;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1000px) {
+      .hero-grid,
+      .program-grid,
+      .week-card {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      nav { display: none; }
+      .logo-img { height: 38px; }
+
+      .highlight-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="/" class="logo-link" aria-label="GEBA Consulting Home">
+    <img src="/assets/logo/logo0.png" alt="GEBA Consulting LLC" class="logo-img">
+  </a>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="#program">12-Week Program</a>
+    <a href="#history">2026 History</a>
+    <a href="#projects">Student Apps</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="kicker">GeoAI & Data Science Internship</div>
+      <h1>GEBA Internship Program</h1>
+      <p class="lead">
+        A practical internship experience for high school and university students interested in GeoAI,
+        data science, remote sensing, coding, environmental intelligence, and real-world project development.
+      </p>
+
+      <div class="buttons">
+        <a href="#program" class="btn btn-primary">View 12-Week Program</a>
+        <a href="#history" class="btn btn-secondary">2026 Internship History</a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img src="/assets/images/GEBA_Internship.png" alt="GEBA GeoAI and Data Science Internship Program">
+    </div>
+  </div>
+</main>
+
+<section id="program" class="light">
+  <div class="section-header">
+    <div class="section-kicker">12-Week Learning Path</div>
+    <h2 class="section-title">From curiosity to real-world GeoAI projects</h2>
+    <p class="section-text">
+      The GEBA internship introduces students to data thinking, coding practice, GeoAI concepts,
+      remote sensing applications, and team-based project development through a 12-week learning structure.
+    </p>
+  </div>
+
+  <div class="program-grid">
+    <div class="image-card">
+      <img src="/assets/images/Internship12weeks.png" alt="GEBA 12-week internship schedule">
+    </div>
+
+    <div>
+      <div class="highlight-grid">
+        <div class="highlight">Weeks 1–2<br>Data curiosity, self-discovery, and icebreaker analytics</div>
+        <div class="highlight">Weeks 3–4<br>Linear regression, observation, recording, and prediction</div>
+        <div class="highlight">Weeks 5–6<br>Machine learning, AI tools, and simple model practice</div>
+        <div class="highlight">Weeks 7–8<br>GeoAI, maps, environmental data, and remote sensing concepts</div>
+        <div class="highlight">Weeks 9–12<br>Team project, app development, presentation, and reflection</div>
+      </div>
+
+      <div class="note-box" style="color:#183325; background:#edf7f0; border-color:rgba(34,107,53,0.18);">
+        The program is designed to make data science approachable by connecting everyday questions,
+        environmental observations, and practical coding exercises.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="history">
+  <div class="section-header">
+    <div class="section-kicker">2026 Internship History</div>
+    <h2 class="section-title">Weekly activities, learning moments, and project progress</h2>
+    <p class="section-text">
+      This section will document the 2026 GEBA internship journey with weekly photos,
+      short descriptions, student learning activities, and project milestones.
+    </p>
+  </div>
+
+  <div class="timeline">
+    <div class="week-card">
+      <img src="/assets/images/internship-week-placeholder.png" alt="GEBA internship week 1 placeholder">
+      <div>
+        <h3>Week 1 — Orientation and data curiosity</h3>
+        <p>
+          Students are introduced to GEBA, GeoAI, data science thinking, and simple questions that can become data.
+          Weekly photo and activity notes will be added here.
+        </p>
+      </div>
+    </div>
+
+    <div class="week-card">
+      <img src="/assets/images/internship-week-placeholder.png" alt="GEBA internship week 2 placeholder">
+      <div>
+        <h3>Week 2 — Icebreaker data and simple analysis</h3>
+        <p>
+          Students explore how personal interests, preferences, and light survey questions can become structured data
+          for simple visualization and interpretation.
+        </p>
+      </div>
+    </div>
+
+    <div class="week-card">
+      <img src="/assets/images/internship-week-placeholder.png" alt="GEBA internship project placeholder">
+      <div>
+        <h3>Future weeks — Coding, GeoAI, and team project</h3>
+        <p>
+          Weekly photos, coding practice, project screenshots, and student-developed app links will be added as the internship progresses.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="light">
+  <div class="section-header">
+    <div class="section-kicker">Student Project Apps</div>
+    <h2 class="section-title">Future student-developed apps and project links</h2>
+    <p class="section-text">
+      As students build team projects, this section will link to simple web apps, maps, notebooks,
+      dashboards, or GeoAI demonstrations developed during the internship.
+    </p>
+  </div>
+
+  <div class="contact-box">
+    <h3>Coming soon</h3>
+    <p>
+      Student project app links will be added here after the team project phase begins.
+    </p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header">
+    <div class="section-kicker">Contact</div>
+    <h2 class="section-title">Internship inquiries</h2>
+    <p class="section-text">
+      For internship questions, collaboration, or student participation inquiries, contact GEBA Consulting LLC.
+    </p>
+  </div>
+
+  <div class="contact-box">
+    <p>Email: <a href="mailto:info@gebaconsulting.com">info@gebaconsulting.com</a></p>
+    <p>Website: <a href="https://gebaconsulting.com">gebaconsulting.com</a></p>
+    <p>Location: Vienna, Virginia, USA</p>
+  </div>
+</section>
+
+<footer>
+  © 2026 GEBA LLC. GeoAI & Data Science Internship Program
+</footer>
+
+</body>
+</html>
