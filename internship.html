@@ -64,19 +64,41 @@
 
     nav a:hover { color: #7ee787; }
 
-    .hero {
-      padding: 130px 7% 70px;
-      background:
-        linear-gradient(90deg, rgba(3,12,18,0.94), rgba(3,12,18,0.70), rgba(3,12,18,0.45)),
-        radial-gradient(circle at top right, rgba(126,231,135,0.20), transparent 42%);
-    }
+   .hero {
+  padding: 130px 7% 70px;
+  background:
+    linear-gradient(180deg, rgba(3,12,18,0.96), rgba(3,12,18,0.82), rgba(3,12,18,0.65)),
+    radial-gradient(circle at top right, rgba(126,231,135,0.20), transparent 42%);
+}
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 40px;
-      align-items: center;
-    }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 34px;
+  align-items: center;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.hero-grid > div:first-child {
+  max-width: 900px;
+}
+
+.hero-image {
+  background: #f8faf7;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+}
+
+.hero-image img {
+  width: 100%;
+  display: block;
+  background: #ffffff;
+  border-radius: 18px;
+}
 
     .kicker {
       color: #7ee787;
@@ -367,20 +389,15 @@
     <div class="section-kicker">12-Week Learning Path</div>
     <h2 class="section-title">From curiosity to real-world GeoAI projects</h2>
     <p class="section-text">
-      The GEBA internship introduces students to data thinking, coding practice, GeoAI concepts,
-      remote sensing applications, and team-based project development through a 12-week learning structure.
+      The GEBA internship introduces students to data thinking, coding practice, GeoAI concepts, remote sensing applications, and team-based project development through a 12-week learning structure.
+      The program is designed to make data science approachable by connecting everyday questions, environmental observations, and practical coding exercises.
     </p>
   </div>
 
   <div class="program-grid">
     <div class="image-card">
       <img src="/assets/images/Internship12weeks.png" alt="GEBA 12-week internship schedule">
-    </div>
-      <div class="note-box" style="color:#183325; background:#edf7f0; border-color:rgba(34,107,53,0.18);">
-        The program is designed to make data science approachable by connecting everyday questions,
-        environmental observations, and practical coding exercises.
-      </div>
-    </div>
+ 
   </div>
 </section>
 
