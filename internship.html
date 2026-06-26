@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -64,41 +65,43 @@
 
     nav a:hover { color: #7ee787; }
 
-   .hero {
-  padding: 130px 7% 70px;
-  background:
-    linear-gradient(180deg, rgba(3,12,18,0.96), rgba(3,12,18,0.82), rgba(3,12,18,0.65)),
-    radial-gradient(circle at top right, rgba(126,231,135,0.20), transparent 42%);
-}
+    .hero {
+      padding: 130px 7% 70px;
+      background:
+        linear-gradient(180deg, rgba(3,12,18,0.96), rgba(3,12,18,0.82), rgba(3,12,18,0.65)),
+        radial-gradient(circle at top right, rgba(126,231,135,0.20), transparent 42%);
+    }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 34px;
-  align-items: center;
-  max-width: 1050px;
-  margin: 0 auto;
-}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 34px;
+      align-items: center;
+      max-width: 1050px;
+      margin: 0 auto;
+    }
 
-.hero-grid > div:first-child {
-  max-width: 900px;
-}
+    .hero-grid > div:first-child {
+      max-width: 900px;
+    }
 
-.hero-image {
-  background: #f8faf7;
-  padding: 18px;
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 26px;
-  overflow: hidden;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.24);
-}
+    .hero-image {
+      background: #f8faf7;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 26px;
+      overflow: visible;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+    }
 
-.hero-image img {
-  width: 100%;
-  display: block;
-  background: #ffffff;
-  border-radius: 18px;
-}
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #ffffff;
+      border-radius: 18px;
+      object-fit: contain;
+    }
 
     .kicker {
       color: #7ee787;
@@ -122,21 +125,6 @@
       font-size: clamp(1rem, 1.5vw, 1.15rem);
       font-weight: 600;
       margin-bottom: 26px;
-    }
-
-    .hero-image,
-    .image-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
-    }
-
-    .hero-image img,
-    .image-card img {
-      width: 100%;
-      display: block;
     }
 
     .buttons {
@@ -207,11 +195,32 @@
 
     .light .section-text { color: #46584e; }
 
-    .program-grid {
+    #program .program-grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 34px;
+      grid-template-columns: 1fr;
+      gap: 28px;
       align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    #program .image-card {
+      background: #ffffff;
+      padding: 18px;
+      border-radius: 24px;
+      overflow: visible;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
+
+    #program .image-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      background: #ffffff;
+      border-radius: 16px;
     }
 
     .highlight-grid {
@@ -241,17 +250,7 @@
       gap: 18px;
       margin-top: 26px;
     }
-    #program .image-card {
-      background: #ffffff;
-      padding: 18px;
-    }
-    
-    #program .image-card img {
-      background: #ffffff;
-      display: block;
-      width: 100%;
-      border-radius: 14px;
-    }
+
     .week-card {
       display: grid;
       grid-template-columns: 0.38fr 1.62fr;
@@ -324,7 +323,7 @@
 
     @media (max-width: 1000px) {
       .hero-grid,
-      .program-grid,
+      #program .program-grid,
       .week-card {
         grid-template-columns: 1fr;
       }
@@ -338,11 +337,31 @@
       nav { display: none; }
       .logo-img { height: 38px; }
 
+      .hero {
+        padding: 110px 6% 54px;
+      }
+
+      section {
+        padding: 56px 6%;
+      }
+
       .highlight-grid {
         grid-template-columns: 1fr;
       }
+
+      .hero-image,
+      #program .image-card {
+        padding: 10px;
+        border-radius: 18px;
+      }
+
+      .hero-image img,
+      #program .image-card img {
+        border-radius: 12px;
+      }
     }
   </style>
+
 </head>
 
 <body>
@@ -367,20 +386,23 @@
       <div class="kicker">GeoAI & Data Science Internship</div>
       <h1>GEBA Internship Program</h1>
       <p class="lead">
-  GEBA Internship Program is a practical 8–12 week learning experience offered during the July–October period
-  for high school and university students interested in GeoAI, data science, remote sensing, coding,
-  environmental intelligence, and real-world project development.
+        GEBA Internship Program is a practical 8–12 week learning experience offered during the July–October period
+        for high school and university students interested in GeoAI, data science, remote sensing, coding,
+        environmental intelligence, and real-world project development.
       </p>
 
-      <div class="buttons">
-        <a href="#program" class="btn btn-primary">View 12-Week Program</a>
-        <a href="#history" class="btn btn-secondary">Internship History</a>
-      </div>
-    </div>
+```
+  <div class="buttons">
+    <a href="#program" class="btn btn-primary">View 12-Week Program</a>
+    <a href="#history" class="btn btn-secondary">Internship History</a>
+  </div>
+</div>
 
-    <div class="hero-image">
-      <img src="/assets/images/GEBA_Internship.png" alt="GEBA GeoAI and Data Science Internship Program">
-    </div>
+<div class="hero-image">
+  <img src="/assets/images/GEBA_Internship.png" alt="GEBA GeoAI and Data Science Internship Program">
+</div>
+```
+
   </div>
 </main>
 
@@ -397,7 +419,7 @@
   <div class="program-grid">
     <div class="image-card">
       <img src="/assets/images/Internship12weeks.png" alt="GEBA 12-week internship schedule">
- 
+    </div>
   </div>
 </section>
 
@@ -410,7 +432,8 @@
     </p>
   </div>
 
-  <!-- <div class="timeline">
+  <!--
+  <div class="timeline">
     <div class="week-card">
       <img src="/assets/images/internship-week-placeholder.png" alt="GEBA internship week 1 placeholder">
       <div>
@@ -442,7 +465,9 @@
         </p>
       </div>
     </div>
-    </div> -->
+  </div>
+  -->
+
 </section>
 
 <section id="projects" class="light">
@@ -457,9 +482,11 @@
 
   <div class="contact-box">
     <h3>Coming soon</h3>
-    <!-- <p>
+    <!--
+    <p>
       Student project app links will be added here after the team project phase begins.
-    </p> -->
+    </p>
+    -->
   </div>
 </section>
 
