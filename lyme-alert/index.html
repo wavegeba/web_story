@@ -1116,6 +1116,11 @@ if (reports.length === 0) {
   archiveList.innerHTML = '<div class="archive-item">No weekly HTML reports found yet.</div>';
   return;
 }
+if (reports[0] && reports[0].date && countyPanelTitle) {
+  const baseTitle = countyPanelTitle.textContent.replace(/ • Data date:.*/, "");
+  countyPanelTitle.textContent =
+    baseTitle + " • Data date: " + formatReportDate(reports[0].date);
+}
 
 archiveList.innerHTML = reports.map(function(report) {
   return `
@@ -1137,8 +1142,9 @@ console.error("Weekly report archive loading error:", error);
 
 setupCountyToggle();
 setupCountySearch();
-loadCountyList();
-loadArchiveList();
+loadCountyList().finally(function() {
+  loadArchiveList();
+});
 });
 </script>
 
