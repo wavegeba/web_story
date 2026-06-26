@@ -195,34 +195,31 @@
 
     .light .section-text { color: #46584e; }
 
-    #program .program-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 28px;
-      align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+ .program-image-wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 34px auto 0;
+  padding: 18px;
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
 
-    #program .image-card {
-      background: #ffffff;
-      padding: 18px;
-      border-radius: 24px;
-      overflow: visible;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-    }
-
-    #program .image-card img {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: none;
-      object-fit: contain;
-      background: #ffffff;
-      border-radius: 16px;
-    }
-
+.program-image-wrap img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: auto !important;
+  object-fit: contain !important;
+  object-position: center top !important;
+  background: #ffffff;
+  border-radius: 16px;
+}
     .highlight-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -313,6 +310,25 @@
       text-decoration: none;
       font-weight: 800;
     }
+    .lead-highlight {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-weight: 900;
+    white-space: nowrap;
+    }
+    
+    .lead-highlight.duration {
+    color: #06120f;
+    background: #7ee787;
+    box-shadow: 0 0 18px rgba(126,231,135,0.28);
+    }
+    
+    .lead-highlight.season {
+    color: #06120f;
+    background: #ffd166;
+    box-shadow: 0 0 18px rgba(255,209,102,0.24);
+    }
 
     footer {
       padding: 34px 7%;
@@ -386,12 +402,14 @@
       <div class="kicker">GeoAI & Data Science Internship</div>
       <h1>GEBA Internship Program</h1>
       <p class="lead">
-        GEBA Internship Program is a practical 8–12 week learning experience offered during the July–October period
+        GEBA Internship Program is a practical 
+        <span class="lead-highlight duration">8–12 week</span> learning experience offered during the 
+        <span class="lead-highlight season">July–October</span> period
         for high school and university students interested in GeoAI, data science, remote sensing, coding,
         environmental intelligence, and real-world project development.
       </p>
 
-```
+ 
   <div class="buttons">
     <a href="#program" class="btn btn-primary">View 12-Week Program</a>
     <a href="#history" class="btn btn-secondary">Internship History</a>
@@ -400,8 +418,7 @@
 
 <div class="hero-image">
   <img src="/assets/images/GEBA_Internship.png" alt="GEBA GeoAI and Data Science Internship Program">
-</div>
-```
+</div> 
 
   </div>
 </main>
@@ -416,10 +433,8 @@
     </p>
   </div>
 
-  <div class="program-grid">
-    <div class="image-card">
-      <img src="/assets/images/Internship12weeks.png" alt="GEBA 12-week internship schedule">
-    </div>
+  <div class="program-image-wrap">
+    <img src="/assets/images/Internship12weeks.png" alt="GEBA 12-week internship schedule">
   </div>
 </section>
 
