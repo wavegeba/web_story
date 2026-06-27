@@ -642,7 +642,7 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="brand-row">
-        <a href="https://gebaconsulting.com/lyme-alert/" class="brand" aria-label="GEBA Lyme Alert Home">
+        <a href="https://gebaconsulting.com/alert_app/" class="brand" aria-label="GEBA Lyme Alert Home">
           <div class="brand-mark">AI</div>
           <div>
             <div class="brand-title">Contiguous United States Lyme Alert</div>
@@ -654,47 +654,14 @@
     </header>
 
     <main>
-      <section class="hero-card" aria-label="Weekly Lyme Alert Map Preview"> 
-        <div class="map-preview" role="img" aria-label="Preview of GEBA Lyme alert map">
-        <div class="map-overlay">
-      <a class="open-map-btn"
-       href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-       target="_blank"
-       rel="noopener noreferrer"
-       onclick="openGEEMapExternal(event)">
-      Open Interactive Map
-      <span class="map-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-          <path d="M3 6.5L8 4L16 6.5L21 4V17.5L16 20L8 17.5L3 20V6.5Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linejoin="round"/>
-          <path d="M8 4V17.5M16 6.5V20"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"/>
-        </svg>
-      </span>
-    </a>
-        </div>
-        </div>
-      </section>
-
-      <div class="section-label">
-        <h2>App Tools</h2>
-        <span>Tap a card to open</span>
-      </div>
-
+      
      <section class="card-grid" aria-label="Lyme Alert app tools">
   <div class="feature-card counties">
     <a class="tool-image-link"
-       href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-       target="_blank"
-       rel="noopener noreferrer"
-       onclick="openGEEMapExternal(event)"
-       aria-label="Open GeoAI and TrendAI map">
-      <img src="/assets/images/app_geoai_trendai_map.png"
-           alt="GeoAI and TrendAI map figure"
+       href="#high-risk-counties"
+       aria-label="Open latest high-risk counties list">
+      <img src="/assets/images/app_high_risk_counties.png"
+           alt="Latest high-risk counties list figure"
            class="tool-figure">
     </a>
     <h3>Latest High-Risk Counties</h3>
@@ -725,18 +692,18 @@
     <!-- <p>Rash pattern check using visual similarity screening only.</p> -->
   </div>
 
-<div class="feature-card geoai">
-  <a class="tool-image-link"
-     href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-     target="_blank"
-      rel="noopener noreferrer"
-     rel="noopener"
-     aria-label="Open GeoAI and TrendAI map">
-    <img src="/assets/images/app_geoai_trendai_map.png"
-         alt="GeoAI and TrendAI map figure"
-         class="tool-figure">
-  </a>
-  <h3>GeoAI · TrendAI Interactive Map</h3>
+  <div class="feature-card geoai">
+    <a class="tool-image-link"
+       href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
+       target="_blank"
+       rel="noopener noreferrer"
+       onclick="openGEEMapExternal(event)"
+       aria-label="Open GeoAI and TrendAI map">
+      <img src="/assets/images/app_geoai_trendai_map.png"
+           alt="GeoAI and TrendAI map figure"
+           class="tool-figure">
+    </a>
+    <h3>GeoAI · TrendAI Interactive Map</h3>
     <!-- <p>Explore the interactive weekly Lyme alert map surface.</p> -->
   </div>
 
