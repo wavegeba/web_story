@@ -654,8 +654,38 @@
     </header>
 
     <main>
-      
-     <section class="card-grid" aria-label="Lyme Alert app tools">
+      <section class="hero-card" aria-label="Weekly Lyme Alert Map Preview"> 
+    <div class="map-preview" role="img" aria-label="Preview of GEBA Lyme alert map">
+      <div class="map-overlay">
+        <a class="open-map-btn"
+           href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
+           target="_blank"
+           rel="noopener noreferrer"
+           onclick="openGEEMapExternal(event)">
+          Open Interactive Map
+          <span class="map-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+              <path d="M3 6.5L8 4L16 6.5L21 4V17.5L16 20L8 17.5L3 20V6.5Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linejoin="round"/>
+              <path d="M8 4V17.5M16 6.5V20"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-label">
+    <h2>App Tools</h2>
+    <span>Tap a card to open</span>
+  </div>
+ 
+   <section class="card-grid" aria-label="Lyme Alert app tools">
   <div class="feature-card counties">
     <a class="tool-image-link"
        href="#high-risk-counties"
