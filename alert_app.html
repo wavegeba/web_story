@@ -1188,16 +1188,16 @@
 
         isShowingAllCounties = false;
 
-        renderCountyList(allCounties.slice(0, 30));
+        renderCountyList(allCounties.slice(0, 10));
         updateCountyCount(
           allCounties.length,
-          reportDate ? `latest loaded · ${reportDate}` : "latest loaded"
+          reportDate ? `Updated ${reportDate}` : "latest loaded"
         );
 
         const showAll = document.getElementById("show-all-counties");
 
         if (showAll) {
-          showAll.textContent = allCounties.length > 30 ? "Show all" : "Showing all";
+          showAll.textContent = allCounties.length > 10 ? "Show all" : "Showing all";
         }
       } catch (error) {
         console.error("County list loading error:", error);
@@ -1216,8 +1216,8 @@
 
         if (!query) {
           isShowingAllCounties = false;
-          renderCountyList(allCounties.slice(0, 30));
-          updateCountyCount(allCounties.length, allCounties.length ? "showing top 30" : "no data");
+          renderCountyList(allCounties.slice(0, 10));
+          updateCountyCount(allCounties.length, allCounties.length ? "showing top 10" : "no data");
           showAll.textContent = "Show all";
           return;
         }
@@ -1238,8 +1238,8 @@
 
         if (isShowingAllCounties) {
           isShowingAllCounties = false;
-          renderCountyList(allCounties.slice(0, 30));
-          updateCountyCount(allCounties.length, allCounties.length ? "showing top 30" : "no data");
+          renderCountyList(allCounties.slice(0, 10));
+          updateCountyCount(allCounties.length, allCounties.length ? "showing top 10" : "no data");
           showAll.textContent = "Show all";
         } else {
           isShowingAllCounties = true;
