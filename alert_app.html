@@ -876,24 +876,43 @@
   <script>
       const geeMapUrl = "https://ssucrg.projects.earthengine.app/view/weeklyalert";
 
-  function openGEEMapExternal(event) {
-    if (event) event.preventDefault();
+function openGEEMapExternal(event) {
+  if (event) event.preventDefault();
 
-    const isAndroid = /Android/i.test(navigator.userAgent);
+  const ua = navigator.userAgent || "";
+  const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
-    if (isAndroid) {
-      const cleanUrl = geeMapUrl.replace(/^https?:\/\//, "");
-      const fallbackUrl = encodeURIComponent(geeMapUrl);
+  if (isAndroid) {
+    const cleanUrl = geeMapUrl.replace(/^https?:\/\//, "");
+    const fallbackUrl = encodeURIComponent(geeMapUrl);
 
-      window.location.href =
-        "intent://" + cleanUrl +
-        "#Intent;scheme=https;package=com.android.chrome;" +
-        "S.browser_fallback_url=" + fallbackUrl + ";end";
-    } else {
-      window.open(geeMapUrl, "_blank", "noopener,noreferrer");
-    }
+    window.location.href =
+      "intent://" + cleanUrl +
+      "#Intent;scheme=https;package=com.android.chrome;" +
+      "S.browser_fallback_url=" + fallbackUrl + ";end";
+
+    return;
   }
 
+  if (isIOS) {
+    const opened = window.open(geeMapUrl, "_blank", "noopener,noreferrer");
+
+    setTimeout(() => {
+      if (!opened) {
+        window.location.href = geeMapUrl;
+      }
+    }, 250);
+
+    return;
+  }
+
+  const opened = window.open(geeMapUrl, "_blank", "noopener,noreferrer");
+
+  if (!opened) {
+    window.location.href = geeMapUrl;
+  }
+}
   const latestReportUrl = "/lyme-alert/weekly/weekly-lyme-alert-latest.html";
     const latestReportUrl = "/lyme-alert/weekly/weekly-lyme-alert-latest.html";
     const latestArchiveApiUrl = "https://api.github.com/repos/wavegeba/web_story/contents/lyme-alert/weekly?ref=main";
