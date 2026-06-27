@@ -114,15 +114,6 @@
     white-space: nowrap;
   }
 
-  .brand-owner {
-    margin-top: 2px;
-    color: rgba(235,246,255,0.62);
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    white-space: nowrap;
-  }
-
   .status-pill {
     border: 1px solid rgba(126,231,135,0.35);
     background: rgba(126,231,135,0.12);
@@ -538,7 +529,12 @@
     font-size: 0.76rem;
     font-weight: 700;
   }
-
+  .map-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2px;
+  }
   footer {
     padding: 22px 8px 6px;
     text-align: center;
@@ -650,8 +646,7 @@
           <div class="brand-mark">AI</div>
           <div>
             <div class="brand-title">Contiguous United States Lyme Alert</div>
-            <div class="brand-subtitle">GeoAI • TrendAI • VisionAI</div>
-            <div class="brand-owner">Operated by GEBA LLC</div>
+            <div class="brand-subtitle">GeoAI • TrendAI • VisionAI · GEBA LLC </div> 
           </div>
         </a>
         <div class="status-pill">Weekly Lyme Alert</div>
@@ -662,12 +657,24 @@
       <section class="hero-card" aria-label="Weekly Lyme Alert Map Preview"> 
         <div class="map-preview" role="img" aria-label="Preview of GEBA Lyme alert map">
         <div class="map-overlay">
-        <a class="open-map-btn"
-           href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-           target="_self"
-           rel="noopener">
-          Open Interactive Map <span>→</span>
-        </a>
+      <a class="open-map-btn"
+         href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
+         target="_self"
+         rel="noopener">
+        Open Interactive Map
+        <span class="map-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+            <path d="M3 6.5L8 4L16 6.5L21 4V17.5L16 20L8 17.5L3 20V6.5Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linejoin="round"/>
+            <path d="M8 4V17.5M16 6.5V20"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
         </div>
         </div>
       </section>
@@ -724,7 +731,7 @@
          alt="GeoAI and TrendAI map figure"
          class="tool-figure">
   </a>
-  <h3>GeoAI · TrendAI Map</h3>
+  <h3>GeoAI · TrendAI Interactive Map</h3>
     <!-- <p>Explore the interactive weekly Lyme alert map surface.</p> -->
   </div>
 
