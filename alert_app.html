@@ -559,7 +559,115 @@
       .map-preview {
         min-height: 245px;
       }
+.tool-image-link {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
 
+.tool-image-link:active {
+  transform: scale(0.985);
+}
+
+.tool-image-link:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.tool-figure {
+  display: block;
+  width: 100%;
+  height: 82px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.18);
+  margin-bottom: 10px;
+}
+
+.feature-card {
+  min-height: 168px;
+  border-radius: 22px;
+  padding: 15px;
+  background: linear-gradient(180deg, var(--card2), var(--card));
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.22);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+  gap: 8px;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  right: -38px;
+  top: -38px;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.18;
+}
+
+.feature-card h3 {
+  position: relative;
+  z-index: 2;
+  font-size: 1rem;
+  line-height: 1.18;
+  margin-bottom: 7px;
+}
+
+.feature-card p {
+  position: relative;
+  z-index: 2;
+  color: var(--muted);
+  font-size: 0.77rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.wide-card {
+  grid-column: 1 / -1;
+  min-height: 150px;
+  display: grid;
+  grid-template-columns: 145px 1fr;
+  align-items: center;
+  gap: 14px;
+}
+
+.wide-card .tool-figure {
+  height: 112px;
+  margin-bottom: 0;
+}
+
+.counties { --accent: var(--orange); }
+.archive { --accent: var(--cyan); }
+.vision { --accent: var(--purple); }
+.geoai { --accent: var(--cyan); }
+.info { --accent: var(--green); }
+
+@media (max-width: 430px) {
+  .tool-figure {
+    height: 72px;
+    border-radius: 14px;
+  }
+
+  .wide-card {
+    grid-template-columns: 104px 1fr;
+    min-height: 130px;
+  }
+
+  .wide-card .tool-figure {
+    height: 94px;
+  }
+}
       .card-grid {
         gap: 10px;
       }
@@ -631,15 +739,15 @@
             <div class="brand-subtitle">GeoAI • TrendAI • VisionAI</div>
           </div>
         </a>
-        <div class="status-pill">Weekly Alert</div>
+        <div class="status-pill">Weekly Lyme Alert</div>
       </div>
     </header>
 
     <main>
       <section class="hero-card" aria-label="Weekly Lyme Alert Map Preview">
-        <div class="hero-copy">
+        <!-- <div class="hero-copy">
           <div class="kicker">County-level public awareness</div>
-        </div>
+        </div> -->
 
         <div class="map-preview" role="img" aria-label="Preview of GEBA Lyme alert map">
           <div class="map-overlay">
@@ -658,74 +766,71 @@
         <span>Tap a card to open</span>
       </div>
 
-      <section class="card-grid" aria-label="Lyme Alert app tools">
-        <a class="feature-card counties"
-           href="#high-risk-counties"
-           aria-label="Open high-risk county search and list">
-          <div>
-            <img src="/assets/images/app_high_risk_counties.png"
-                 alt="High-risk counties alert figure"
-                 class="tool-figure">
-            <h3>High-Risk Counties</h3>
-            <p>Search and view the latest weekly high-risk county list.</p>
-          </div>
-          <div class="arrow">Open list →</div>
-        </a>
+     <section class="card-grid" aria-label="Lyme Alert app tools">
+  <div class="feature-card counties">
+    <a class="tool-image-link"
+       href="#high-risk-counties"
+       aria-label="Open high-risk county search and list">
+      <img src="/assets/images/app_high_risk_counties.png"
+           alt="High-risk counties alert figure"
+           class="tool-figure">
+    </a>
+    <h3>High-Risk Counties</h3>
+    <p>Search and view the latest weekly high-risk county list.</p>
+  </div>
 
-        <a class="feature-card archive"
-           href="#weekly-archive"
-           aria-label="Open weekly Lyme alert archive">
-          <div>
-            <img src="/assets/images/app_archive.png"
-                 alt="Weekly Lyme alert archive figure"
-                 class="tool-figure">
-            <h3>Archive</h3>
-            <p>Open past weekly Lyme alert reports and updates.</p>
-          </div>
-          <div class="arrow">View archive →</div>
-        </a>
+  <div class="feature-card archive">
+    <a class="tool-image-link"
+       href="#weekly-archive"
+       aria-label="Open weekly Lyme alert archive">
+      <img src="/assets/images/app_archive.png"
+           alt="Weekly Lyme alert archive figure"
+           class="tool-figure">
+    </a>
+    <h3>Archive</h3>
+    <p>Open past weekly Lyme alert reports and updates.</p>
+  </div>
 
-        <a class="feature-card vision"
-           href="https://gebaconsulting.com/lyme-alert/VisionAI.html"
-           aria-label="Open VisionAI rash pattern check">
-          <div>
-            <img src="/assets/images/app_vision_ai.png"
-                 alt="VisionAI rash pattern screening figure"
-                 class="tool-figure">
-            <h3>Vision AI</h3>
-            <p>Rash pattern check using visual similarity screening only.</p>
-          </div>
-          <div class="arrow">Open VisionAI →</div>
-        </a>
+  <div class="feature-card vision">
+    <a class="tool-image-link"
+       href="https://gebaconsulting.com/lyme-alert/VisionAI.html"
+       aria-label="Open VisionAI rash pattern check">
+      <img src="/assets/images/app_vision_ai.png"
+           alt="VisionAI rash pattern screening figure"
+           class="tool-figure">
+    </a>
+    <h3>Vision AI</h3>
+    <p>Rash pattern check using visual similarity screening only.</p>
+  </div>
 
-        <a class="feature-card geoai"
-           href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-           target="_blank"
-           rel="noopener"
-           aria-label="Open GeoAI & TrendAI map">
-          <div>
-            <img src="/assets/images/app_geoai_trendai_map.png"
-                 alt="GeoAI and TrendAI map figure"
-                 class="tool-figure">
-            <h3>GeoAI + TrendAI Map</h3>
-            <p>Explore the interactive weekly Lyme alert map surface.</p>
-          </div>
-          <div class="arrow">Open map →</div>
-        </a>
+  <div class="feature-card geoai">
+    <a class="tool-image-link"
+       href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
+       target="_blank"
+       rel="noopener"
+       aria-label="Open GeoAI and TrendAI map">
+      <img src="/assets/images/app_geoai_trendai_map.png"
+           alt="GeoAI and TrendAI map figure"
+           class="tool-figure">
+    </a>
+    <h3>GeoAI + TrendAI Map</h3>
+    <p>Explore the interactive weekly Lyme alert map surface.</p>
+  </div>
 
-        <a class="feature-card info wide-card"
-           href="#lyme-info"
-           aria-label="Open Lyme information links">
-          <img src="/assets/images/app_lyme_info.png"
-               alt="Lyme information resources figure"
-               class="tool-figure">
-          <div>
-            <h3>Lyme Information</h3>
-            <p>CDC, HHS, video resources, and nearby care links in one panel.</p>
-            <div class="arrow">View resources →</div>
-          </div>
-        </a>
-      </section>
+  <div class="feature-card info wide-card">
+    <a class="tool-image-link"
+       href="#lyme-info"
+       aria-label="Open Lyme information links">
+      <img src="/assets/images/app_lyme_info.png"
+           alt="Lyme information resources figure"
+           class="tool-figure">
+    </a>
+    <div>
+      <h3>Lyme Information</h3>
+      <p>CDC, HHS, video resources, and nearby care links in one panel.</p>
+    </div>
+  </div>
+</section>
 
       <section id="high-risk-counties" class="panel" aria-label="High-risk county search and list">
         <div class="panel-heading">
