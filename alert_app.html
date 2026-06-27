@@ -658,24 +658,24 @@
         <div class="map-preview" role="img" aria-label="Preview of GEBA Lyme alert map">
         <div class="map-overlay">
       <a class="open-map-btn"
-         href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-         target="_blank"
-          rel="noopener noreferrer"
-         rel="noopener">
-        Open Interactive Map
-        <span class="map-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-            <path d="M3 6.5L8 4L16 6.5L21 4V17.5L16 20L8 17.5L3 20V6.5Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"/>
-            <path d="M8 4V17.5M16 6.5V20"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"/>
-          </svg>
-        </span>
-      </a>
+       href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
+       target="_blank"
+       rel="noopener noreferrer"
+       onclick="openGEEMapExternal(event)">
+      Open Interactive Map
+      <span class="map-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <path d="M3 6.5L8 4L16 6.5L21 4V17.5L16 20L8 17.5L3 20V6.5Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="round"/>
+          <path d="M8 4V17.5M16 6.5V20"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"/>
+        </svg>
+      </span>
+    </a>
         </div>
         </div>
       </section>
@@ -687,13 +687,16 @@
 
      <section class="card-grid" aria-label="Lyme Alert app tools">
   <div class="feature-card counties">
-  <a class="tool-image-link"
-     href="#high-risk-counties"
-     aria-label="Open latest high-risk counties">
-    <img src="/assets/images/app_high_risk_counties.png"
-         alt="Latest high-risk counties list figure"
-         class="tool-figure">
-  </a>
+    <a class="tool-image-link"
+       href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
+       target="_blank"
+       rel="noopener noreferrer"
+       onclick="openGEEMapExternal(event)"
+       aria-label="Open GeoAI and TrendAI map">
+      <img src="/assets/images/app_geoai_trendai_map.png"
+           alt="GeoAI and TrendAI map figure"
+           class="tool-figure">
+    </a>
     <h3>Latest High-Risk Counties</h3>
     <!-- <p>Search and view the latest weekly high-risk county list.</p> -->
   </div>
@@ -871,6 +874,27 @@
   </div>
 
   <script>
+      const geeMapUrl = "https://ssucrg.projects.earthengine.app/view/weeklyalert";
+
+  function openGEEMapExternal(event) {
+    if (event) event.preventDefault();
+
+    const isAndroid = /Android/i.test(navigator.userAgent);
+
+    if (isAndroid) {
+      const cleanUrl = geeMapUrl.replace(/^https?:\/\//, "");
+      const fallbackUrl = encodeURIComponent(geeMapUrl);
+
+      window.location.href =
+        "intent://" + cleanUrl +
+        "#Intent;scheme=https;package=com.android.chrome;" +
+        "S.browser_fallback_url=" + fallbackUrl + ";end";
+    } else {
+      window.open(geeMapUrl, "_blank", "noopener,noreferrer");
+    }
+  }
+
+  const latestReportUrl = "/lyme-alert/weekly/weekly-lyme-alert-latest.html";
     const latestReportUrl = "/lyme-alert/weekly/weekly-lyme-alert-latest.html";
     const latestArchiveApiUrl = "https://api.github.com/repos/wavegeba/web_story/contents/lyme-alert/weekly?ref=main";
     let allCounties = [];
