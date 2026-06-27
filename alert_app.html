@@ -745,16 +745,14 @@
 
     <main>
       <section class="hero-card" aria-label="Weekly Lyme Alert Map Preview"> 
-
         <div class="map-preview" role="img" aria-label="Preview of GEBA Lyme alert map">
-          <div class="map-overlay">
-            <a class="open-map-btn"
-               href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-               target="_blank"
-               rel="noopener">
-              Open Interactive Map <span>→</span>
-            </a>
-          </div>
+        <div class="map-overlay">
+          <a class="open-map-btn"
+             href="javascript:void(0);"
+             onclick="openExternalMap('https://ssucrg.projects.earthengine.app/view/weeklyalert')">
+            Open Interactive Map <span>→</span>
+          </a>
+        </div>
         </div>
       </section>
 
@@ -800,15 +798,14 @@
     <!-- <p>Rash pattern check using visual similarity screening only.</p> -->
   </div>
 
-  <div class="feature-card geoai">
-    <a class="tool-image-link"
-       href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-       target="_blank"
-       rel="noopener"
-       aria-label="Open GeoAI and TrendAI map">
-      <img src="/assets/images/app_geoai_trendai_map.png"
-           alt="GeoAI and TrendAI map figure"
-           class="tool-figure">
+<div class="feature-card geoai">
+  <a class="tool-image-link"
+     href="javascript:void(0);"
+     onclick="openExternalMap('https://ssucrg.projects.earthengine.app/view/weeklyalert')"
+     aria-label="Open GeoAI and TrendAI map">
+    <img src="/assets/images/app_geoai_trendai_map.png"
+         alt="GeoAI and TrendAI map figure"
+         class="tool-figure">
     </a>
     <h3>GeoAI + TrendAI Map</h3>
     <!-- <p>Explore the interactive weekly Lyme alert map surface.</p> -->
