@@ -217,4 +217,33 @@
     </main>
     <footer>© 2026 GEBA LLC · GeoAI · TrendAI · VisionAI</footer>
   </div>
+  <script>
+const latestArchiveApiUrl="https://api.github.com/repos/wavegeba/web_story/contents/lyme-alert/weekly?ref=main";
+function escapeHTML(value){return String(value||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
+function makeDateFromFilename(filename){const match=String(filename||"").match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2})\.html$/); if(!match) return ""; return `${match[1]}.${match[2]}.${match[3]}`;}
+function makeTitleFromFilename(filename){const match=String(filename||"").match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2})\.html$/); if(!match) return String(filename||"").replace(".html","").replaceAll("-"," "); return `Weekly Lyme Alert Report (${match[1]}.${match[2]}.${match[3]})`;}
+async function loadArchiveList(){
+  const archiveList=document.getElementById("archive-list");
+  const archiveCount=document.getElementById("archive-count");
+  if(!archiveList||!archiveCount) return;
+  try{
+    const response=await fetch(latestArchiveApiUrl,{cache:"no-store"});
+    if(!response.ok) throw new Error("Could not load GitHub folder list");
+    const files=await response.json();
+    const reports=files.filter(file=>file.type==="file"&&file.name&&file.name.endsWith(".html")&&file.name.startsWith("weekly-lyme-alert-")&&file.name!=="weekly-lyme-alert-latest.html").map(file=>({name:file.name,date:makeDateFromFilename(file.name),title:makeTitleFromFilename(file.name),url:"/lyme-alert/weekly/"+file.name})).filter(report=>report.date).sort((a,b)=>b.date.localeCompare(a.date));
+    if(!reports.length){
+      archiveCount.textContent="0 reports";
+      archiveList.innerHTML='<div class="empty-message">No weekly HTML reports found yet.</div>';
+      return;
+    }
+    archiveCount.textContent=`${reports.length} reports`;
+    archiveList.innerHTML=reports.map(report=>`<a class="archive-item" href="${escapeHTML(report.url)}" aria-label="Open ${escapeHTML(report.title)}"><span>${escapeHTML(report.title)}</span><small>${escapeHTML(report.date)}</small></a>`).join("");
+  }catch(error){
+    console.error("Weekly report archive loading error:",error);
+    archiveCount.textContent="Archive";
+    archiveList.innerHTML=`<a class="archive-item" href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html"><span>Weekly Lyme Alert Report (2026.06.21)</span><small>2026.06.21</small></a>`;
+  }
+}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",loadArchiveList);}else{loadArchiveList();}
+</script>
 </body>
