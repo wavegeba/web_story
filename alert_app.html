@@ -164,8 +164,8 @@
       position: relative;
       min-height: 270px;
       background:
-        linear-gradient(180deg, rgba(7,26,47,0.1), rgba(7,26,47,0.55)),
-        url("/assets/images/Env1_TBDMAP.png");
+        linear-gradient(180deg, rgba(7,26,47,0.02), rgba(7,26,47,0.58)),
+        url("/assets/images/WeeklyAlert.png");
       background-size: cover;
       background-position: center;
       border-top: 1px solid var(--line);
@@ -178,25 +178,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at 58% 42%, rgba(24,216,255,0.34), transparent 12%),
-        radial-gradient(circle at 41% 58%, rgba(245,158,11,0.22), transparent 13%),
-        linear-gradient(90deg, rgba(7,26,47,0.28), rgba(7,26,47,0.04));
-      pointer-events: none;
-    }
-
-    .map-preview::after {
-      content: "";
-      position: absolute;
-      width: 190px;
-      height: 190px;
-      right: 10%;
-      top: 18%;
-      border: 1px solid rgba(24,216,255,0.28);
-      border-radius: 50%;
-      box-shadow:
-        0 0 0 28px rgba(24,216,255,0.045),
-        0 0 0 58px rgba(24,216,255,0.025);
+      background: linear-gradient(180deg, rgba(7,26,47,0.00), rgba(4,16,29,0.42));
       pointer-events: none;
     }
 
@@ -206,26 +188,7 @@
       padding: 16px;
       display: grid;
       gap: 12px;
-      background: linear-gradient(180deg, transparent, rgba(4,16,29,0.88));
-    }
-
-    .map-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .mini-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.10);
-      color: #FFFFFF;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 900;
+      background: linear-gradient(180deg, transparent, rgba(4,16,29,0.90));
     }
 
     .open-map-btn {
@@ -298,7 +261,79 @@
       background: var(--accent);
       opacity: 0.18;
     }
+.resource-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
 
+.resource-card {
+  display: grid;
+  grid-template-columns: 76px 1fr auto;
+  align-items: center;
+  gap: 13px;
+  padding: 13px;
+  border-radius: 17px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: var(--text);
+}
+
+.resource-img {
+  width: 76px;
+  height: 76px;
+  border-radius: 15px;
+  background: #ffffff;
+  object-fit: contain;
+  padding: 8px;
+}
+
+.resource-img.photo {
+  object-fit: cover;
+  padding: 0;
+}
+
+.resource-title {
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.resource-desc {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.resource-arrow {
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+@media (max-width: 430px) {
+  .resource-card {
+    grid-template-columns: 64px 1fr auto;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .resource-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 13px;
+  }
+
+  .resource-title {
+    font-size: 0.82rem;
+  }
+
+  .resource-desc {
+    font-size: 0.68rem;
+  }
+}
     .feature-card::after {
       content: "";
       position: absolute;
@@ -359,7 +394,7 @@
     .vision { --accent: var(--purple); }
     .info { --accent: var(--green); }
 
-    .quick-info {
+    .panel {
       margin-top: 16px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.07);
@@ -367,9 +402,107 @@
       padding: 16px;
     }
 
-    .quick-info h2 {
+    .panel h2 {
       font-size: 1rem;
+      margin-bottom: 7px;
+    }
+
+    .panel-text {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 650;
+      margin-bottom: 12px;
+    }
+
+    .county-search {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.09);
+      color: var(--text);
+      border-radius: 15px;
+      padding: 13px 14px;
+      font-size: 0.9rem;
+      outline: none;
       margin-bottom: 10px;
+    }
+
+    .county-search::placeholder {
+      color: rgba(235,246,255,0.55);
+    }
+
+    .county-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .show-all-btn {
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .county-list {
+      display: grid;
+      gap: 8px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .county-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .county-name {
+      font-size: 0.87rem;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .county-note {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .risk-badge {
+      white-space: nowrap;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(245,158,11,0.14);
+      border: 1px solid rgba(245,158,11,0.28);
+      color: #FFE2A5;
+      font-size: 0.66rem;
+      font-weight: 900;
+    }
+
+    .empty-message {
+      padding: 13px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
     }
 
     .info-links {
@@ -471,6 +604,11 @@
         border-radius: 14px;
         font-size: 1.18rem;
       }
+
+      .county-item {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -494,20 +632,10 @@
       <section class="hero-card" aria-label="Weekly Lyme Alert Map Preview">
         <div class="hero-copy">
           <div class="kicker">County-level public awareness</div>
-          <h1>Weekly Lyme & Tick Alert</h1>
-          <p class="lead">
-            Check weekly Lyme alert signals, explore county-level risk patterns, and access AI-supported rash-pattern screening.
-          </p>
         </div>
 
         <div class="map-preview" role="img" aria-label="Preview of GEBA Lyme alert map">
           <div class="map-overlay">
-            <div class="map-meta">
-              <span class="mini-pill">🗺️ Map preview</span>
-              <span class="mini-pill">📍 County alert</span>
-              <span class="mini-pill">🤖 GeoAI + TrendAI</span>
-            </div>
-
             <a class="open-map-btn"
                href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
                target="_blank"
@@ -525,12 +653,12 @@
 
       <section class="card-grid" aria-label="Lyme Alert app tools">
         <a class="feature-card counties"
-           href="https://gebaconsulting.com/lyme-alert/#county-list"
-           aria-label="Open high-risk county list">
+           href="#high-risk-counties"
+           aria-label="Open high-risk county search and list">
           <div>
             <div class="icon">⚠️</div>
             <h3>High-Risk Counties</h3>
-            <p>View the latest weekly high-risk county list and alert areas.</p>
+            <p>Search and view the latest weekly high-risk county list.</p>
           </div>
           <div class="arrow">Open list →</div>
         </a>
@@ -539,7 +667,7 @@
            href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
            target="_blank"
            rel="noopener"
-           aria-label="Open GeoAI and TrendAI map">
+           aria-label="Open GeoAI & TrendAI map">
           <div>
             <div class="icon">🗺️</div>
             <h3>GeoAI + TrendAI Map</h3>
@@ -553,8 +681,8 @@
            aria-label="Open VisionAI rash pattern check">
           <div>
             <div class="icon">📷</div>
-            <h3>Rash Pattern Check</h3>
-            <p>Use VisionAI for visual rash-pattern similarity screening only.</p>
+            <h3>Vision AI</h3>
+            <p>Rash pattern check using visual similarity screening only.</p>
           </div>
           <div class="arrow">Open VisionAI →</div>
         </a>
@@ -571,43 +699,94 @@
         </a>
       </section>
 
-      <section id="lyme-info" class="quick-info" aria-label="Lyme information and resources">
-        <h2>Lyme Information</h2>
+      <section id="high-risk-counties" class="panel" aria-label="High-risk county search and list">
+        <h2>High-Risk Counties</h2>
+        <p class="panel-text">
+          Search the latest weekly high-risk county list. The list is loaded from GEBA Lyme Alert data when available.
+        </p>
 
-        <div class="info-links">
-          <a class="info-link"
-             href="https://www.cdc.gov/lyme/"
-             target="_blank"
-             rel="noopener">
-            <span>CDC Lyme Information <small>Symptoms, prevention, testing, and treatment</small></span>
-            <span>→</span>
-          </a>
+        <input
+          id="county-search"
+          class="county-search"
+          type="search"
+          placeholder="Search county or state..."
+          aria-label="Search high-risk counties"
+        />
 
-          <a class="info-link"
-             href="https://www.hhs.gov/ash/advisory-committees/tickbornedisease/index.html"
-             target="_blank"
-             rel="noopener">
-            <span>HHS Tick-Borne Disease Resources <small>Federal information for patients and families</small></span>
-            <span>→</span>
-          </a>
+        <div class="county-tools">
+          <span id="county-count">Loading county list...</span>
+          <button type="button" id="show-all-counties" class="show-all-btn">Show all</button>
+        </div>
 
-          <a class="info-link"
-             href="https://www.youtube.com/results?search_query=lyme+disease+symptoms+tick+bite+rash"
-             target="_blank"
-             rel="noopener">
-            <span>Lyme Symptoms Video <small>Videos about rash signs, tick bites, and prevention</small></span>
-            <span>→</span>
-          </a>
-
-          <a class="info-link"
-             href="https://www.google.com/search?q=urgent+care+near+me"
-             target="_blank"
-             rel="noopener">
-            <span>Find Nearby Care <small>Search for nearby urgent care or healthcare services</small></span>
-            <span>→</span>
-          </a>
+        <div id="county-list" class="county-list">
+          <div class="empty-message">Loading latest county list...</div>
         </div>
       </section>
+
+ <section id="lyme-info" class="panel" aria-label="Lyme information and resources">
+  <h2>Lyme Information</h2>
+  <p class="panel-text">
+    General public-health resources for Lyme disease, tick bites, rash signs, and care-seeking.
+  </p>
+
+  <div class="resource-grid">
+    <a class="resource-card"
+       href="https://www.cdc.gov/lyme/"
+       target="_blank"
+       rel="noopener">
+      <img src="/assets/images/CDC.png"
+           alt="CDC Lyme disease information"
+           class="resource-img">
+      <div>
+        <div class="resource-title">CDC Lyme Information</div>
+        <div class="resource-desc">Symptoms, prevention, testing, diagnosis, and treatment.</div>
+      </div>
+      <div class="resource-arrow">→</div>
+    </a>
+
+    <a class="resource-card"
+       href="https://www.hhs.gov/ash/advisory-committees/tickbornedisease/index.html"
+       target="_blank"
+       rel="noopener">
+      <img src="/assets/images/HHS.png"
+           alt="HHS tick-borne disease resources"
+           class="resource-img">
+      <div>
+        <div class="resource-title">HHS Tick-Borne Disease Resources</div>
+        <div class="resource-desc">Federal information for patients, families, and public awareness.</div>
+      </div>
+      <div class="resource-arrow">→</div>
+    </a>
+
+    <a class="resource-card"
+       href="https://www.youtube.com/results?search_query=lyme+disease+symptoms+tick+bite+rash"
+       target="_blank"
+       rel="noopener">
+      <img src="/assets/images/BlackleggedTick.png"
+           alt="Blacklegged tick and Lyme symptoms video"
+           class="resource-img photo">
+      <div>
+        <div class="resource-title">Lyme Symptoms Video</div>
+        <div class="resource-desc">Videos about tick bites, rash signs, symptoms, and prevention.</div>
+      </div>
+      <div class="resource-arrow">→</div>
+    </a>
+
+    <a class="resource-card"
+       href="https://www.google.com/search?q=urgent+care+near+me"
+       target="_blank"
+       rel="noopener">
+      <img src="/assets/images/TickBite.png"
+           alt="Find nearby care after tick bite or rash symptoms"
+           class="resource-img photo">
+      <div>
+        <div class="resource-title">Find Nearby Care</div>
+        <div class="resource-desc">Search for nearby urgent care or healthcare services.</div>
+      </div>
+      <div class="resource-arrow">→</div>
+    </a>
+  </div>
+</section>
 
       <div class="disclaimer">
         GEBA Lyme Alert provides public-awareness and visual-screening information only. It is not a medical diagnosis and cannot confirm or rule out Lyme disease. If you have an expanding rash, recent tick exposure, fever, or other medical concern, consult a qualified healthcare professional.
@@ -618,5 +797,171 @@
       © 2026 GEBA LLC · GeoAI · TrendAI · VisionAI
     </footer>
   </div>
+
+  <script>
+    const countyDataSources = [
+      "/lyme-alert/high-risk-counties.json",
+      "/lyme-alert/latest-counties.json",
+      "/lyme-alert/data/high-risk-counties.json",
+      "/lyme-alert/data/latest-counties.json",
+      "/lyme-alert/assets/data/high-risk-counties.json",
+      "/lyme-alert/assets/data/latest-counties.json"
+    ];
+
+    let allCounties = [];
+
+    function normalizeCountyRecord(item) {
+      if (typeof item === "string") {
+        return {
+          county: item,
+          state: "",
+          risk: "High risk",
+          date: ""
+        };
+      }
+
+      return {
+        county: item.county || item.County || item.county_name || item.name || "",
+        state: item.state || item.State || item.state_abbr || item.ST || "",
+        risk: item.risk || item.alert || item.alert_level || item.level || item.score || "High risk",
+        date: item.date || item.updated || item.week || item.report_date || ""
+      };
+    }
+
+    function extractCountyArray(data) {
+      if (Array.isArray(data)) return data;
+
+      const possibleKeys = [
+        "counties",
+        "highRiskCounties",
+        "high_risk_counties",
+        "latest",
+        "items",
+        "data",
+        "results"
+      ];
+
+      for (const key of possibleKeys) {
+        if (Array.isArray(data[key])) return data[key];
+      }
+
+      return [];
+    }
+
+    async function loadCountyData() {
+      for (const source of countyDataSources) {
+        try {
+          const response = await fetch(source, { cache: "no-store" });
+          if (!response.ok) continue;
+
+          const data = await response.json();
+          const records = extractCountyArray(data)
+            .map(normalizeCountyRecord)
+            .filter(item => item.county);
+
+          if (records.length > 0) {
+            allCounties = records;
+            renderCountyList(allCounties.slice(0, 30));
+            updateCountyCount(allCounties.length, "latest loaded");
+            return;
+          }
+        } catch (error) {
+          console.warn("County data source failed:", source, error);
+        }
+      }
+
+      allCounties = [];
+      renderEmptyCountyMessage();
+    }
+
+    function updateCountyCount(count, label) {
+      const countyCount = document.getElementById("county-count");
+      countyCount.textContent = `${count} counties · ${label}`;
+    }
+
+    function renderCountyList(records) {
+      const list = document.getElementById("county-list");
+
+      if (!records.length) {
+        list.innerHTML = `<div class="empty-message">No counties matched your search.</div>`;
+        return;
+      }
+
+      list.innerHTML = records.map(item => {
+        const location = item.state ? `${item.county}, ${item.state}` : item.county;
+        const note = item.date ? `Updated ${item.date}` : "Weekly Lyme alert list";
+        const risk = String(item.risk || "High risk");
+
+        return `
+          <div class="county-item">
+            <div>
+              <div class="county-name">${escapeHTML(location)}</div>
+              <div class="county-note">${escapeHTML(note)}</div>
+            </div>
+            <div class="risk-badge">${escapeHTML(risk)}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderEmptyCountyMessage() {
+      const list = document.getElementById("county-list");
+      const countyCount = document.getElementById("county-count");
+
+      countyCount.textContent = "County data file not found";
+
+      list.innerHTML = `
+        <div class="empty-message">
+          The app view is ready, but no county JSON file was found yet. Upload one of these files:
+          <br><br>
+          /lyme-alert/high-risk-counties.json<br>
+          /lyme-alert/data/high-risk-counties.json
+        </div>
+      `;
+    }
+
+    function escapeHTML(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function setupCountySearch() {
+      const input = document.getElementById("county-search");
+      const showAll = document.getElementById("show-all-counties");
+
+      input.addEventListener("input", () => {
+        const query = input.value.trim().toLowerCase();
+
+        if (!query) {
+          renderCountyList(allCounties.slice(0, 30));
+          updateCountyCount(allCounties.length, allCounties.length ? "showing top 30" : "no data");
+          return;
+        }
+
+        const filtered = allCounties.filter(item => {
+          const text = `${item.county} ${item.state} ${item.risk} ${item.date}`.toLowerCase();
+          return text.includes(query);
+        });
+
+        renderCountyList(filtered);
+        updateCountyCount(filtered.length, "matched");
+      });
+
+      showAll.addEventListener("click", () => {
+        input.value = "";
+        renderCountyList(allCounties);
+        updateCountyCount(allCounties.length, "showing all");
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setupCountySearch();
+      loadCountyData();
+    });
+  </script>
 </body>
 </html>
