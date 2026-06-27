@@ -1129,8 +1129,8 @@
 
       if (!query) {
         isShowingAllCounties = false;
-        renderCountyList(allCounties.slice(0, 30));
-        updateCountyCount(allCounties.length, allCounties.length ? "showing top 30" : "no data");
+        renderCountyList(allCounties.slice(0, 10));
+        updateCountyCount(allCounties.length, allCounties.length ? "showing top 10" : "no data");
         showAll.textContent = "Show all";
         return;
       }
@@ -1151,8 +1151,8 @@
 
       if (isShowingAllCounties) {
         isShowingAllCounties = false;
-        renderCountyList(allCounties.slice(0, 30));
-        updateCountyCount(allCounties.length, allCounties.length ? "showing top 30" : "no data");
+        renderCountyList(allCounties.slice(0, 10));
+        updateCountyCount(allCounties.length, allCounties.length ? "showing top 10" : "no data");
         showAll.textContent = "Show all";
       } else {
         isShowingAllCounties = true;
