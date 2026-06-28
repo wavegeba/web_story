@@ -237,7 +237,7 @@ function openGEEMapExternal(event){
   }
   if(isIOS){
     const opened=window.open(geeMapUrl,"_blank","noopener,noreferrer");
-    setTimeout(()=>{if(!opened){window.location.href=geeMapUrl;}},250);
+    // setTimeout(()=>{if(!opened){window.location.href=geeMapUrl;}},250);
     return;
   }
   const opened=window.open(geeMapUrl,"_blank","noopener,noreferrer");
