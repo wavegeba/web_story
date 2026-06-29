@@ -45,7 +45,16 @@
       text-decoration: none;
       flex-shrink: 0;
     }
-
+    .stress-game-card { margin-top:18px; padding:16px 18px; border-radius:20px; background:linear-gradient(135deg,rgba(126,231,135,0.10),rgba(255,255,255,0.05)); border:1px solid rgba(126,231,135,0.22); display:grid; grid-template-columns:minmax(0,1fr) 180px; gap:18px; align-items:center; box-shadow:0 16px 36px rgba(0,0,0,0.14); }
+    .stress-game-copy { min-width:0; }
+    .stress-game-copy h3 { color:#7ee787; margin-bottom:6px; font-size:1.05rem; line-height:1.2; }
+    .stress-game-copy p { color:#b9cfc2; font-size:0.88rem; line-height:1.42; margin-bottom:12px; }
+    .stress-game-copy .btn { padding:10px 16px; font-size:0.84rem; }
+    .stress-game-img { width:180px; height:110px; object-fit:cover; object-position:center; display:block; justify-self:end; border-radius:16px; border:1px solid rgba(126,231,135,0.18); background:rgba(255,255,255,0.08); }
+    @media (max-width:700px) {
+      .stress-game-card { grid-template-columns:1fr; gap:12px; padding:16px; }
+      .stress-game-img { width:100%; height:120px; justify-self:stretch; order:-1; }  }
+    
     nav {
       display: flex;
       align-items: center;
@@ -732,13 +741,20 @@ border: 1px solid rgba(217,119,6,0.22);
 </div> 
 
   <div class="stress-game-card">
-  <img src="/assets/images/pestworld.png" alt="PestWorld bug sorting game" class="stress-game-img">
-
   <div class="stress-game-copy">
     <h3>Take a Short Stress Break</h3>
     <p>
       Lyme alerts and health information can feel stressful. Take a short break and play a simple bug-sorting game.
-      Brought to you by the National Pest Management Association.
+    </p>
+    <p class="stress-game-credit">
+      External game hosted by
+      <a href="https://www.pestworldforkids.org/"
+         target="_blank"
+         rel="noopener">
+        PestWorld for Kids
+      </a>,
+      an educational website of the National Pest Management Association (NPMA).
+      GEBA links to this external resource for a brief educational stress break; the game is not a GEBA product.
     </p>
     <a href="https://www.pestworldforkids.org/games/sortthebug/index.html"
        target="_blank"
@@ -746,6 +762,8 @@ border: 1px solid rgba(217,119,6,0.22);
        class="btn btn-primary">
       Play Bug Game
     </a>
+  </div>
+  <img src="/assets/images/pestworld.png" alt="PestWorld bug sorting game" class="stress-game-img">
   </div>
 </div>
   
