@@ -330,7 +330,44 @@
       color: #9fb5a8;
       font-size: 0.9rem;
     }
+@media (max-width: 1000px) {
+  .hero-grid,
+  .week-card {
+    grid-template-columns: 1fr;
+  }
 
+  .highlight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  nav { display: none; }
+  .logo-img { height: 38px; }
+
+  .hero {
+    padding: 110px 6% 54px;
+  }
+
+  section {
+    padding: 56px 6%;
+  }
+
+  .highlight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image,
+  .program-image-wrap {
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .hero-image img,
+  .program-image-wrap img {
+    border-radius: 12px;
+  }
+}
     @media (max-width: 1000px) {
       .hero-grid,
       #program .program-grid,
