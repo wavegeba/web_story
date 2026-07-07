@@ -956,16 +956,37 @@ async function sendGEBAChat() {
       throw new Error(`API error: ${response.status}`);
     }
     const data = await response.json();
-    thinking.textContent =
-      data.reply || "Sorry, GEBA AI is temporarily unavailable.";
-if (data.action === "download" && data.downloadUrl) {
-  const link = document.createElement("a");
-  link.href = data.downloadUrl;
-  link.download = data.filename || "NameCard_GEBA.png";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
+    if (data.action === "button_link" && data.linkUrl) {
+      thinking.textContent = "";
+     const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = data.buttonText || "Open Link";
+    
+      button.onclick = function() {
+        window.open(data.linkUrl, "_blank", "noopener,noreferrer");
+      };
+      button.style.padding = "10px 14px";
+      button.style.border = "none";
+      button.style.borderRadius = "999px";
+      button.style.background = "#1f7a4d";
+      button.style.color = "white";
+      button.style.fontWeight = "800";
+      button.style.cursor = "pointer";
+      button.style.fontSize = "0.9rem";
+      thinking.appendChild(button);
+    } else {
+      thinking.textContent =
+        data.reply || "Sorry, GEBA AI is temporarily unavailable.";
+    }
+    
+    if (data.action === "download" && data.downloadUrl) {
+      const link = document.createElement("a");
+      link.href = data.downloadUrl;
+      link.download = data.filename || "NameCard_GEBA.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
     
   } catch (error) {
     console.error("GEBA chat error:", error);
