@@ -956,50 +956,8 @@ async function sendGEBAChat() {
       throw new Error(`API error: ${response.status}`);
     }
     const data = await response.json();
-    if (data.action === "button_link" && data.linkUrl) {
-     const buttonUrl =
-      data.linkUrl ||
-      data.url ||
-      (
-        data.reply &&
-        data.reply.includes("https://gebaconsulting.com/lyme-alert/")
-          ? "https://gebaconsulting.com/lyme-alert/"
-          : ""
-      );
-    
-    const buttonText =
-      data.buttonText ||
-      data.linkText ||
-      "Open Lyme Alert";
-    
-    if (
-      (data.action === "button_link" || data.action === "link" || buttonUrl) &&
-      buttonUrl
-    ) {
-      thinking.textContent = "";
-    
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = buttonText;
-    
-      button.onclick = function() {
-        window.open(buttonUrl, "_blank", "noopener,noreferrer");
-      };
-    
-      button.style.padding = "10px 14px";
-      button.style.border = "none";
-      button.style.borderRadius = "999px";
-      button.style.background = "#1f7a4d";
-      button.style.color = "white";
-      button.style.fontWeight = "800";
-      button.style.cursor = "pointer";
-      button.style.fontSize = "0.9rem";
-    
-      thinking.appendChild(button);
-    } else {
-      thinking.textContent =
-        data.reply || "Sorry, GEBA AI is temporarily unavailable.";
-    }
+    thinking.textContent =
+      data.reply || "Sorry, GEBA AI is temporarily unavailable.";
     
     if (data.action === "download" && data.downloadUrl) {
       const link = document.createElement("a");
