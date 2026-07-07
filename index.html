@@ -957,14 +957,35 @@ async function sendGEBAChat() {
     }
     const data = await response.json();
     if (data.action === "button_link" && data.linkUrl) {
+     const buttonUrl =
+      data.linkUrl ||
+      data.url ||
+      (
+        data.reply &&
+        data.reply.includes("https://gebaconsulting.com/lyme-alert/")
+          ? "https://gebaconsulting.com/lyme-alert/"
+          : ""
+      );
+    
+    const buttonText =
+      data.buttonText ||
+      data.linkText ||
+      "Open Lyme Alert";
+    
+    if (
+      (data.action === "button_link" || data.action === "link" || buttonUrl) &&
+      buttonUrl
+    ) {
       thinking.textContent = "";
-     const button = document.createElement("button");
+    
+      const button = document.createElement("button");
       button.type = "button";
-      button.textContent = data.buttonText || "Open Link";
+      button.textContent = buttonText;
     
       button.onclick = function() {
-        window.open(data.linkUrl, "_blank", "noopener,noreferrer");
+        window.open(buttonUrl, "_blank", "noopener,noreferrer");
       };
+    
       button.style.padding = "10px 14px";
       button.style.border = "none";
       button.style.borderRadius = "999px";
@@ -973,6 +994,7 @@ async function sendGEBAChat() {
       button.style.fontWeight = "800";
       button.style.cursor = "pointer";
       button.style.fontSize = "0.9rem";
+    
       thinking.appendChild(button);
     } else {
       thinking.textContent =
