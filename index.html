@@ -956,8 +956,23 @@ async function sendGEBAChat() {
       throw new Error(`API error: ${response.status}`);
     }
     const data = await response.json();
-    thinking.textContent =
-      data.reply || "Sorry, GEBA AI is temporarily unavailable.";
+    // thinking.textContent =
+    //   data.reply || "Sorry, GEBA AI is temporarily unavailable.";
+    const botReply = data.reply || "Sorry, GEBA AI is temporarily unavailable.";
+    thinking.textContent = "";
+    if (botReply.startsWith("https://")) {
+      const link = document.createElement("a");
+      link.href = botReply;
+      link.textContent = botReply;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.style.color = "#1f7a4d";
+      link.style.fontWeight = "800";
+      link.style.textDecoration = "underline";
+      thinking.appendChild(link);
+    } else {
+      thinking.textContent = botReply;
+    }    
     
     if (data.action === "download" && data.downloadUrl) {
       const link = document.createElement("a");
