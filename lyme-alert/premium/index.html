@@ -239,7 +239,22 @@
       display: grid;
       gap: 12px;
     }
-
+    .feature-comparison-image {
+      margin-top: 22px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.20);
+      overflow: hidden;
+    }
+    
+    .feature-comparison-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+    }
     .metric {
       padding: 18px;
       border: 1px solid var(--border);
@@ -619,16 +634,8 @@
       </span>
 
     </div>
-
-
     <div class="grid-three">
-
-      <article class="card">
-
-        <span class="icon">
-          🗺️
-        </span>
-
+      <article class="card"> 
         <h3>
           Annual Lyme Case Map
         </h3>
@@ -643,54 +650,40 @@
           Lyme case information, environmental data, and
           GeoAI model outputs.
         </p>
-
       </article>
 
-
       <article class="card">
-
-        <span class="icon">
-          ⚠️
-        </span>
-
         <h3>
           Lyme Alert Map
         </h3>
-
         <p>
           <strong style="color: #edf8f1;">
             1 km resolution
           </strong>
           <br>
-
           Targeted for updates three times per week to support
           timely outdoor-exposure awareness and public-health
           communication.
         </p>
 
       </article>
-
-
       <article class="card">
-
-        <span class="icon">
-          🔎
-        </span>
-
         <h3>
           VisionAI-Assisted Screening
         </h3>
-
         <p>
           Visual rash-pattern screening and educational guidance
           for awareness and referral support. VisionAI does not
           diagnose or rule out Lyme disease.
         </p>
-
       </article>
 
     </div>
-
+<div class="feature-comparison-image">
+  <img
+    src="/assets/images/LymeAlert_1kmVSCounty1.png"
+    alt="Comparison of the 1 km Lyme Alert Map and county-level Lyme Alert Map"
+  >
   </section>
 
 
