@@ -1,815 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Lyme AI-ert Premium </title>
-
-  <meta
-    name="description"
-    content="Lyme AI-ert Premium provides high-resolution Lyme risk maps, frequently updated alert maps, VisionAI-assisted screening, and institutional services for county, state, federal, public-health, medical, and research organizations."
-  >
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --background: #06120f;
-      --panel: rgba(255, 255, 255, 0.07);
-      --panel-strong: rgba(255, 255, 255, 0.10);
-      --border: rgba(255, 255, 255, 0.13);
-      --text: #edf8f1;
-      --muted: #b9cfc2;
-      --green: #7ee787;
-      --yellow: #ffc966;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      line-height: 1.6;
-      background:
-        radial-gradient(
-          circle at 10% 0%,
-          rgba(126, 231, 135, 0.16),
-          transparent 32%
-        ),
-        radial-gradient(
-          circle at 92% 4%,
-          rgba(73, 170, 255, 0.13),
-          transparent 30%
-        ),
-        linear-gradient(
-          180deg,
-          #071a14,
-          var(--background)
-        );
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      padding: 11px max(16px, calc((100vw - 1180px) / 2));
-      background: rgba(4, 16, 13, 0.89);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .logo-link {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-    }
-
-    .logo-img {
-      height: 42px;
-      width: auto;
-      display: block;
-    }
-
-    .brand {
-      display: grid;
-      line-height: 1.15;
-    }
-
-    .brand strong {
-      font-size: 0.95rem;
-    }
-
-    .brand span {
-      color: var(--muted);
-      font-size: 0.67rem;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    nav a:hover {
-      color: var(--green);
-    }
-
-    .nav-cta {
-      padding: 8px 12px;
-      border: 1px solid rgba(126, 231, 135, 0.35);
-      border-radius: 999px;
-      background: rgba(126, 231, 135, 0.11);
-    }
-
-    main {
-      width: min(1180px, calc(100% - 28px));
-      margin: auto;
-      padding: 38px 0 28px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns:
-        minmax(0, 1.35fr)
-        minmax(270px, 0.65fr);
-      gap: 38px;
-      align-items: center;
-      min-height: 510px;
-      padding: 45px;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.105),
-          rgba(255, 255, 255, 0.038)
-        );
-      box-shadow:
-        0 26px 70px rgba(0, 0, 0, 0.30);
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 11px;
-      color: var(--green);
-      font-size: 0.74rem;
-      font-weight: 900;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 850px;
-      margin-bottom: 20px;
-      font-size: clamp(2.4rem, 5.4vw, 5rem);
-      line-height: 1;
-      letter-spacing: -0.045em;
-    }
-
-    h2 {
-      margin-bottom: 10px;
-      font-size: clamp(1.7rem, 3vw, 2.65rem);
-      line-height: 1.12;
-    }
-
-    h3 {
-      margin-bottom: 7px;
-      font-size: 1.15rem;
-    }
-
-    .hero-copy,
-    .section-copy,
-    .card p,
-    .service-card p,
-    td,
-    .fine-print {
-      color: var(--muted);
-    }
-
-    .hero-copy {
-      max-width: 790px;
-      font-size: 1.07rem;
-      font-weight: 600;
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 11px;
-      margin-top: 24px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 45px;
-      padding: 11px 17px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      font-size: 0.87rem;
-      font-weight: 900;
-      transition:
-        transform 0.18s ease,
-        border-color 0.18s ease,
-        background 0.18s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .button-primary {
-      color: #06120f;
-      background: var(--green);
-    }
-
-    .button-secondary {
-      border-color: rgba(255, 255, 255, 0.42);
-      background: rgba(255, 255, 255, 0.055);
-    }
-
-    .fine-print {
-      margin-top: 12px;
-      font-size: 0.78rem;
-    }
-
-    .metrics {
-      display: grid;
-      gap: 12px;
-    }
-    .feature-comparison-image {
-      margin-top: 22px;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.06);
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.20);
-      overflow: hidden;
-    }
-    
-    .feature-comparison-image img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
-    }
-    .metric {
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .metric strong {
-      display: block;
-      color: var(--green);
-      font-size: 1.6rem;
-    }
-
-    .metric span {
-      color: var(--muted);
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-
-    section {
-      margin-top: 24px;
-      padding: 29px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: var(--panel);
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 19px;
-    }
-
-    .pill {
-      display: inline-flex;
-      padding: 6px 10px;
-      border: 1px solid rgba(126, 231, 135, 0.30);
-      border-radius: 999px;
-      background: rgba(126, 231, 135, 0.10);
-      color: #d2ffd8;
-      font-size: 0.68rem;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .grid-three {
-      display: grid;
-      grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .card,
-    .service-card {
-      padding: 21px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: var(--panel-strong);
-    }
-
-    .icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 41px;
-      height: 41px;
-      margin-bottom: 14px;
-      border-radius: 13px;
-      background: rgba(126, 231, 135, 0.13);
-      font-size: 1.2rem;
-    }
-
-    .service-card {
-      display: grid;
-      align-content: start;
-      gap: 9px;
-      min-height: 205px;
-      transition:
-        transform 0.18s ease,
-        border-color 0.18s ease;
-    }
-
-    .service-card:hover {
-      border-color: rgba(126, 231, 135, 0.44);
-      transform: translateY(-2px);
-    }
-
-    .service-card .link-text {
-      margin-top: auto;
-      color: var(--green);
-      font-weight: 900;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 19px;
-    }
-
-    table {
-      width: 100%;
-      min-width: 940px;
-      border-collapse: collapse;
-      background: rgba(255, 255, 255, 0.035);
-    }
-
-    th,
-    td {
-      padding: 15px 16px;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    th {
-      color: #dcffe1;
-      background: rgba(126, 231, 135, 0.10);
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    td {
-      font-size: 0.87rem;
-    }
-
-    td strong {
-      color: var(--text);
-    }
-
-    tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .secondary-label {
-      display: inline-flex;
-      margin-left: 5px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      color: #06120f;
-      background: var(--green);
-      font-size: 0.60rem;
-      font-weight: 900;
-      vertical-align: middle;
-    }
-
-    .institution-note {
-      margin-top: 15px;
-      padding: 16px 17px;
-      border: 1px solid rgba(255, 201, 102, 0.29);
-      border-radius: 16px;
-      color: #ffe8bd;
-      background: rgba(255, 201, 102, 0.08);
-      font-size: 0.87rem;
-    }
-
-    .launch-section {
-      display: grid;
-      grid-template-columns:
-        minmax(0, 1fr)
-        auto;
-      align-items: center;
-      gap: 22px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(126, 231, 135, 0.13),
-          rgba(73, 170, 255, 0.07)
-        ),
-        var(--panel);
-    }
-
-    .disclaimer {
-      color: var(--muted);
-      font-size: 0.81rem;
-    }
-
-    footer {
-      padding: 26px 15px 34px;
-      text-align: center;
-      color: rgba(237, 248, 241, 0.56);
-      font-size: 0.73rem;
-    }
-
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .grid-three {
-        grid-template-columns: 1fr;
-      }
-
-      .launch-section {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 680px) {
-      header {
-        padding: 10px 13px;
-      }
-
-      .brand,
-      nav a:not(.nav-cta) {
-        display: none;
-      }
-
-      main {
-        width: min(100% - 18px, 1180px);
-        padding-top: 18px;
-      }
-
-      .hero,
-      section {
-        padding: 20px;
-        border-radius: 20px;
-      }
-
-      .hero {
-        min-height: auto;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-      }
-
-      .section-header {
-        display: block;
-      }
-
-      .section-header .pill {
-        margin-top: 9px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyme AI-ert Premium</title>
+<meta name="description" content="Lyme AI-ert Premium provides high-resolution Lyme risk maps, frequently updated alert maps, VisionAI-assisted screening, and institutional services for county, state, federal, public-health, medical, and research organizations.">
+<style>
+* {margin:0;padding:0;box-sizing:border-box;}
+:root {--background:#06120f;--panel:rgba(255,255,255,0.07);--panel-strong:rgba(255,255,255,0.10);--border:rgba(255,255,255,0.13);--text:#edf8f1;--muted:#b9cfc2;--green:#7ee787;--yellow:#ffc966;}
+html {scroll-behavior:smooth;}
+body {font-family:Arial,Helvetica,sans-serif;color:var(--text);line-height:1.6;background:radial-gradient(circle at 10% 0%,rgba(126,231,135,0.16),transparent 32%),radial-gradient(circle at 92% 4%,rgba(73,170,255,0.13),transparent 30%),linear-gradient(180deg,#071a14,var(--background));}
+a {color:inherit;text-decoration:none;}
+header {position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:11px max(16px,calc((100vw - 1180px)/2));background:rgba(4,16,13,0.89);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.logo-link {display:flex;align-items:center;gap:11px;}
+.logo-img {height:42px;width:auto;display:block;}
+.brand {display:grid;line-height:1.15;}
+.brand strong {font-size:0.95rem;}
+.brand span {color:var(--muted);font-size:0.67rem;letter-spacing:0.09em;text-transform:uppercase;}
+nav {display:flex;align-items:center;gap:16px;font-size:0.82rem;font-weight:800;white-space:nowrap;}
+nav a:hover {color:var(--green);}
+.nav-cta {padding:8px 12px;border:1px solid rgba(126,231,135,0.35);border-radius:999px;background:rgba(126,231,135,0.11);}
+main {width:min(1180px,calc(100% - 28px));margin:auto;padding:38px 0 28px;}
+.hero {display:grid;grid-template-columns:minmax(0,1.35fr) minmax(270px,0.65fr);gap:38px;align-items:center;min-height:510px;padding:45px;border:1px solid var(--border);border-radius:30px;background:linear-gradient(145deg,rgba(255,255,255,0.105),rgba(255,255,255,0.038));box-shadow:0 26px 70px rgba(0,0,0,0.30);}
+.eyebrow {display:inline-block;margin-bottom:11px;color:var(--green);font-size:0.74rem;font-weight:900;letter-spacing:0.13em;text-transform:uppercase;}
+h1 {max-width:850px;margin-bottom:20px;font-size:clamp(2.4rem,5.4vw,5rem);line-height:1;letter-spacing:-0.045em;}
+h2 {margin-bottom:10px;font-size:clamp(1.7rem,3vw,2.65rem);line-height:1.12;}
+h3 {margin-bottom:7px;font-size:1.15rem;}
+.hero-copy,.section-copy,.card p,.service-card p,td,.fine-print {color:var(--muted);}
+.hero-copy {max-width:790px;font-size:1.07rem;font-weight:600;}
+.buttons {display:flex;flex-wrap:wrap;gap:11px;margin-top:24px;}
+.button {display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:11px 17px;border:1px solid transparent;border-radius:999px;font-size:0.87rem;font-weight:900;transition:transform 0.18s ease,border-color 0.18s ease,background 0.18s ease;}
+.button:hover {transform:translateY(-2px);}
+.button-primary {color:#06120f;background:var(--green);}
+.button-secondary {border-color:rgba(255,255,255,0.42);background:rgba(255,255,255,0.055);}
+.fine-print {margin-top:12px;font-size:0.78rem;}
+.metrics {display:grid;gap:12px;}
+.feature-comparison-image {margin-top:22px;padding:12px;border:1px solid var(--border);border-radius:22px;background:rgba(255,255,255,0.06);box-shadow:0 20px 48px rgba(0,0,0,0.20);overflow:hidden;}
+.feature-comparison-image img {display:block;width:100%;height:auto;border-radius:14px;}
+.metric {padding:18px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,0.06);}
+.metric strong {display:block;color:var(--green);font-size:1.6rem;}
+.metric span {color:var(--muted);font-size:0.85rem;font-weight:700;}
+section {margin-top:24px;padding:29px;border:1px solid var(--border);border-radius:24px;background:var(--panel);}
+.section-header {display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:19px;}
+.pill {display:inline-flex;padding:6px 10px;border:1px solid rgba(126,231,135,0.30);border-radius:999px;background:rgba(126,231,135,0.10);color:#d2ffd8;font-size:0.68rem;font-weight:900;white-space:nowrap;}
+.grid-three {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.card,.service-card {padding:21px;border:1px solid var(--border);border-radius:20px;background:var(--panel-strong);}
+.icon {display:inline-flex;align-items:center;justify-content:center;width:41px;height:41px;margin-bottom:14px;border-radius:13px;background:rgba(126,231,135,0.13);font-size:1.2rem;}
+.service-card {display:grid;align-content:start;gap:9px;min-height:205px;transition:transform 0.18s ease,border-color 0.18s ease;}
+.service-card:hover {border-color:rgba(126,231,135,0.44);transform:translateY(-2px);}
+.service-card .link-text {margin-top:auto;color:var(--green);font-weight:900;}
+.table-wrap {overflow-x:auto;border:1px solid var(--border);border-radius:19px;}
+table {width:100%;min-width:940px;border-collapse:collapse;background:rgba(255,255,255,0.035);}
+th,td {padding:15px 16px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;}
+th {color:#dcffe1;background:rgba(126,231,135,0.10);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;}
+td {font-size:0.87rem;}
+td strong {color:var(--text);}
+tr:last-child td {border-bottom:0;}
+.secondary-label {display:inline-flex;margin-left:5px;padding:2px 6px;border-radius:999px;color:#06120f;background:var(--green);font-size:0.60rem;font-weight:900;vertical-align:middle;}
+.institution-note {margin-top:15px;padding:16px 17px;border:1px solid rgba(255,201,102,0.29);border-radius:16px;color:#ffe8bd;background:rgba(255,201,102,0.08);font-size:0.87rem;}
+.launch-section {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:22px;background:linear-gradient(135deg,rgba(126,231,135,0.13),rgba(73,170,255,0.07)),var(--panel);}
+.disclaimer {color:var(--muted);font-size:0.81rem;}
+footer {padding:26px 15px 34px;text-align:center;color:rgba(237,248,241,0.56);font-size:0.73rem;}
+@media (max-width:900px) {
+.hero {grid-template-columns:1fr;}
+.grid-three {grid-template-columns:1fr;}
+.launch-section {grid-template-columns:1fr;}
+}
+@media (max-width:680px) {
+header {padding:10px 13px;}
+.brand,nav a:not(.nav-cta) {display:none;}
+main {width:min(100% - 18px,1180px);padding-top:18px;}
+.hero,section {padding:20px;border-radius:20px;}
+.hero {min-height:auto;}
+h1 {font-size:2.5rem;}
+.section-header {display:block;}
+.section-header .pill {margin-top:9px;}
+}
+</style>
 </head>
-
 <body>
-
 <header>
-
-  <a
-    href="https://gebaconsulting.com/"
-    class="logo-link"
-    aria-label="GEBA Consulting Home"
-  >
-    <img
-      src="/assets/logo/logo0.png"
-      alt="GEBA Consulting LLC"
-      class="logo-img"
-    >
-
-    <span class="brand">
-      <strong>Lyme AI-ert Premium Service</strong>
-    </span>
-  </a>
-
-  <nav>
-    <a href="../"> Lyme Alert-County </a>
-    <a href="#features">Premium Services</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#partnerships" class="nav-cta">
-      Partnerships
-    </a>
-  </nav>
-
+<a href="https://gebaconsulting.com/" class="logo-link" aria-label="GEBA Consulting Home">
+<img src="/assets/logo/logo0.png" alt="GEBA Consulting LLC" class="logo-img">
+<span class="brand"><strong>Lyme AI-ert Premium Service</strong></span>
+</a>
+<nav>
+<a href="../">Lyme Alert-County</a>
+<a href="#features">Premium Services</a>
+<a href="#pricing">Pricing</a>
+<a href="#partnerships" class="nav-cta">Partnerships</a>
+</nav>
 </header>
-
-
 <main>
-
-  <section class="hero">
-
-    <div>
-
-      <span class="eyebrow">
-        GeoAI · TrendAI · VisionAI
-      </span>
-
-      <h1>
-        Fine-scale Lyme intelligence for public-health and medical decision support
-      </h1>
-
-      <p class="hero-copy">
-   Premium Lyme AI-ert combines fine-scale (<1 km) Lyme risk mapping with frequently updated alerts for county, state, and federal agencies,
-   as well as public-health, healthcare, and research organizations.
-      </p>
-
-      <div class="buttons">
-
-        <a
-          href="#pricing"
-          class="button button-primary"
-        >
-          View Institutional Plans
-        </a>
-
-        <a
-          href="https://gebaconsulting.com/lyme_alert"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button button-secondary"
-        >
-         County-Level Lyme Alert
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <div class="metrics">
-
-      <div class="metric">
-        <strong>1 km</strong>
-        <span>
-          Fine-scale institutional map products
-        </span>
-      </div>
-
-      <div class="metric">
-        <strong>2 × weekly</strong>
-        <span>
-          Target Lyme Alert Map update frequency
-        </span>
-      </div>
-
-      <div class="metric">
-        <strong>County to CONUS</strong>
-        <span>
-          Scalable coverage for public-health
-        </span>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <section id="features">
-    <div class="section-header">
-      <div>
-        <span class="eyebrow">
-          Premium services
-        </span>
-        <h2>
-          Fine-scale mapping and frequent alerts 
-        </h2>
-
-        <p class="section-copy">
-          Lyme AI-ert Premium is designed to support public-health
-          surveillance, institutional awareness, regional comparison,
-          outreach planning, and timely environmental-health communication.
-        </p>
-      </div>
-      <span class="pill">
-        Institutional service framework
-      </span>
-
-    </div>
-    <div class="grid-three">
-      <article class="card"> 
-        <h3>
-          Annual Lyme Case Map (1km)
-        </h3>
-
-        <p> 
-          <br>
-          In-year predictions of annual Lyme case burden generated by GeoAI model, updated monthly.
-        </p>
-      </article>
-
-      <article class="card">
-        <h3>
-        Lyme Alert Map (2 × Weekly)
-        </h3>
-        <p> 
-          <br>
-          Generated by a multifaceted AI (GeoAI + TrendAI) 
-          to support timely outdoor-exposure awareness and public-health communication.
-        </p>
-
-      </article>
-      <article class="card">
-        <h3>
-         Visual rash-pattern screening 
-        </h3>
-        <p>
-        <br>
-          VisionAI-Assisted Screening for awareness and referral support. VisionAI does not
-          diagnose or rule out Lyme disease.
-        </p>
-      </article>
-
-    </div>
-<div class="feature-comparison-image">
-  <img
-    src="/assets/images/LymeAlert_1kmVSCounty1.png"
-    alt="Comparison of the 1 km Lyme Alert Map and county-level Lyme Alert Map"
-  >
-  </section>
-
-
-  <section id="organizations">
-
-    <div class="section-header">
-
-      <div>
-
-        <span class="eyebrow">
-          Current Public Lyme services (County-level)
-        </span>
-        <p class="section-copy">
-          GEBA currently provides county-level Lyme Alert information
-          for institutional users and public-health partners.
-        </p>
-      </div>
-    </div>
-
-    <div class="grid-three">
-      <a
-        class="service-card"
-        href="https://gebaconsulting.com/alert_app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <h3>
-          County-Level Lyme Alert
-        </h3>
-
-        <p>
-          Access GEBA's county-level Lyme Alert service.
-          Weekly updates are provided subject to available operational funding and technical capacity.
-        </p>
-        <span class="link-text">
-        County-Level Alert APP
-        </span>
-      </a>
-      <a
-        class="service-card"
-        href="https://gebaconsulting.com/lyme-alert/VisionAI.html"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <!-- <span class="pill">
-          Current demonstration
-        </span> -->
-        <h3>
-          VisionAI
-        </h3>
-        <p>
-          VisionAI-assisted functions are currently available through the public service 
-          but are planned to become part of the Premium institutional service.
-        </p>
-        <span class="link-text">
-          Vision AI
-        </span>
-      </a>
-      <a
-        class="service-card"
-        href="../"
-      >
-         <h3>
-          Lyme Alert Information
-        </h3>
-
-        <p>
-          Access Lyme disease information, risk-awareness resources, and GEBA’s public Lyme services.
-        </p>
-
-        <span class="link-text">
-          Explore Lyme Information
-        </span>
-      </a>
-    </div>
-  </section>
-
-<section id="pricing">
-  <div class="section-header">
-    <div>
-      <span class="eyebrow">Institutional Pricing</span>
-      <h2>Scalable Coverage from County to CONUS</h2>
-      <p class="section-copy">Pricing is designed for public-health agencies, healthcare institutions, research organizations, and other institutional partners.</p>
-    </div>
-    <span class="pill">Planned Pricing</span>
-  </div>
-  <div class="table-wrap">
-    <table aria-label="Lyme AI-ert institutional pricing table">
-      <thead>
-        <tr>
-          <th>Service Plan</th>
-          <th>Pricing</th>
-          <th>Coverage</th>
-          <th>Included Services</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>County-Level Lyme Alert</strong></td>
-          <td><strong>Free Public Access</strong></td>
-          <td>County-level CONUS</td>
-          <td>Weekly county-level maps, available reports, and high-risk county lists.</td>
-        </tr>
-        <tr>
-          <td><strong>Premium: County Institutional</strong></td>
-          <td><strong>$200/month</strong><br>or <strong>$1,500/year</strong></td>
-          <td>One county, 1 km resolution</td>
-          <td>Three reports per week for up to three users, including a 1 km Annual Lyme Case Map, high-risk information, and TrendAI insights.</td>
-        </tr>
-        <tr>
-          <td><strong>Premium: Multi-County / Regional</strong></td>
-          <td><strong>Custom Pricing</strong></td>
-          <td>Multiple counties or regions</td>
-          <td>County services plus regional comparisons, high-risk rankings, recurring reports, and data delivery.</td>
-        </tr>
-        <tr>
-          <td><strong>Premium: Statewide</strong></td>
-          <td><strong>Starting at $45,000/year</strong></td>
-          <td>Statewide coverage</td>
-          <td>Statewide 1 km mapping, county comparisons, high-risk rankings, recurring reports, multi-agency access, and technical support.</td>
-        </tr>
-        <tr>
-          <td><strong>Premium: CONUS / Federal</strong></td>
-          <td><strong>Custom Enterprise Pricing</strong></td>
-          <td>Nationwide coverage</td>
-          <td>Nationwide comparisons, priority monitoring of high-risk counties, recurring reports, API and data delivery, and analytical support.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="institution-note">Final pricing depends on coverage, users, reporting frequency, data delivery, API access, customization, and technical-support requirements.</div>
+<section class="hero">
+<div>
+<span class="eyebrow">GeoAI · TrendAI · VisionAI</span>
+<h1>Fine-scale Lyme intelligence for public-health and medical decision support</h1>
+<p class="hero-copy">Premium Lyme AI-ert combines fine-scale (&lt;1 km) Lyme risk mapping with frequently updated alerts for county, state, and federal agencies, as well as public-health, healthcare, and research organizations.</p>
+<div class="buttons">
+<a href="#pricing" class="button button-primary">View Institutional Plans</a>
+<a href="https://gebaconsulting.com/lyme_alert" target="_blank" rel="noopener noreferrer" class="button button-secondary">County-Level Lyme Alert</a>
+</div>
+</div>
+<div class="metrics">
+<div class="metric"><strong>1 km</strong><span>Fine-scale institutional map products</span></div>
+<div class="metric"><strong>2 × weekly</strong><span>Target Lyme Alert Map update frequency</span></div>
+<div class="metric"><strong>County to CONUS</strong><span>Scalable coverage for public-health</span></div>
+</div>
 </section>
- 
+<section id="features">
+<div class="section-header">
+<div>
+<span class="eyebrow">Premium services</span>
+<h2>Fine-scale mapping and frequent alerts</h2>
+<p class="section-copy">Lyme AI-ert Premium is designed to support public-health surveillance, institutional awareness, regional comparison, outreach planning, and timely environmental-health communication.</p>
+</div>
+<span class="pill">Institutional service framework</span>
+</div>
+<div class="grid-three">
+<article class="card">
+<h3>Annual Lyme Case Map (1 km)</h3>
+<p><br>In-year predictions of annual Lyme case burden generated by GeoAI model, updated monthly.</p>
+</article>
+<article class="card">
+<h3>Lyme Alert Map (2 × Weekly)</h3>
+<p><br>Generated by a multifaceted AI (GeoAI + TrendAI) to support timely outdoor-exposure awareness and public-health communication.</p>
+</article>
+<article class="card">
+<h3>Visual rash-pattern screening</h3>
+<p><br>VisionAI-Assisted Screening for awareness and referral support. VisionAI does not diagnose or rule out Lyme disease.</p>
+</article>
+</div>
+<div class="feature-comparison-image">
+<a href="https://ssucrg.projects.earthengine.app/view/lyme-ai-ert-premium" target="_blank" rel="noopener noreferrer">
+<img src="/assets/images/LymeAlert_1kmVSCounty1.png" alt="Comparison of the 1 km Lyme Alert Map and county-level Lyme Alert Map">
+</a>
+</div>
+</section>
+<section id="organizations">
+<div class="section-header">
+<div>
+<span class="eyebrow">Current Public Lyme services (County-level)</span>
+<p class="section-copy">GEBA currently provides county-level Lyme Alert information for institutional users and public-health partners.</p>
+</div>
+</div>
+<div class="grid-three">
+<a class="service-card" href="https://gebaconsulting.com/alert_app" target="_blank" rel="noopener noreferrer">
+<h3>County-Level Lyme Alert</h3>
+<p>Access GEBA's county-level Lyme Alert service. Weekly updates are provided subject to available operational funding and technical capacity.</p>
+<span class="link-text">County-Level Alert APP</span>
+</a>
+<a class="service-card" href="https://gebaconsulting.com/lyme-alert/VisionAI.html" target="_blank" rel="noopener noreferrer">
+<h3>VisionAI</h3>
+<p>VisionAI-assisted functions are currently available through the public service but are planned to become part of the Premium institutional service.</p>
+<span class="link-text">Vision AI</span>
+</a>
+<a class="service-card" href="../">
+<h3>Lyme Alert Information</h3>
+<p>Access Lyme disease information, risk-awareness resources, and GEBA’s public Lyme services.</p>
+<span class="link-text">Explore Lyme Information</span>
+</a>
+</div>
+</section>
+<section id="pricing">
+<div class="section-header">
+<div>
+<span class="eyebrow">Institutional Pricing</span>
+<h2>Scalable Coverage from County to CONUS</h2>
+<p class="section-copy">Pricing is designed for public-health agencies, healthcare institutions, research organizations, and other institutional partners.</p>
+</div>
+<span class="pill">Planned Pricing</span>
+</div>
+<div class="table-wrap">
+<table aria-label="Lyme AI-ert institutional pricing table">
+<thead>
+<tr><th>Service Plan</th><th>Pricing</th><th>Coverage</th><th>Included Services</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>County-Level Lyme Alert</strong></td>
+<td><strong>Free Public Access</strong></td>
+<td>County-level CONUS</td>
+<td>Weekly county-level maps, available reports, and high-risk county lists.</td>
+</tr>
+<tr>
+<td><strong>Premium: County Institutional</strong></td>
+<td><strong>$200/month</strong><br>or <strong>$1,500/year</strong></td>
+<td>One county, 1 km resolution</td>
+<td>Three reports per week for up to three users, including a 1 km Annual Lyme Case Map, high-risk information, and TrendAI insights.</td>
+</tr>
+<tr>
+<td><strong>Premium: Multi-County / Regional</strong></td>
+<td><strong>Custom Pricing</strong></td>
+<td>Multiple counties or regions</td>
+<td>County services plus regional comparisons, high-risk rankings, recurring reports, and data delivery.</td>
+</tr>
+<tr>
+<td><strong>Premium: Statewide</strong></td>
+<td><strong>Starting at $45,000/year</strong></td>
+<td>Statewide coverage</td>
+<td>Statewide 1 km mapping, county comparisons, high-risk rankings, recurring reports, multi-agency access, and technical support.</td>
+</tr>
+<tr>
+<td><strong>Premium: CONUS / Federal</strong></td>
+<td><strong>Custom Enterprise Pricing</strong></td>
+<td>Nationwide coverage</td>
+<td>Nationwide comparisons, priority monitoring of high-risk counties, recurring reports, API and data delivery, and analytical support.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="institution-note">Final pricing depends on coverage, users, reporting frequency, data delivery, API access, customization, and technical-support requirements.</div>
+</section>
 <section id="partnerships" class="launch-section">
-  <div>
-    <span class="eyebrow">Institutional Pilots and Partnerships</span>
-    <h2>Public-health and healthcare partnerships are being developed.</h2>
-    <p class="section-copy">GEBA is introducing the Lyme AI-ert Premium framework to county, state, federal, healthcare, research, and public-health partners. Secure dashboards, fine-scale maps, organizational accounts, data delivery, and recurring reports will be introduced as operational funding becomes available.</p>
-  </div>
-  <a href="https://gebaconsulting.com/#contact" class="button button-primary">Contact GEBA</a>
+<div>
+<span class="eyebrow">Institutional Pilots and Partnerships</span>
+<h2>Public-health and healthcare partnerships are being developed.</h2>
+<p class="section-copy">GEBA is introducing the Lyme AI-ert Premium framework to county, state, federal, healthcare, research, and public-health partners. Secure dashboards, fine-scale maps, organizational accounts, data delivery, and recurring reports will be introduced as operational funding becomes available.</p>
+</div>
+<a href="https://gebaconsulting.com/#contact" class="button button-primary">Contact GEBA</a>
 </section>
 <section>
-  <p class="disclaimer"><strong>Medical disclaimer:</strong> Lyme AI-ert and VisionAI provide public-awareness, environmental-health intelligence, risk visualization, 
-    and visual-screening information only. They do not diagnose, confirm, treat, or rule out Lyme disease. 
-    Anyone experiencing a tick bite, expanding rash, fever, fatigue, neurological symptoms, joint pain, or other health concerns should contact a qualified healthcare professional.</p>
-</section> 
-  
+<p class="disclaimer"><strong>Medical disclaimer:</strong> Lyme AI-ert and VisionAI provide public-awareness, environmental-health intelligence, risk visualization, and visual-screening information only. They do not diagnose, confirm, treat, or rule out Lyme disease. Anyone experiencing a tick bite, expanding rash, fever, fatigue, neurological symptoms, joint pain, or other health concerns should contact a qualified healthcare professional.</p>
+</section>
 </main>
-
-<footer>
-  © 2026 GEBA Consulting LLC · Geo-Informatics, Environment &amp; Agriculture, Bridging AI
-</footer>
-
+<footer>© 2026 GEBA Consulting LLC · Geo-Informatics, Environment &amp; Agriculture, Bridging AI</footer>
 </body>
 </html>
