@@ -1,464 +1,79 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Lyme-like Rash Pattern Check | GEBA</title>
   <meta name="description" content="GEBA Lyme-like rash pattern screening using a browser-based Teachable Machine image model." />
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    :root {
-      --navy: #081a2c;
-      --blue: #0b4f8a;
-      --blue-2: #276ca8;
-      --gold: #d6a84f;
-      --text: #112235;
-      --muted: #607287;
-      --rash: #e54646;
-      --rash-dark: #b91c1c;
-      --confuser: #f59e0b;
-      --confuser-dark: #b45309;
-      --other: #64748b;
-      --other-dark: #475569;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(39,108,168,0.14), transparent 28%),
-        linear-gradient(180deg, #edf3f9 0%, #f9fbfd 45%, #eef4f9 100%);
-      line-height: 1.6;
-    }
-
-    header {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, rgba(8,26,44,0.97), rgba(11,79,138,0.95));
-      color: white;
-      text-align: center;
-      padding: 46px 20px 54px;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      inset: auto -10% -80px -10%;
-      height: 140px;
-      background: rgba(255,255,255,0.07);
-      filter: blur(28px);
-      transform: rotate(-2deg);
-    }
-
-    .eyebrow {
-      position: relative;
-      z-index: 1;
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 7px 13px;
-      border-radius: 999px;
-      border: 1px solid rgba(214,168,79,0.55);
-      background: rgba(255,255,255,0.06);
-      color: #fce7b3;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
-    }
-
-    header h1 {
-      position: relative;
-      z-index: 1;
-      margin: 0;
-      font-size: clamp(30px, 4vw, 46px);
-      line-height: 1.12;
-      letter-spacing: -0.8px;
-    }
-
-    header p {
-      position: relative;
-      z-index: 1;
-      max-width: 860px;
-      margin: 16px auto 0;
-      color: #dbeafe;
-      font-size: 17px;
-    }
-
-    main {
-      max-width: 1320px;
-      margin: -24px auto 36px;
-      padding: 0 18px 34px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.96);
-      border: 1px solid rgba(219,227,236,0.95);
-      border-radius: 28px;
-      padding: 26px;
-      box-shadow:
-        0 24px 70px rgba(15,45,80,0.16),
-        0 1px 0 rgba(255,255,255,0.95) inset;
-      backdrop-filter: blur(14px);
-    }
-
-    .control-panel {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-      padding: 18px;
-      border: 1px solid #dce7f1;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #ffffff, #f7fbff);
-    }
-
-    .control-copy strong {
-      display: block;
-      font-size: 18px;
-      color: #0f2740;
-    }
-
-    .control-copy span {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .file-control {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    input[type="file"] {
-      max-width: 260px;
-      padding: 10px;
-      border-radius: 12px;
-      border: 1px solid #cbd8e6;
-      background: white;
-      color: #334155;
-    }
-
-    button,
-    .link-button {
-      border: none;
-      border-radius: 14px;
-      padding: 12px 18px;
-      font-size: 15px;
-      font-weight: 800;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-      display: inline-block;
-    }
-
-    button {
-      background: linear-gradient(135deg, var(--blue), var(--blue-2));
-      color: white;
-      box-shadow: 0 10px 22px rgba(11,79,138,0.22);
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(11,79,138,0.28);
-    }
-
-    .link-button {
-      background: #eef5fb;
-      color: var(--blue);
-      border: 1px solid #d7e6f3;
-    }
-
-    .result-layout {
-      display: grid;
-      grid-template-columns: minmax(240px, 0.82fr) minmax(0, 1.85fr);
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .panel {
-      background: linear-gradient(180deg, #ffffff, #f8fbfe);
-      border: 1px solid #d9e4ef;
-      border-radius: 22px;
-      padding: 20px;
-      box-shadow: 0 12px 28px rgba(15,45,80,0.08);
-    }
-
-    .panel-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid #e4ebf3;
-      padding-bottom: 12px;
-      margin-bottom: 14px;
-    }
-
-    .panel-head h3 {
-      margin: 0;
-      font-size: 20px;
-      color: #0f2740;
-    }
-
-    .mini-badge {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      color: #71510f;
-      background: #fff4d6;
-      border: 1px solid #f2d38a;
-    }
-
-    #previewWrap {
-      min-height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px dashed #bfd0df;
-      border-radius: 18px;
-      padding: 12px;
-      background: linear-gradient(135deg, #ffffff, #f8fbff);
-      overflow: hidden;
-    }
-
-    #preview {
-      display: none;
-      max-width: 100%;
-      max-height: 315px;
-      border-radius: 16px;
-      border: 1px solid #d6dee8;
-      box-shadow: 0 18px 36px rgba(0,0,0,0.12);
-    }
-
-    .placeholder {
-      color: #6b7c8f;
-      font-size: 15px;
-      text-align: center;
-      max-width: 320px;
-    }
-
-    #resultBox {
-      min-height: 380px;
-      background: linear-gradient(180deg, #ffffff 0%, #f9fbfd 100%);
-      border: 1px solid #dce7f0;
-      border-radius: 18px;
-      padding: 24px 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .result-ready {
-      justify-content: flex-start !important;
-    }
-
-    .chart-wrap {
-      margin-top: 0;
-      padding-top: 0;
-      border-top: none;
-    }
- 
-.chart-bars {
-  height: 235px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  align-items: end;
-  justify-items: center;
-  padding: 0 8px 0;
-}
-
-.bar-label-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  padding: 0 8px;
-  margin-top: 0;
-  margin-bottom: 10px;
-  align-items: end;
-}
-
-.bar-name {
-  font-size: 14px;
-  font-weight: 900;
-  color: #1e293b;
-  text-align: center;
-  line-height: 1.25;
-  min-height: 38px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-} 
-
-    .bar-slot {
-      width: 100%;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .bar-track-vertical {
-      width: 88px;
-      height: 225px;
-      border-radius: 22px;
-      background: #e9eef4;
-      display: flex;
-      align-items: flex-end;
-      overflow: hidden;
-      box-shadow: inset 0 1px 2px rgba(15,23,42,0.10);
-      position: relative;
-    }
-
-    .bar-fill-vertical {
-      width: 100%;
-      height: 0%;
-      border-radius: 22px 22px 0 0;
-      transition: height 0.5s ease;
-      position: relative;
-    }
-
-    .bar-fill-vertical::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.04));
-    }
-
-    .bar-rash {
-      background: linear-gradient(180deg, #fca5a5, #ef4444, #b91c1c);
-    }
-
-    .bar-confuser {
-      background: linear-gradient(180deg, #fde68a, #f59e0b, #b45309);
-    }
-
-    .bar-other {
-      background: linear-gradient(180deg, #cbd5e1, #64748b, #334155);
-    }
-
-    
-
-    .result-kicker {
-      display: inline-block;
-      width: fit-content;
-      margin-top: 18px;
-      margin-bottom: 0;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: #7f1d1d;
-      background: #fee2e2;
-      border: 1px solid #fecaca;
-    }
-
-    .result-explain {
-      margin-top: 12px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      color: #334155;
-      font-size: 15px;
-      line-height: 1.55;
-    }
-
-    .note {
-      margin-top: 18px;
-      padding: 13px;
-      border-radius: 14px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      font-size: 13px;
-      color: #64748b;
-      line-height: 1.5;
-    }
-
-    .disclaimer {
-      margin-top: 24px;
-      padding: 18px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #fff7ed, #fffdf7);
-      border: 1px solid #fed7aa;
-      color: #7c2d12;
-      font-size: 14px;
-    }
-
-    footer {
-      text-align: center;
-      color: #64748b;
-      font-size: 13px;
-      padding: 28px 18px 42px;
-    }
-
+    * { box-sizing: border-box; }
+    :root { --navy: #081a2c; --blue: #0b4f8a; --blue-2: #276ca8; --gold: #d6a84f; --text: #112235; --muted: #607287; --rash: #e54646; --rash-dark: #b91c1c; --confuser: #f59e0b; --confuser-dark: #b45309; --other: #64748b; --other-dark: #475569; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--text); background: radial-gradient(circle at top left, rgba(39,108,168,0.14), transparent 28%), linear-gradient(180deg, #edf3f9 0%, #f9fbfd 45%, #eef4f9 100%); line-height: 1.6; }
+    header { position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(8,26,44,0.97), rgba(11,79,138,0.95)); color: white; text-align: center; padding: 46px 20px 54px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    header::after { content: ""; position: absolute; inset: auto -10% -80px -10%; height: 140px; background: rgba(255,255,255,0.07); filter: blur(28px); transform: rotate(-2deg); }
+    .eyebrow { position: relative; z-index: 1; display: inline-block; margin-bottom: 12px; padding: 7px 13px; border-radius: 999px; border: 1px solid rgba(214,168,79,0.55); background: rgba(255,255,255,0.06); color: #fce7b3; font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+    header h1 { position: relative; z-index: 1; margin: 0; font-size: clamp(30px, 4vw, 46px); line-height: 1.12; letter-spacing: -0.8px; }
+    header p { position: relative; z-index: 1; max-width: 860px; margin: 16px auto 0; color: #dbeafe; font-size: 17px; }
+    main { max-width: 1320px; margin: -24px auto 36px; padding: 0 18px 34px; position: relative; z-index: 2; }
+    .card { background: rgba(255,255,255,0.96); border: 1px solid rgba(219,227,236,0.95); border-radius: 28px; padding: 26px; box-shadow: 0 24px 70px rgba(15,45,80,0.16), 0 1px 0 rgba(255,255,255,0.95) inset; backdrop-filter: blur(14px); }
+    .control-panel { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 24px; padding: 18px; border: 1px solid #dce7f1; border-radius: 20px; background: linear-gradient(135deg, #ffffff, #f7fbff); }
+    .control-copy strong { display: block; font-size: 18px; color: #0f2740; }
+    .control-copy span { display: block; margin-top: 3px; color: var(--muted); font-size: 14px; }
+    .file-control { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+    input[type="file"] { max-width: 260px; padding: 10px; border-radius: 12px; border: 1px solid #cbd8e6; background: white; color: #334155; }
+    button, .link-button { border: none; border-radius: 14px; padding: 12px 18px; font-size: 15px; font-weight: 800; text-decoration: none; cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease; display: inline-block; }
+    button { background: linear-gradient(135deg, var(--blue), var(--blue-2)); color: white; box-shadow: 0 10px 22px rgba(11,79,138,0.22); }
+    button:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(11,79,138,0.28); }
+    .link-button { background: #eef5fb; color: var(--blue); border: 1px solid #d7e6f3; }
+    .result-layout { display: grid; grid-template-columns: minmax(240px, 0.82fr) minmax(0, 1.85fr); gap: 24px; align-items: stretch; }
+    .panel { background: linear-gradient(180deg, #ffffff, #f8fbfe); border: 1px solid #d9e4ef; border-radius: 22px; padding: 20px; box-shadow: 0 12px 28px rgba(15,45,80,0.08); }
+    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid #e4ebf3; padding-bottom: 12px; margin-bottom: 14px; }
+    .panel-head h3 { margin: 0; font-size: 20px; color: #0f2740; }
+    .mini-badge { display: inline-block; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; color: #71510f; background: #fff4d6; border: 1px solid #f2d38a; }
+    #previewWrap { min-height: 300px; display: flex; align-items: center; justify-content: center; border: 1px dashed #bfd0df; border-radius: 18px; padding: 12px; background: linear-gradient(135deg, #ffffff, #f8fbff); overflow: hidden; }
+    #preview { display: none; max-width: 100%; max-height: 315px; border-radius: 16px; border: 1px solid #d6dee8; box-shadow: 0 18px 36px rgba(0,0,0,0.12); }
+    .placeholder { color: #6b7c8f; font-size: 15px; text-align: center; max-width: 320px; }
+    #resultBox { min-height: 380px; background: linear-gradient(180deg, #ffffff 0%, #f9fbfd 100%); border: 1px solid #dce7f0; border-radius: 18px; padding: 24px 28px; display: flex; flex-direction: column; justify-content: center; }
+    .result-ready { justify-content: flex-start !important; }
+    .chart-wrap { margin-top: 0; padding-top: 0; border-top: none; }
+    .chart-bars { height: 235px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: end; justify-items: center; padding: 0 8px; }
+    .bar-label-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 0 8px; margin: 0 0 10px; align-items: end; }
+    .bar-name { font-size: 14px; font-weight: 900; color: #1e293b; text-align: center; line-height: 1.25; min-height: 38px; display: flex; align-items: flex-end; justify-content: center; }
+    .bar-slot { width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+    .bar-track-vertical { width: 88px; height: 225px; border-radius: 22px; background: #e9eef4; display: flex; align-items: flex-end; overflow: hidden; box-shadow: inset 0 1px 2px rgba(15,23,42,0.10); position: relative; }
+    .bar-fill-vertical { width: 100%; height: 0%; border-radius: 22px 22px 0 0; transition: height 0.5s ease; position: relative; }
+    .bar-fill-vertical::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.04)); }
+    .bar-rash { background: linear-gradient(180deg, #fca5a5, #ef4444, #b91c1c); }
+    .bar-confuser { background: linear-gradient(180deg, #fde68a, #f59e0b, #b45309); }
+    .bar-other { background: linear-gradient(180deg, #cbd5e1, #64748b, #334155); }
+    .result-kicker { display: inline-block; width: fit-content; margin-top: 18px; padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; color: #7f1d1d; background: #fee2e2; border: 1px solid #fecaca; }
+    .result-explain { margin-top: 12px; padding: 14px 16px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; color: #334155; font-size: 15px; line-height: 1.55; }
+    .disclaimer { margin-top: 24px; padding: 18px; border-radius: 18px; background: linear-gradient(135deg, #fff7ed, #fffdf7); border: 1px solid #fed7aa; color: #7c2d12; font-size: 14px; }
+    .lyme-checklist-card { margin-top: 16px; padding: 16px; border-radius: 16px; background: linear-gradient(135deg, #f0f9ff, #f8fbff); border: 1px solid #bfdbfe; }
+    .lyme-checklist-card h4 { margin: 0 0 8px; color: #0f2740; font-size: 17px; }
+    .lyme-checklist-card p { margin: 0 0 12px; color: #475569; font-size: 14px; line-height: 1.5; }
+    .lyme-checklist-link { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--blue); font-weight: 800; }
+    .lyme-checklist-link img { width: 126px; max-width: 42%; height: auto; border-radius: 12px; border: 1px solid #d7e6f3; background: white; box-shadow: 0 8px 20px rgba(15,45,80,0.10); }
+    .lyme-checklist-link:hover { text-decoration: underline; }
+    .external-link-note { display: block; margin-top: 4px; color: #64748b; font-size: 12px; font-weight: 600; }
+    footer { text-align: center; color: #64748b; font-size: 13px; padding: 28px 18px 42px; }
     @media (max-width: 760px) {
-      .result-layout {
-        grid-template-columns: 1fr;
-      }
-
-      #previewWrap,
-      #resultBox {
-        min-height: 260px;
-      }
-
-      .control-panel {
-        justify-content: center;
-        text-align: center;
-      }
-
-      .file-control {
-        justify-content: center;
-      }
-
-      .chart-bars {
-        height: 210px;
-        gap: 12px;
-      }
-
-      .bar-track-vertical {
-        width: 68px;
-        height: 190px;
-      }
-
-      .bar-label-row {
-        gap: 12px;
-      }
-
-      .bar-name {
-        font-size: 12px;
-      }
+      .result-layout { grid-template-columns: 1fr; }
+      #previewWrap, #resultBox { min-height: 260px; }
+      .control-panel { justify-content: center; text-align: center; }
+      .file-control { justify-content: center; }
+      .chart-bars { height: 210px; gap: 12px; }
+      .bar-track-vertical { width: 68px; height: 190px; }
+      .bar-label-row { gap: 12px; }
+      .bar-name { font-size: 12px; }
     }
   </style>
-
 </head>
-
 <body>
   <header>
     <div class="eyebrow">GEBA Vision AI</div>
     <h1>Lyme-like Rash Pattern Check</h1>
-    <p>
-      Compare an uploaded skin image with Lyme-like rash examples, similar-looking rash patterns,
-      and other skin patterns. Results are visual screening information only.
-    </p>
+    <p>Compare an uploaded skin image with Lyme-like rash examples, similar-looking rash patterns, and other skin patterns. Results are visual screening information only.</p>
   </header>
 
   <main>
@@ -468,100 +83,67 @@
           <strong>Upload a skin image</strong>
           <span>The result will appear automatically beside the image after upload.</span>
         </div>
- 
-    <div class="file-control">
-      <input id="imageUpload" type="file" accept="image/*" />
-      <button type="button" onclick="analyzeImage()">Check Image</button>
-      <a class="link-button" href="index.html">Back to Alert Home</a>
-    </div>
-  </div>
-
-  <div class="result-layout">
-    <div class="panel">
-      <div class="panel-head">
-        <h3>Uploaded Image</h3>
-        <span class="mini-badge">Preview</span>
-      </div>
-
-      <div id="previewWrap">
-        <div id="previewPlaceholder" class="placeholder">
-          Your uploaded image will appear here.
-        </div>
-        <img id="preview" alt="Uploaded skin image preview" />
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head">
-        <h3>Screening Result</h3>
-        <span class="mini-badge">Visual match</span>
-      </div>
-
-      <div id="resultBox">
-        <div class="placeholder">
-          Upload an image to view the result automatically.
+        <div class="file-control">
+          <input id="imageUpload" type="file" accept="image/*" />
+          <button type="button" onclick="analyzeImage()">Check Image</button>
+          <a class="link-button" href="index.html">Back to Alert Home</a>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="disclaimer">
-    <strong>Important:</strong> This tool provides visual similarity screening only.
-    It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
-    If you have an expanding rash, recent tick exposure, fever, or any medical concern,
-    please consult a qualified healthcare professional.
-  </div>
-</section> 
+      <div class="result-layout">
+        <div class="panel">
+          <div class="panel-head"><h3>Uploaded Image</h3><span class="mini-badge">Preview</span></div>
+          <div id="previewWrap">
+            <div id="previewPlaceholder" class="placeholder">Your uploaded image will appear here.</div>
+            <img id="preview" alt="Uploaded skin image preview" />
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Screening Result</h3><span class="mini-badge">Visual match</span></div>
+          <div id="resultBox"><div class="placeholder">Upload an image to view the result automatically.</div></div>
+        </div>
+      </div>
+
+      <div class="disclaimer"><strong>Important:</strong> This tool provides visual similarity screening only. It is not a medical diagnosis and cannot confirm or rule out Lyme disease. If you have an expanding rash, recent tick exposure, fever, or any medical concern, please consult a qualified healthcare professional.</div>
+
+      <div class="lyme-checklist-card">
+        <h4>Do You Have Lyme Disease?</h4>
+        <p>This external LymeDisease.org checklist can help you document possible Lyme exposure and common symptoms to share with a healthcare provider. It is not a self-diagnosis tool.</p>
+        <a class="lyme-checklist-link" href="https://www.lymedisease.org/lyme-disease-symptom-checklist/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/images/limediseaseorg.png" alt="LymeDisease.org Lyme Disease Symptoms Checklist"
+               onerror="if(!this.dataset.try1){this.dataset.try1='1';this.src='assets/image/limediseaseorg.png';}else if(!this.dataset.try2){this.dataset.try2='1';this.src='asset/image/limediseaseorg.png';}else{this.onerror=null;this.src='asset/images/limediseaseorg.png';}" />
+          <span>Open LymeDisease.org Symptom Checklist ↗<span class="external-link-note">External link — opens LymeDisease.org</span></span>
+        </a>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    GEBA Consulting LLC | Educational visual screening only
-  </footer>
+  <footer>GEBA Consulting LLC | Educational visual screening only</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
   <script>
     const MODEL_URL = "https://teachablemachine.withgoogle.com/models/-TpW2hV2r/";
-
     let model = null;
     let uploadedImage = null;
     let analysisToken = 0;
 
     const CLASS_CONFIG = [
-      {
-        key: "rash",
-        aliases: ["rash", "lyme_like", "lyme-like rash pattern", "lyme_like rash", "Rash"],
-        label: "Lyme-like<br>rash pattern",
-        barClass: "bar-rash"
-      },
-      {
-        key: "confuser",
-        aliases: ["confuser", "ring_like_confuser", "similar-looking rash pattern", "Confuser"],
-        label: "Similar-looking<br>rash pattern",
-        barClass: "bar-confuser"
-      },
-      {
-        key: "other",
-        aliases: ["other skin", "other_skin_condition", "other skin pattern", "other_skin", "Other skin"],
-        label: "Other skin<br>pattern",
-        barClass: "bar-other"
-      }
+      { key: "rash", aliases: ["rash", "lyme_like", "lyme-like rash pattern", "lyme_like rash", "Rash"], label: "Lyme-like<br>rash pattern", barClass: "bar-rash" },
+      { key: "confuser", aliases: ["confuser", "ring_like_confuser", "similar-looking rash pattern", "Confuser"], label: "Similar-looking<br>rash pattern", barClass: "bar-confuser" },
+      { key: "other", aliases: ["other skin", "other_skin_condition", "other skin pattern", "other_skin", "Other skin"], label: "Other skin<br>pattern", barClass: "bar-other" }
     ];
 
     async function loadModel() {
       if (model !== null) return;
-
       const modelURL = MODEL_URL + "model.json";
       const metadataURL = MODEL_URL + "metadata.json";
-
       model = await tmImage.load(modelURL, metadataURL);
     }
 
-    function normalizeName(name) {
-      return String(name).trim().toLowerCase();
-    }
+    function normalizeName(name) { return String(name).trim().toLowerCase(); }
 
     function findPrediction(predictions, aliases) {
       const normalizedAliases = aliases.map(normalizeName);
@@ -571,54 +153,21 @@
     function buildOrderedPredictions(predictions) {
       return CLASS_CONFIG.map(cfg => {
         const found = findPrediction(predictions, cfg.aliases);
-
-        return {
-          key: cfg.key,
-          label: cfg.label,
-          barClass: cfg.barClass,
-          probability: found ? found.probability : 0
-        };
+        return { key: cfg.key, label: cfg.label, barClass: cfg.barClass, probability: found ? found.probability : 0 };
       });
     }
- 
-function finalInterpretation(items) {
-  const rashP = items.find(x => x.key === "rash")?.probability || 0;
-  const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
-  const otherP = items.find(x => x.key === "other")?.probability || 0;
 
-  if (rashP >= 0.70) {
-    return {
-      kicker: "Strong Lyme-like visual match",
-      text: "The uploaded image strongly matches the Lyme-like rash pattern examples in this Vision AI screening tool."
-    };
-  }
+    function finalInterpretation(items) {
+      const rashP = items.find(x => x.key === "rash")?.probability || 0;
+      const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
+      const otherP = items.find(x => x.key === "other")?.probability || 0;
 
-  if (rashP >= 0.40) {
-    return {
-      kicker: "Moderate Lyme-like visual match",
-      text: "The uploaded image shows a moderate visual match with the Lyme-like rash pattern examples in this Vision AI screening tool."
-    };
-  }
-
-  if (confuserP >= 0.40) {
-    return {
-      kicker: "Similar-looking rash pattern",
-      text: "The uploaded image does not strongly match the Lyme-like rash pattern examples, but it visually matches similar-looking rash patterns."
-    };
-  }
-
-  if (otherP >= 0.50) {
-    return {
-      kicker: "Low Lyme-like visual match",
-      text: "The uploaded image shows a low visual match with the Lyme-like rash pattern and appears closer to other skin-pattern."
-    };
-  }
-
-  return {
-    kicker: "Unclear visual match",
-    text: "The uploaded image does not clearly match one visual rash-pattern category. A clearer or closer image may improve the visual screening result."
-  };
-} 
+      if (rashP >= 0.70) return { kicker: "Strong Lyme-like visual match", text: "The uploaded image strongly matches the Lyme-like rash pattern examples in this Vision AI screening tool." };
+      if (rashP >= 0.40) return { kicker: "Moderate Lyme-like visual match", text: "The uploaded image shows a moderate visual match with the Lyme-like rash pattern examples in this Vision AI screening tool." };
+      if (confuserP >= 0.40) return { kicker: "Similar-looking rash pattern", text: "The uploaded image does not strongly match the Lyme-like rash pattern examples, but it visually matches similar-looking rash patterns." };
+      if (otherP >= 0.50) return { kicker: "Low Lyme-like visual match", text: "The uploaded image shows a low visual match with the Lyme-like rash pattern and appears closer to other skin-pattern." };
+      return { kicker: "Unclear visual match", text: "The uploaded image does not clearly match one visual rash-pattern category. A clearer or closer image may improve the visual screening result." };
+    }
 
     document.getElementById("imageUpload").addEventListener("change", function(event) {
       const file = event.target.files[0];
@@ -627,24 +176,15 @@ function finalInterpretation(items) {
       const resultBox = document.getElementById("resultBox");
 
       analysisToken += 1;
-
       resultBox.className = "";
-      resultBox.innerHTML = `
-        <div class="placeholder">
-          Preparing image...
-        </div>
-      `;
+      resultBox.innerHTML = `<div class="placeholder">Preparing image...</div>`;
 
       if (!file) {
         uploadedImage = null;
         preview.style.display = "none";
         preview.src = "";
         placeholder.style.display = "block";
-        resultBox.innerHTML = `
-          <div class="placeholder">
-            Upload an image to view the result automatically.
-          </div>
-        `;
+        resultBox.innerHTML = `<div class="placeholder">Upload an image to view the result automatically.</div>`;
         return;
       }
 
@@ -656,7 +196,6 @@ function finalInterpretation(items) {
           analyzeImage();
           preview.onload = null;
         };
-
         preview.src = e.target.result;
         preview.style.display = "block";
         placeholder.style.display = "none";
@@ -671,78 +210,43 @@ function finalInterpretation(items) {
 
       if (!uploadedImage) {
         resultBox.className = "";
-        resultBox.innerHTML = `
-          <div class="placeholder">
-            Please upload an image first.
-          </div>
-        `;
+        resultBox.innerHTML = `<div class="placeholder">Please upload an image first.</div>`;
         return;
       }
 
       try {
         resultBox.className = "";
-        resultBox.innerHTML = `
-          <div class="placeholder">
-            Loading model and analyzing image...
-          </div>
-        `;
+        resultBox.innerHTML = `<div class="placeholder">Loading model and analyzing image...</div>`;
 
         await loadModel();
-
         const rawPredictions = await model.predict(uploadedImage);
-
         if (currentToken !== analysisToken) return;
 
         const items = buildOrderedPredictions(rawPredictions);
         const summary = finalInterpretation(items);
-
         let chartBarsHtml = "";
         let chartLabelsHtml = "";
 
         items.forEach(item => {
           const height = Math.max(item.probability * 100, 6);
+          chartBarsHtml += `<div class="bar-slot"><div class="bar-track-vertical"><div class="bar-fill-vertical ${item.barClass}" style="height:${height}%"></div></div></div>`;
+          chartLabelsHtml += `<div class="bar-name">${item.label}</div>`;
+        });
 
-          chartBarsHtml += `
-            <div class="bar-slot">
-              <div class="bar-track-vertical">
-                <div class="bar-fill-vertical ${item.barClass}" style="height:${height}%"></div>
-              </div>
-            </div>
-          `;
-
-          chartLabelsHtml += `
-            <div class="bar-name">${item.label}</div>
-          `;
-        }); 
-resultBox.className = "result-ready";
-resultBox.innerHTML = `
-  <div class="chart-wrap">
-    <div class="bar-label-row">
-      ${chartLabelsHtml}
-    </div>
-
-    <div class="chart-bars">
-      ${chartBarsHtml}
-    </div>
-  </div>
-
-  <div class="result-kicker">${summary.kicker}</div>
-
-  <div class="result-explain">
-    ${summary.text}
-  </div>
-`; 
+        resultBox.className = "result-ready";
+        resultBox.innerHTML = `
+          <div class="chart-wrap">
+            <div class="bar-label-row">${chartLabelsHtml}</div>
+            <div class="chart-bars">${chartBarsHtml}</div>
+          </div>
+          <div class="result-kicker">${summary.kicker}</div>
+          <div class="result-explain">${summary.text}</div>
+        `;
       } catch (error) {
         resultBox.className = "";
-        resultBox.innerHTML = `
-          <div class="placeholder">
-            <strong>Analysis failed.</strong><br />
-            ${error.message}
-          </div>
-        `;
+        resultBox.innerHTML = `<div class="placeholder"><strong>Analysis failed.</strong><br />${error.message}</div>`;
       }
     }
   </script>
-
 </body>
 </html>
