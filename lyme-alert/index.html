@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,41 +9,10 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #06120f;
-      color: #eaf5ef;
-      line-height: 1.6;
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 10px 3.5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      background: rgba(3, 13, 20, 0.82);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .logo-img {
-      height: 42px;
-      width: auto;
-      display: block;
-    }
-
-    .logo-link {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
+    body { font-family: Arial, Helvetica, sans-serif; background: #06120f; color: #eaf5ef; line-height: 1.6; }
+    header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 10px 3.5%; display: flex; justify-content: space-between; align-items: center; gap: 24px; background: rgba(3, 13, 20, 0.82); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .logo-img { height: 42px; width: auto; display: block; }
+    .logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .stress-game-card { margin-top:18px; padding:16px 18px; border-radius:20px; background:linear-gradient(135deg,rgba(126,231,135,0.10),rgba(255,255,255,0.05)); border:1px solid rgba(126,231,135,0.22); display:grid; grid-template-columns:minmax(0,1fr) 180px; gap:18px; align-items:center; box-shadow:0 16px 36px rgba(0,0,0,0.14); }
     .stress-game-copy { min-width:0; }
     .stress-game-copy h3 { color:#7ee787; margin-bottom:6px; font-size:1.05rem; line-height:1.2; }
@@ -54,547 +22,115 @@
     .stress-game-copy .stress-game-credit a:hover { text-decoration:underline; }
     .stress-game-copy .btn { padding:10px 16px; font-size:0.84rem; }
     .stress-game-img { width:180px; height:110px; object-fit:cover; object-position:center; display:block; justify-self:end; border-radius:16px; border:1px solid rgba(126,231,135,0.18); background:rgba(255,255,255,0.08); }
-    
+
     @media (max-width:700px) {
       .stress-game-card { grid-template-columns:1fr; gap:12px; padding:16px; }
       .stress-game-img { width:100%; height:120px; justify-self:stretch; order:-1; }
     }
-    
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 16px;
-      flex-wrap: nowrap;
-      white-space: nowrap;
-      flex: 1;
-    }
-  
-    nav a {
-      color: #eaf5ef;
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
 
+    nav { display: flex; align-items: center; justify-content: flex-end; gap: 16px; flex-wrap: nowrap; white-space: nowrap; flex: 1; }
+    nav a { color: #eaf5ef; text-decoration: none; font-size: 0.82rem; font-weight: 600; }
     nav a:hover { color: #7ee787; }
-
-    .hero {
-      padding: 145px 7% 54px;
-      background:
-        linear-gradient(90deg, rgba(3,12,18,0.95), rgba(3,12,18,0.76), rgba(3,12,18,0.55)),
-        radial-gradient(circle at top right, rgba(126,231,135,0.18), transparent 42%);
-    }
-
-    .kicker {
-      color: #7ee787;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-size: 0.82rem;
-      margin-bottom: 14px;
-    }
-
-    h1 {
-      font-size: clamp(2.1rem, 4.2vw, 4.2rem);
-      line-height: 1.05;
-      margin-bottom: 18px;
-      max-width: 980px;
-    }
-
-    .lead {
-      max-width: 900px;
-      color: #b9cfc2;
-      font-size: clamp(1rem, 1.5vw, 1.15rem);
-      font-weight: 600;
-      margin-bottom: 26px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 22px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 0.92rem;
-    }
-
-    .btn-primary {
-      background: #7ee787;
-      color: #06120f;
-    }
-
-    .btn-secondary {
-      border: 1px solid rgba(255,255,255,0.55);
-      color: #ffffff;
-    }
-
-    .btn-dark {
-      background: #0b281d;
-      color: #ffffff;
-    }
-
-    .urgent-alert-text {
-      margin: 0 0 16px 0;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255, 80, 80, 0.18);
-      border: 1px solid rgba(255, 120, 120, 0.65);
-      color: #fff1f1 !important;
-      font-weight: 900;
-      line-height: 1.45;
-      animation: urgentBlink 1.2s ease-in-out infinite;
-    }
+    .hero { padding: 145px 7% 54px; background: linear-gradient(90deg, rgba(3,12,18,0.95), rgba(3,12,18,0.76), rgba(3,12,18,0.55)), radial-gradient(circle at top right, rgba(126,231,135,0.18), transparent 42%); }
+    .kicker { color: #7ee787; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.82rem; margin-bottom: 14px; }
+    h1 { font-size: clamp(2.1rem, 4.2vw, 4.2rem); line-height: 1.05; margin-bottom: 18px; max-width: 980px; }
+    .lead { max-width: 900px; color: #b9cfc2; font-size: clamp(1rem, 1.5vw, 1.15rem); font-weight: 600; margin-bottom: 26px; }
+    .buttons { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 22px; border-radius: 999px; text-decoration: none; font-weight: 800; font-size: 0.92rem; }
+    .btn-primary { background: #7ee787; color: #06120f; }
+    .btn-secondary { border: 1px solid rgba(255,255,255,0.55); color: #ffffff; }
+    .btn-dark { background: #0b281d; color: #ffffff; }
+    .urgent-alert-text { margin: 0 0 16px 0; padding: 12px 14px; border-radius: 14px; background: rgba(255, 80, 80, 0.18); border: 1px solid rgba(255, 120, 120, 0.65); color: #fff1f1 !important; font-weight: 900; line-height: 1.45; animation: urgentBlink 1.2s ease-in-out infinite; }
 
     @keyframes urgentBlink {
-      0%, 100% {
-        opacity: 1;
-        box-shadow: 0 0 0 rgba(255, 80, 80, 0);
-      }
-      50% {
-        opacity: 0.55;
-        box-shadow: 0 0 18px rgba(255, 80, 80, 0.65);
-      }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 rgba(255, 80, 80, 0); }
+      50% { opacity: 0.55; box-shadow: 0 0 18px rgba(255, 80, 80, 0.65); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .urgent-alert-text {
-        animation: none;
-      }
+      .urgent-alert-text { animation: none; }
     }
 
-    section {
-      padding: 62px 7%;
-      background: #06120f;
-    }
-
-    section.light {
-      background: #f6faf7;
-      color: #102018;
-    }
-
-    .section-header {
-      max-width: 940px;
-      margin-bottom: 30px;
-    }
-
-    .section-kicker {
-      color: #7ee787;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      font-size: 0.78rem;
-      margin-bottom: 10px;
-    }
-
+    section { padding: 62px 7%; background: #06120f; }
+    section.light { background: #f6faf7; color: #102018; }
+    .section-header { max-width: 940px; margin-bottom: 30px; }
+    .section-kicker { color: #7ee787; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; font-size: 0.78rem; margin-bottom: 10px; }
     .light .section-kicker { color: #226b35; }
-
-    .section-title {
-      font-size: clamp(1.75rem, 3.2vw, 3rem);
-      line-height: 1.15;
-      margin-bottom: 14px;
-    }
-
-    .section-text {
-      color: #b9cfc2;
-      font-size: 1.03rem;
-      max-width: 900px;
-    }
-
+    .section-title { font-size: clamp(1.75rem, 3.2vw, 3rem); line-height: 1.15; margin-bottom: 14px; }
+    .section-text { color: #b9cfc2; font-size: 1.03rem; max-width: 900px; }
     .light .section-text { color: #46584e; }
+    .main-image-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 24px; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.24); }
+    .main-image-card img { width: 100%; display: block; }
+    .county-panel { margin-top: 18px; padding: 16px; border-radius: 18px; background: #ffffff; color: #102018; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 14px 36px rgba(0,0,0,0.12); }
+    .county-panel h3 { color: #0b3b25; font-size: 1.05rem; margin-bottom: 8px; }
+    .county-panel p { color: #46584e; margin-bottom: 8px; }
+    .county-list-wrap { position: relative; }
+    .county-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; max-height: none; overflow: hidden; padding-right: 4px; transition: max-height 0.35s ease; }
+    .county-list.is-collapsed { max-height: 78px; }
+    .county-list.is-expanded { max-height: 900px; overflow-y: auto; }
+    .county-list.is-collapsed::after { content: ""; position: absolute; left: 0; right: 0; bottom: 48px; height: 42px; pointer-events: none; background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff); }
+    .county-item { padding: 5px 7px; border-radius: 8px; background: #edf7f0; color: #183325; border: 1px solid rgba(34,107,53,0.12); font-size: 0.68rem; font-weight: 600; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .county-toggle-btn { margin-top: 10px; border: none; cursor: pointer; background: #0b281d; color: #ffffff; padding: 9px 16px; border-radius: 999px; font-weight: 800; font-size: 0.82rem; }
+    .county-search-box { display: flex; gap: 8px; margin-bottom: 12px; }
+    .county-search-box input { flex: 1; padding: 10px 13px; border-radius: 999px; border: 1px solid rgba(34,107,53,0.22); font-size: 0.9rem; outline: none; }
+    .county-search-box input { border-color: #226b35; box-shadow: 0 0 0 3px rgba(34,107,53,0.12); }
+    .county-search-box button { border: none; cursor: pointer; background: #0b281d; color: #ffffff; padding: 10px 16px; border-radius: 999px; font-weight: 800; font-size: 0.85rem; }
+    .county-search-result { margin-bottom: 12px; font-size: 0.86rem; font-weight: 700; color: #183325; }
+    .county-search-result .found { display: inline-block; padding: 8px 11px; border-radius: 12px; background: #edf7f0; border: 1px solid rgba(34,107,53,0.18); }
+    .county-search-result .not-found { display: inline-block; padding: 8px 11px; border-radius: 12px; background: #fff3e6; color: #7a3b00; border: 1px solid rgba(217,119,6,0.22); }
+    .badge { display: inline-flex; margin-left: 6px; padding: 2px 7px; border-radius: 999px; font-size: 0.72rem; font-weight: 900; background: #ffe2e2; color: #8a1010; }
 
-    .main-image-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
-    }
+    .resource-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
+    .resource-card { padding: 22px; border-radius: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); box-shadow: 0 20px 48px rgba(0,0,0,0.14); }
+    .resource-card img.resource-logo { width: 100%; height: 120px; object-fit: contain; display: block; margin: 0 auto 16px auto; padding: 10px; border-radius: 16px; background: rgba(255,255,255,0.94); }
+    .resource-card img.resource-photo { width: 100%; height: 120px; object-fit: cover; display: block; margin: 0 auto 16px auto; border-radius: 16px; background: rgba(255,255,255,0.08); }
+    .resource-card h3 { color: #7ee787; margin-bottom: 10px; font-size: 1.1rem; }
+    .resource-card p { color: #b9cfc2; font-size: 0.94rem; margin-bottom: 16px; }
 
-    .main-image-card img {
-      width: 100%;
-      display: block;
-    }
+    .tick-image-band img { width: 100%; height: 100%; min-height: 190px; object-fit: cover; display: block; border-radius: 18px; }
+    .tick-image-band h3 { color: #7ee787; margin-bottom: 10px; }
+    .tick-image-band p { color: #b9cfc2; }
+    .tick-awareness-copy { display: flex; flex-direction: column; justify-content: center; }
+    .tick-image-band { margin-top: 30px; display: grid; grid-template-columns: 0.45fr 0.85fr 1.25fr; gap: 22px; align-items: stretch; padding: 22px; border-radius: 22px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); }
 
-    .county-panel {
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 18px;
-      background: #ffffff;
-      color: #102018;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 14px 36px rgba(0,0,0,0.12);
-    }
+    .rash-tools-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+    .visual-ai-card-img { width: 100%; height: 150px; object-fit: cover; object-position: center; display: block; margin-bottom: 16px; border-radius: 16px; border: 1px solid rgba(126,231,135,0.18); background: rgba(255,255,255,0.08); }
+    .symptoms-card-img { width: 100%; height: 150px; object-fit: contain; display: block; margin-bottom: 16px; padding: 8px; border-radius: 16px; border: 1px solid rgba(126,231,135,0.18); background: #ffffff; }
+    .rash-check-card { padding: 20px; border-radius: 20px; background: linear-gradient(135deg, rgba(126,231,135,0.13), rgba(255,255,255,0.06)); border: 1px solid rgba(126,231,135,0.24); display: flex; flex-direction: column; justify-content: center; box-shadow: 0 18px 42px rgba(0,0,0,0.16); }
+    .rash-check-card h3 { color: #7ee787; margin-bottom: 10px; }
+    .rash-check-card p { color: #b9cfc2; font-size: 0.95rem; margin-bottom: 16px; }
+    .rash-check-card .btn { width: fit-content; }
 
-    .county-panel h3 {
-      color: #0b3b25;
-      font-size: 1.05rem;
-      margin-bottom: 8px;
-    }
-
-    .county-panel p {
-      color: #46584e;
-      margin-bottom: 8px;
-    }
-
-    .county-list-wrap {
-      position: relative;
-    }
-
-    .county-list {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 6px;
-      max-height: none;
-      overflow: hidden;
-      padding-right: 4px;
-      transition: max-height 0.35s ease;
-    }
-
-    .county-list.is-collapsed {
-      max-height: 78px;
-    }
-
-    .county-list.is-expanded {
-      max-height: 900px;
-      overflow-y: auto;
-    }
-
-    .county-list.is-collapsed::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 48px;
-      height: 42px;
-      pointer-events: none;
-      background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff);
-    }
-
-    .county-item {
-      padding: 5px 7px;
-      border-radius: 8px;
-      background: #edf7f0;
-      color: #183325;
-      border: 1px solid rgba(34,107,53,0.12);
-      font-size: 0.68rem;
-      font-weight: 600;
-      line-height: 1.1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .county-toggle-btn {
-      margin-top: 10px;
-      border: none;
-      cursor: pointer;
-      background: #0b281d;
-      color: #ffffff;
-      padding: 9px 16px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.82rem;
-    }
-.county-search-box {
-display: flex;
-gap: 8px;
-margin-bottom: 12px;
-}
-
-.county-search-box input {
-flex: 1;
-padding: 10px 13px;
-border-radius: 999px;
-border: 1px solid rgba(34,107,53,0.22);
-font-size: 0.9rem;
-outline: none;
-}
-
-.county-search-box input {
-border-color: #226b35;
-box-shadow: 0 0 0 3px rgba(34,107,53,0.12);
-}
-
-.county-search-box button {
-border: none;
-cursor: pointer;
-background: #0b281d;
-color: #ffffff;
-padding: 10px 16px;
-border-radius: 999px;
-font-weight: 800;
-font-size: 0.85rem;
-}
-
-.county-search-result {
-margin-bottom: 12px;
-font-size: 0.86rem;
-font-weight: 700;
-color: #183325;
-}
-
-.county-search-result .found {
-display: inline-block;
-padding: 8px 11px;
-border-radius: 12px;
-background: #edf7f0;
-border: 1px solid rgba(34,107,53,0.18);
-}
-
-.county-search-result .not-found {
-display: inline-block;
-padding: 8px 11px;
-border-radius: 12px;
-background: #fff3e6;
-color: #7a3b00;
-border: 1px solid rgba(217,119,6,0.22);
-}
-    .badge {
-      display: inline-flex;
-      margin-left: 6px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 900;
-      background: #ffe2e2;
-      color: #8a1010;
-    }
-
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 26px;
-    }
-
-    .resource-card {
-      padding: 22px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 20px 48px rgba(0,0,0,0.14);
-    }
-
-    .resource-card img.resource-logo {
-      width: 100%;
-      height: 120px;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto 16px auto;
-      padding: 10px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.94);
-    }
-
-    .resource-card img.resource-photo {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      display: block;
-      margin: 0 auto 16px auto;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.08);
-    }
-
-    .resource-card h3 {
-      color: #7ee787;
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
-
-    .resource-card p {
-      color: #b9cfc2;
-      font-size: 0.94rem;
-      margin-bottom: 16px;
-    }
-
-    .tick-image-band {
-      margin-top: 30px;
-      display: grid;
-      grid-template-columns: 0.48fr 1fr 0.9fr;
-      gap: 22px;
-      align-items: stretch;
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-    }
-
-    .tick-image-band img {
-      width: 100%;
-      height: 100%;
-      min-height: 190px;
-      object-fit: cover;
-      display: block;
-      border-radius: 18px;
-    }
-
-    .tick-image-band h3 {
-      color: #7ee787;
-      margin-bottom: 10px;
-    }
-
-    .tick-image-band p {
-      color: #b9cfc2;
-    }
-
-    .tick-awareness-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-.tick-image-band {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: 0.45fr 0.85fr 1.25fr;
-  gap: 22px;
-  align-items: stretch;
-  padding: 22px;
-  border-radius: 22px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-}
-
-.visual-ai-card-img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  margin-bottom: 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(126,231,135,0.18);
-  background: rgba(255,255,255,0.08);
-} 
-    .rash-check-card {
-      padding: 20px;
-      border-radius: 20px;
-      background:
-        linear-gradient(135deg, rgba(126,231,135,0.13), rgba(255,255,255,0.06));
-      border: 1px solid rgba(126,231,135,0.24);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-shadow: 0 18px 42px rgba(0,0,0,0.16);
-    }
-
-    .rash-check-card h3 {
-      color: #7ee787;
-      margin-bottom: 10px;
-    }
-
-    .rash-check-card p {
-      color: #b9cfc2;
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .rash-check-card .btn {
-      width: fit-content;
-    }
-
-    .archive-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .archive-item {
-      padding: 18px;
-      border-radius: 16px;
-      background: #ffffff;
-      color: #102018;
-      border: 1px solid rgba(0,0,0,0.08);
-    }
-
-    .archive-item a {
-      color: #0b5a2a;
-      text-decoration: none;
-      font-weight: 900;
-    }
-
-    .archive-item a:hover {
-      text-decoration: underline;
-    }
-.btn-orange {
-  background: linear-gradient(135deg, #d97706, #92400e);
-  color: #ffffff;
-  box-shadow: 0 12px 28px rgba(146, 64, 14, 0.30);
-}
-
-.btn-orange:hover {
-  background: linear-gradient(135deg, #f59e0b, #78350f);
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-    .note-box {
-      margin-top: 28px;
-      padding: 20px;
-      border-radius: 18px;
-      background: rgba(126,231,135,0.10);
-      border: 1px solid rgba(126,231,135,0.22);
-      color: #dbe9e0;
-    }
-
-    footer {
-      padding: 34px 7%;
-      background: #030907;
-      color: #9fb5a8;
-      font-size: 0.9rem;
-    }
+    .archive-list { display: grid; gap: 14px; margin-top: 20px; }
+    .archive-item { padding: 18px; border-radius: 16px; background: #ffffff; color: #102018; border: 1px solid rgba(0,0,0,0.08); }
+    .archive-item a { color: #0b5a2a; text-decoration: none; font-weight: 900; }
+    .archive-item a:hover { text-decoration: underline; }
+    .btn-orange { background: linear-gradient(135deg, #d97706, #92400e); color: #ffffff; box-shadow: 0 12px 28px rgba(146, 64, 14, 0.30); }
+    .btn-orange:hover { background: linear-gradient(135deg, #f59e0b, #78350f); color: #ffffff; transform: translateY(-1px); }
+    .note-box { margin-top: 28px; padding: 20px; border-radius: 18px; background: rgba(126,231,135,0.10); border: 1px solid rgba(126,231,135,0.22); color: #dbe9e0; }
+    footer { padding: 34px 7%; background: #030907; color: #9fb5a8; font-size: 0.9rem; }
 
     @media (max-width: 1100px) {
-      .county-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      .county-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 1000px) {
-      .resource-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .tick-image-band {
-        grid-template-columns: 1fr;
-      }
-
-      .tick-image-band img {
-        height: auto;
-        min-height: auto;
-      }
+      .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tick-image-band { grid-template-columns: 1fr; }
+      .tick-image-band img { height: auto; min-height: auto; }
     }
 
     @media (max-width: 900px) {
       nav { display: none; }
       .logo-img { height: 38px; }
-      .county-list,
-      .resource-grid {
-        grid-template-columns: 1fr;
-      }
+      .county-list, .resource-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 700px) {
-      .county-list {
-        grid-template-columns: 1fr;
-      }
-
-      .county-item {
-        white-space: normal;
-      }
-
-      .county-list.is-collapsed {
-        max-height: 110px;
-      }
+      .rash-tools-grid { grid-template-columns: 1fr; }
+      .county-list { grid-template-columns: 1fr; }
+      .county-item { white-space: normal; }
+      .county-list.is-collapsed { max-height: 110px; }
     }
   </style>
 </head>
@@ -617,30 +153,28 @@ border: 1px solid rgba(217,119,6,0.22);
   </nav>
 </header>
 
-<!-- <main class="hero">
+<!--
+<main class="hero">
   <div class="kicker">Weekly Lyme & Tick Alert</div>
   <div class="buttons">
     <a href="/lyme-alert/weekly/weekly-lyme-alert-latest.html" class="btn btn-primary">Open Latest Report</a>
     <a href="https://ssucrg.projects.earthengine.app/view/weeklyalert" target="_blank" rel="noopener" class="btn btn-secondary">Interactive Alert Map🗺️</a>
   </div>
-</main> -->
+</main>
+-->
+
 <section id="map">
   <div class="section-header">
     <h2 class="section-title">County-Level Weekly Lyme Alert Map</h2>
-    <p class="section-text">
-      This GeoAI & TrendAI Lyme alert map supports public awareness of tick bite risk, possible Lyme disease exposure,
-      blacklegged tick activity, and areas where rash or flu-like symptoms after outdoor exposure should be monitored.
-    </p>
+    <p class="section-text">This GeoAI & TrendAI Lyme alert map supports public awareness of tick bite risk, possible Lyme disease exposure, blacklegged tick activity, and areas where rash or flu-like symptoms after outdoor exposure should be monitored.</p>
   </div>
 
-<div class="main-image-card">
-  <a href="https://ssucrg.projects.earthengine.app/view/weeklyalert"
-     target="_blank"
-     rel="noopener"
-     aria-label="Open interactive weekly Lyme alert map">
-    <img src="/assets/images/WeeklyAlert.png" alt="County-level weekly Lyme alert map by GEBA GeoAI and TrendAI">
-  </a>
-</div>
+  <div class="main-image-card">
+    <a href="https://ssucrg.projects.earthengine.app/view/weeklyalert" target="_blank" rel="noopener" aria-label="Open interactive weekly Lyme alert map">
+      <img src="/assets/images/WeeklyAlert.png" alt="County-level weekly Lyme alert map by GEBA GeoAI and TrendAI">
+    </a>
+  </div>
+
   <div class="buttons">
     <a href="/lyme-alert/weekly/weekly-lyme-alert-latest.html" class="btn btn-primary">Open Latest Report</a>
     <a href="https://ssucrg.projects.earthengine.app/view/weeklyalert" target="_blank" rel="noopener" class="btn btn-secondary">Interactive Alert Map🗺️</a>
@@ -649,27 +183,23 @@ border: 1px solid rgba(217,119,6,0.22);
 
 <section id="counties" class="light">
   <div class="section-kicker">High-Risk Counties</div>
+
   <div class="county-panel" data-report-url="/lyme-alert/weekly/weekly-lyme-alert-latest.html">
-  <div class="county-search-box">
-    <input
-      type="text"
-      id="countySearchInput"
-      placeholder="Search county or state, e.g., Fairfax or VA"
-      aria-label="Search county or state"
-    >
-    <button id="countySearchBtn" type="button">Search</button>
-  </div>
-  <div id="countySearchResult" class="county-search-result"></div>
-  <h3 id="countyPanelTitle">Search the latest weekly high-risk county list</h3>
+    <div class="county-search-box">
+      <input type="text" id="countySearchInput" placeholder="Search county or state, e.g., Fairfax or VA" aria-label="Search county or state">
+      <button id="countySearchBtn" type="button">Search</button>
+    </div>
+
+    <div id="countySearchResult" class="county-search-result"></div>
+    <h3 id="countyPanelTitle">Search the latest weekly high-risk county list</h3>
+
     <div class="county-list-wrap">
       <div id="countyList" class="county-list is-collapsed">
         <div class="county-item">Loading latest county list...</div>
       </div>
     </div>
 
-    <button id="countyToggleBtn" class="county-toggle-btn" type="button">
-      Show all counties
-    </button>
+    <button id="countyToggleBtn" class="county-toggle-btn" type="button">Show all counties</button>
   </div>
 </section>
 
@@ -677,9 +207,7 @@ border: 1px solid rgba(217,119,6,0.22);
   <div class="section-header">
     <div class="section-kicker">Public-Health Resources</div>
     <h2 class="section-title">Lyme Information and Next Steps</h2>
-    <p class="section-text">
-      These external links provide general public-health information and care-seeking resources.
-    </p>
+    <p class="section-text">These external links provide general public-health information and care-seeking resources.</p>
   </div>
 
   <div class="note-box">
@@ -695,95 +223,70 @@ border: 1px solid rgba(217,119,6,0.22);
       <img src="/assets/images/cdc.png" alt="CDC logo" class="resource-logo">
       <h3>CDC Lyme<br>Information</h3>
       <p>Learn about Lyme disease, symptoms, prevention, testing, diagnosis, and treatment from CDC.</p>
-      <a href="https://www.cdc.gov/lyme/"
-         target="_blank"
-         rel="noopener"
-         class="btn btn-primary">Open CDC</a>
+      <a href="https://www.cdc.gov/lyme/" target="_blank" rel="noopener" class="btn btn-primary">Open CDC</a>
     </div>
 
     <div class="resource-card">
       <img src="/assets/images/HHS.png" alt="HHS logo" class="resource-logo">
       <h3>HHS Lyme<br>Resources</h3>
       <p>Access HHS Lyme disease information and federal resources for patients and families.</p>
-      <a href="https://www.hhs.gov/lyme/index.html"
-         target="_blank"
-         rel="noopener"
-         class="btn btn-primary">Open HHS</a>
+      <a href="https://www.hhs.gov/lyme/index.html" target="_blank" rel="noopener" class="btn btn-primary">Open HHS</a>
     </div>
 
     <div class="resource-card">
       <img src="/assets/images/tickbite.png" alt="Blacklegged tick image" class="resource-photo">
       <h3>Lyme Symptoms Video</h3>
       <p>Explore videos on Lyme disease, tick bites, rash signs, and simple prevention tips.</p>
-      <a href="https://www.youtube.com/results?search_query=Lyme+disease+rash+tick+bite"
-         target="_blank"
-         rel="noopener"
-         class="btn btn-primary">Open YouTube</a>
+      <a href="https://www.youtube.com/results?search_query=Lyme+disease+rash+tick+bite" target="_blank" rel="noopener" class="btn btn-primary">Open YouTube</a>
     </div>
 
     <div class="resource-card">
       <img src="/assets/images/clinic.png" alt="Tick bite" class="resource-photo">
-      <p class="urgent-alert-text">
-        If you are in a Lyme alert area and have symptoms, seek medical care promptly.
-      </p>
-      <a href="https://www.google.com/maps/search/urgent+care+hospital+near+me+Lyme+disease+tick+bite"
-         target="_blank"
-         rel="noopener"
-         class="btn btn-primary">Find Nearby Care</a>
+      <p class="urgent-alert-text">If you are in a Lyme alert area and have symptoms, seek medical care promptly.</p>
+      <a href="https://www.google.com/maps/search/urgent+care+hospital+near+me+Lyme+disease+tick+bite" target="_blank" rel="noopener" class="btn btn-primary">Find Nearby Care</a>
     </div>
-  </div> 
+  </div>
 
-<div class="rash-check-card">
-  <img src="/assets/images/VisualAI.png" alt="Vision AI rash pattern analysis" class="visual-ai-card-img">
+  <div class="rash-tools-grid">
+    <div class="rash-check-card">
+      <img src="/assets/images/VisualAI.png" alt="Vision AI rash pattern analysis" class="visual-ai-card-img">
+      <h3>Vision AI • Visual Rash Screening</h3>
+      <p>Upload a skin image and let Vision AI (Deep Learning) compare its pattern with Lyme-like, similar-looking, and other skin-pattern examples.</p>
+      <a href="VisionAI.html" class="btn btn-orange">Try Rash Pattern Check</a>
+    </div>
 
-  <h3>Vision AI • Visual Rash Screening</h3>
-  <p>
-    Upload a skin image and let Vision AI (Deep Learning) compare its pattern with Lyme-like,
-    similar-looking, and other skin-pattern examples.
-  </p>
-  <a href="VisionAI.html" class="btn btn-orange">
-    Try Rash Pattern Check
-  </a>
-</div> 
+    <div class="rash-check-card">
+      <a href="https://www.lymedisease.org/lyme-disease-symptom-checklist/" target="_blank" rel="noopener">
+        <img src="/assets/images/limediseaseorg.png" alt="LymeDisease.org Symptoms Checklist" class="symptoms-card-img">
+      </a>
+      <h3>Lyme Symptoms Checklist</h3>
+      <p>Review common Lyme symptoms and document possible exposure to discuss with your healthcare provider.</p>
+      <a href="https://www.lymedisease.org/lyme-disease-symptom-checklist/" target="_blank" rel="noopener" class="btn btn-orange">Symptoms Checklist</a>
+    </div>
+  </div>
 
   <div class="stress-game-card">
-  <div class="stress-game-copy">
-    <h3>Take a Short Stress Break</h3>
-    <p>
-      Looking up Lyme disease, tick bites, or possible symptoms can feel stressful.
-      Take a short break and play a simple bug-sorting game.
-    </p>
-        <p class="stress-game-credit">
-      External game from
-      <a href="https://www.pestworldforkids.org/"
-         target="_blank"
-         rel="noopener">
-        PestWorld for Kids
-      </a>,
-      an educational resource associated with the National Pest Management Association (NPMA).
-      </p>
-     <a href="https://www.pestworldforkids.org/games/sortthebug/index.html"
-       target="_blank"
-       rel="noopener"
-       class="btn btn-primary">
-      Play Bug Game
-    </a>
+    <div class="stress-game-copy">
+      <h3>Take a Short Stress Break</h3>
+      <p>Looking up Lyme disease, tick bites, or possible symptoms can feel stressful. Take a short break and play a simple bug-sorting game.</p>
+      <p class="stress-game-credit">External game from <a href="https://www.pestworldforkids.org/" target="_blank" rel="noopener">PestWorld for Kids</a>, an educational resource associated with the National Pest Management Association (NPMA).</p>
+      <a href="https://www.pestworldforkids.org/games/sortthebug/index.html" target="_blank" rel="noopener" class="btn btn-primary">Play Bug Game</a>
+    </div>
+
+    <img src="/assets/images/pestworld.png" alt="PestWorld bug sorting game" class="stress-game-img">
   </div>
-  <img src="/assets/images/pestworld.png" alt="PestWorld bug sorting game" class="stress-game-img">
-</div>
-  
+
   <div class="note-box">
     <strong>Public-health note:</strong>
     This weekly Lyme alerts are not medical diagnosis.
     People with symptoms after a tick bite should contact qualified healthcare professionals or local public-health authorities.
   </div>
 </section>
+
 <section id="reports" class="light">
   <div class="section-header">
     <h2 class="section-title">Weekly Report Archive</h2>
-    <p class="section-text">
-      Recent weekly Lyme alert reports are listed below.
-    </p>
+    <p class="section-text">Recent weekly Lyme alert reports are listed below.</p>
   </div>
 
   <div id="archiveList" class="archive-list">
@@ -799,36 +302,20 @@ border: 1px solid rgba(217,119,6,0.22);
 
   <div class="county-panel">
     <h3>Am I in a weekly Lyme alert area?</h3>
-    <p>
-      A weekly Lyme alert means that signals suggest increased local awareness may be useful.
-      If your county appears in a high-alert area, take extra care with tick bite prevention, tick checks, and outdoor exposure.
-    </p>
+    <p>A weekly Lyme alert means that signals suggest increased local awareness may be useful. If your county appears in a high-alert area, take extra care with tick bite prevention, tick checks, and outdoor exposure.</p>
 
     <h3>What should I do if I have symptoms after a tick bite?</h3>
-    <p>
-      If you are in a Lyme alert area and develop an expanding rash, bullseye-like rash, fever, fatigue, headache,
-      muscle aches, or joint pain after a tick bite, seek medical care promptly.
-    </p>
+    <p>If you are in a Lyme alert area and develop an expanding rash, bullseye-like rash, fever, fatigue, headache, muscle aches, or joint pain after a tick bite, seek medical care promptly.</p>
 
     <h3>Why do blacklegged ticks matter?</h3>
-    <p>
-      Lyme disease in many U.S. regions is linked to infected blacklegged ticks, also called deer ticks.
-      Checking your body, clothing, children, and pets after outdoor activity can help reduce risk.
-    </p>
+    <p>Lyme disease in many U.S. regions is linked to infected blacklegged ticks, also called deer ticks. Checking your body, clothing, children, and pets after outdoor activity can help reduce risk.</p>
 
     <h3>How should I use this page?</h3>
-    <p>
-      Use this weekly Lyme alert to check the map, review high-alert counties, monitor possible rash or symptoms,
-      and connect to trusted health resources when needed.
-      These Lyme alerts are for awareness only and are not medical diagnosis or treatment advice.
-    </p>
+    <p>Use this weekly Lyme alert to check the map, review high-alert counties, monitor possible rash or symptoms, and connect to trusted health resources when needed. These Lyme alerts are for awareness only and are not medical diagnosis or treatment advice.</p>
   </div>
 </section>
 
-  
-<footer>
-  © 2026 GEBA LLC. Weekly Lyme Alert • GeoAI & TrendAI & VisionAI • Environmental Public-Health Intelligence
-</footer>
+<footer>© 2026 GEBA LLC. Weekly Lyme Alert • GeoAI & TrendAI & VisionAI • Environmental Public-Health Intelligence</footer>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -840,21 +327,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const countySearchInput = document.getElementById("countySearchInput");
   const countySearchBtn = document.getElementById("countySearchBtn");
   const countySearchResult = document.getElementById("countySearchResult");
-  let latestCountyItems = [];
   const githubApiUrl = "https://api.github.com/repos/wavegeba/web_story/contents/lyme-alert/weekly?ref=main";
+  let latestCountyItems = [];
 
-  function escapeHTML(value) {
-    return String(value || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  function cleanText(value) {
-    return String(value || "").replace(/\s+/g, " ").trim();
-  }
+  function escapeHTML(value) { return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); }
+  function cleanText(value) { return String(value || "").replace(/\s+/g, " ").trim(); }
 
   function setupCountyToggle() {
     if (!countyToggleBtn || !countyList) return;
@@ -896,12 +373,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const risk = escapeHTML(item.risk || item["Risk label"] || item.alert || "");
 
         displayText = `${rank}${county}${state ? ", " + state : ""}`;
-        return `
-          <div class="county-item" title="${displayText} ${risk}">
-            <strong>${displayText}</strong>
-            ${risk ? `<span class="badge">${risk}</span>` : ""}
-          </div>
-        `;
+        return `<div class="county-item" title="${displayText} ${risk}"><strong>${displayText}</strong>${risk ? `<span class="badge">${risk}</span>` : ""}</div>`;
       }
 
       return `<div class="county-item" title="${escapeHTML(displayText)}">${escapeHTML(displayText)}</div>`;
@@ -928,266 +400,170 @@ document.addEventListener("DOMContentLoaded", function() {
       try {
         const parsed = JSON.parse((dataTag.textContent || "[]").trim());
         if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      } catch (e) {
-        console.warn("countyData JSON parse failed:", e);
-      }
+      } catch (e) { console.warn("countyData JSON parse failed:", e); }
     }
 
     const directCountyItems = Array.from(doc.querySelectorAll(".county-item"))
       .map(function(el) { return cleanText(el.textContent); })
-      .filter(function(text) {
-        return text.length > 3 && !text.toLowerCase().includes("loading");
-      });
+      .filter(function(text) { return text.length > 3 && !text.toLowerCase().includes("loading"); });
 
     if (directCountyItems.length > 0) return [...new Set(directCountyItems)];
 
     const tableItems = [];
 
     doc.querySelectorAll("table tr").forEach(function(row) {
-      const cells = Array.from(row.querySelectorAll("td, th"))
-        .map(function(cell) { return cleanText(cell.textContent); })
-        .filter(Boolean);
-
+      const cells = Array.from(row.querySelectorAll("td, th")).map(function(cell) { return cleanText(cell.textContent); }).filter(Boolean);
       if (cells.length < 2) return;
 
       const rowText = cells.join(" — ");
       const lower = rowText.toLowerCase();
+      const isHeader = lower.includes("state") && lower.includes("county") && (lower.includes("risk") || lower.includes("alert"));
+      const looksLikeCounty = lower.includes("county") || lower.includes("very high") || lower.includes("high");
 
-      const isHeader =
-        lower.includes("state") &&
-        lower.includes("county") &&
-        (lower.includes("risk") || lower.includes("alert"));
-
-      const looksLikeCounty =
-        lower.includes("county") ||
-        lower.includes("very high") ||
-        lower.includes("high");
-
-      if (!isHeader && looksLikeCounty && rowText.length > 8) {
-        tableItems.push(rowText);
-      }
+      if (!isHeader && looksLikeCounty && rowText.length > 8) tableItems.push(rowText);
     });
 
     return [...new Set(tableItems)];
   }
-  
- function formatReportDate(value) {
-  const text = cleanText(value);
-  const match = text.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
 
-  if (!match) return text;
+  function formatReportDate(value) {
+    const text = cleanText(value);
+    const match = text.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
+    if (!match) return text;
 
-  const year = match[1];
-  const month = String(match[2]).padStart(2, "0");
-  const day = String(match[3]).padStart(2, "0");
+    const year = match[1];
+    const month = String(match[2]).padStart(2, "0");
+    const day = String(match[3]).padStart(2, "0");
 
-  return `${year}.${month}.${day}`;
-}
-
-function extractReportDateFromReport(doc) {
-  const metaDate = doc.querySelector('meta[name="report-date"]');
-
-  if (metaDate && metaDate.getAttribute("content")) {
-    return formatReportDate(metaDate.getAttribute("content"));
+    return `${year}.${month}.${day}`;
   }
 
-  const dateElement =
-    doc.getElementById("reportDate") ||
-    doc.querySelector(".report-date") ||
-    doc.querySelector("[data-report-date]");
+  function extractReportDateFromReport(doc) {
+    const metaDate = doc.querySelector('meta[name="report-date"]');
+    if (metaDate && metaDate.getAttribute("content")) return formatReportDate(metaDate.getAttribute("content"));
 
-  if (dateElement) {
-    const dateValue =
-      dateElement.getAttribute("data-report-date") ||
-      dateElement.textContent;
+    const dateElement = doc.getElementById("reportDate") || doc.querySelector(".report-date") || doc.querySelector("[data-report-date]");
+    if (dateElement) return formatReportDate(dateElement.getAttribute("data-report-date") || dateElement.textContent);
 
-    return formatReportDate(dateValue);
+    const bodyText = cleanText(doc.body ? doc.body.textContent : "");
+    const dateMatch = bodyText.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
+
+    return dateMatch ? formatReportDate(dateMatch[0]) : "";
   }
 
-  const bodyText = cleanText(doc.body ? doc.body.textContent : "");
-  const dateMatch = bodyText.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
+  function countyItemToSearchText(item) {
+    if (typeof item === "string") return cleanText(item);
 
-  if (dateMatch) {
-    return formatReportDate(dateMatch[0]);
+    const rank = item.rank ? item.rank + ". " : "";
+    const county = item.county || item.County || "";
+    const state = item.state || item.State || "";
+    const risk = item.risk || item["Risk label"] || item.alert || "";
+
+    return cleanText(`${rank}${county}${state ? ", " + state : ""} ${risk}`);
   }
 
-  return "";
-} 
-  
-function countyItemToSearchText(item) {
-if (typeof item === "string") {
-return cleanText(item);
-}
+  function setupCountySearch() {
+    if (!countySearchInput || !countySearchBtn || !countySearchResult) return;
 
-const rank = item.rank ? item.rank + ". " : "";
-const county = item.county || item.County || "";
-const state = item.state || item.State || "";
-const risk = item.risk || item["Risk label"] || item.alert || "";
+    function runSearch() {
+      const query = cleanText(countySearchInput.value).toLowerCase();
 
-return cleanText(`${rank}${county}${state ? ", " + state : ""} ${risk}`);
-}
+      if (!query) {
+        countySearchResult.innerHTML = "";
+        return;
+      }
 
-function setupCountySearch() {
-if (!countySearchInput || !countySearchBtn || !countySearchResult) return;
+      const matches = latestCountyItems
+        .map(function(item) { return countyItemToSearchText(item); })
+        .filter(function(text) { return text.toLowerCase().includes(query); });
 
-function runSearch() {
-const query = cleanText(countySearchInput.value).toLowerCase();
+      if (matches.length === 0) {
+        countySearchResult.innerHTML = '<span class="not-found">Not found in the latest high-risk county list.</span>';
+        return;
+      }
 
-if (!query) {
-  countySearchResult.innerHTML = "";
-  return;
-}
+      countySearchResult.innerHTML = matches.slice(0, 8).map(function(text) { return '<span class="found">' + escapeHTML(text) + '</span>'; }).join(" ");
 
-const matches = latestCountyItems
-  .map(function(item) {
-    return countyItemToSearchText(item);
-  })
-  .filter(function(text) {
-    return text.toLowerCase().includes(query);
-  });
+      if (matches.length > 8) countySearchResult.innerHTML += ' <span class="found">+' + (matches.length - 8) + ' more</span>';
+    }
 
-if (matches.length === 0) {
-  countySearchResult.innerHTML =
-    '<span class="not-found">Not found in the latest high-risk county list.</span>';
-  return;
-}
+    countySearchBtn.addEventListener("click", runSearch);
+    countySearchInput.addEventListener("keydown", function(event) { if (event.key === "Enter") runSearch(); });
+    countySearchInput.addEventListener("input", function() { if (!cleanText(countySearchInput.value)) countySearchResult.innerHTML = ""; });
+  }
 
-countySearchResult.innerHTML = matches.slice(0, 8).map(function(text) {
-  return '<span class="found">' + escapeHTML(text) + '</span>';
-}).join(" ");
+  async function loadCountyList() {
+    if (!countyPanel || !countyList) return;
 
-if (matches.length > 8) {
-  countySearchResult.innerHTML +=
-    ' <span class="found">+' + (matches.length - 8) + ' more</span>';
-} 
+    const reportUrl = countyPanel.getAttribute("data-report-url");
 
-}
+    try {
+      const response = await fetch(reportUrl + "?v=" + Date.now(), { cache: "no-store" });
+      if (!response.ok) throw new Error("Could not load latest report");
 
-countySearchBtn.addEventListener("click", runSearch);
+      const htmlText = await response.text();
+      const latestDoc = new DOMParser().parseFromString(htmlText, "text/html");
+      const counties = extractCountyListFromReport(latestDoc);
+      const reportDateText = extractReportDateFromReport(latestDoc);
 
-countySearchInput.addEventListener("keydown", function(event) {
-if (event.key === "Enter") {
-runSearch();
-}
-});
+      renderCountyList(counties, reportDateText);
+    } catch (error) {
+      countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
+      if (countyToggleBtn) countyToggleBtn.style.display = "none";
+      console.error("County list loading error:", error);
+    }
+  }
 
-countySearchInput.addEventListener("input", function() {
-if (!cleanText(countySearchInput.value)) {
-countySearchResult.innerHTML = "";
-}
-});
-}
+  function makeTitleFromFilename(filename) {
+    const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2}).html$/);
+    if (!match) return filename.replace(".html", "").replaceAll("-", " ");
 
-async function loadCountyList() {
-if (!countyPanel || !countyList) return;
+    return `Weekly Lyme Alert Report (${match[1]}.${match[2]}.${match[3]})`;
+  }
 
-const reportUrl = countyPanel.getAttribute("data-report-url");
+  function makeDateFromFilename(filename) {
+    const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2}).html$/);
+    return match ? `${match[1]}-${match[2]}-${match[3]}` : "";
+  }
 
-try {
-const response = await fetch(reportUrl + "?v=" + Date.now(), { cache: "no-store" });
- 
-if (!response.ok) {
-  throw new Error("Could not load latest report");
-}
+  async function loadArchiveList() {
+    if (!archiveList) return;
 
-const htmlText = await response.text();
-const latestDoc = new DOMParser().parseFromString(htmlText, "text/html");
-const counties = extractCountyListFromReport(latestDoc);
-const reportDateText = extractReportDateFromReport(latestDoc);
+    try {
+      const response = await fetch(githubApiUrl, { cache: "no-store" });
+      if (!response.ok) throw new Error("Could not load GitHub folder list");
 
-renderCountyList(counties, reportDateText);
- 
+      const files = await response.json();
 
-} catch (error) {
-countyList.innerHTML = '<div class="county-item">Could not load the latest county list.</div>';
-if (countyToggleBtn) countyToggleBtn.style.display = "none";
-console.error("County list loading error:", error);
-}
-}
+      const reports = files
+        .filter(function(file) { return file.type === "file" && file.name.endsWith(".html") && file.name.startsWith("weekly-lyme-alert-") && file.name !== "weekly-lyme-alert-latest.html"; })
+        .map(function(file) { return { name: file.name, date: makeDateFromFilename(file.name), title: makeTitleFromFilename(file.name), url: "/lyme-alert/weekly/" + file.name }; })
+        .sort(function(a, b) { return b.date.localeCompare(a.date); });
 
-function makeTitleFromFilename(filename) {
-const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2}).html$/);
+      if (reports.length === 0) {
+        archiveList.innerHTML = '<div class="archive-item">No weekly HTML reports found yet.</div>';
+        return;
+      }
 
-if (!match) {
-return filename.replace(".html", "").replaceAll("-", " ");
-}
+      if (reports[0] && reports[0].date && countyPanelTitle) {
+        const baseTitle = countyPanelTitle.textContent.replace(/ • Data date:.*/, "");
+        countyPanelTitle.textContent = baseTitle + " • " + formatReportDate(reports[0].date);
+      }
 
-return `Weekly Lyme Alert Report (${match[1]}.${match[2]}.${match[3]})`;
-}
+      archiveList.innerHTML = reports.map(function(report) {
+        return `<div class="archive-item"><a href="${escapeHTML(report.url)}">${escapeHTML(report.title)}</a></div>`;
+      }).join("");
+    } catch (error) {
+      archiveList.innerHTML = '<div class="archive-item"><a href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">Weekly Lyme Alert Report (2026.06.21)</a></div>';
+      console.error("Weekly report archive loading error:", error);
+    }
+  }
 
-function makeDateFromFilename(filename) {
-const match = filename.match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2}).html$/);
-if (!match) return "";
-return `${match[1]}-${match[2]}-${match[3]}`;
-}
-
-async function loadArchiveList() {
-if (!archiveList) return;
-
-try {
-const response = await fetch(githubApiUrl, { cache: "no-store" });
- 
-if (!response.ok) {
-  throw new Error("Could not load GitHub folder list");
-}
-
-const files = await response.json();
-
-const reports = files
-  .filter(function(file) {
-    return file.type === "file" &&
-           file.name.endsWith(".html") &&
-           file.name.startsWith("weekly-lyme-alert-") &&
-           file.name !== "weekly-lyme-alert-latest.html";
-  })
-  .map(function(file) {
-    return {
-      name: file.name,
-      date: makeDateFromFilename(file.name),
-      title: makeTitleFromFilename(file.name),
-      url: "/lyme-alert/weekly/" + file.name
-    };
-  })
-  .sort(function(a, b) {
-    return b.date.localeCompare(a.date);
-  });
-
-if (reports.length === 0) {
-  archiveList.innerHTML = '<div class="archive-item">No weekly HTML reports found yet.</div>';
-  return;
-}
-if (reports[0] && reports[0].date && countyPanelTitle) {
-  const baseTitle = countyPanelTitle.textContent.replace(/ • Data date:.*/, "");
-  countyPanelTitle.textContent =
-    baseTitle + " • " + formatReportDate(reports[0].date);
-}
-
-archiveList.innerHTML = reports.map(function(report) {
-  return `
-    <div class="archive-item">
-      <a href="${escapeHTML(report.url)}">
-        ${escapeHTML(report.title)}
-      </a>
-    </div>
-  `;
-}).join(""); 
-
-} catch (error) {
-archiveList.innerHTML = `       <div class="archive-item">         <a href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">
-          Weekly Lyme Alert Report (2026.06.21)         </a>       </div>
-    `;
-console.error("Weekly report archive loading error:", error);
-}
-}
-
-setupCountyToggle();
-setupCountySearch();
-loadCountyList().finally(function() {
-  loadArchiveList();
-});
+  setupCountyToggle();
+  setupCountySearch();
+  loadCountyList().finally(function() { loadArchiveList(); });
 });
 </script>
 
 </body>
 </html>
- 
