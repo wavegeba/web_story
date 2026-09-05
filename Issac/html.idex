@@ -1,1 +1,107 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PocketMon GO</title>
+<style>
+* {box-sizing:border-box;margin:0;padding:0}
+body {font-family:Arial,sans-serif;background:linear-gradient(#87ceeb,#dff6ff);min-height:100vh;color:#222}
+header {display:flex;justify-content:space-between;align-items:center;padding:18px 8%;background:rgba(255,255,255,.9);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.logo {font-size:28px;font-weight:bold;color:#1976d2}
+nav a {margin-left:20px;text-decoration:none;color:#333;font-weight:bold}
+nav a:hover {color:#1976d2}
+.hero {min-height:70vh;display:flex;align-items:center;justify-content:center;padding:60px 8%;gap:60px}
+.hero-text {max-width:520px}
+.hero h1 {font-size:56px;margin-bottom:20px;color:#124d86}
+.hero p {font-size:21px;line-height:1.6;margin-bottom:30px}
+.play-btn {border:none;padding:16px 30px;background:#ffcc00;color:#222;font-size:18px;font-weight:bold;border-radius:30px;cursor:pointer;box-shadow:0 5px 12px rgba(0,0,0,.2)}
+.play-btn:hover {transform:translateY(-2px);background:#ffd633}
+.phone {width:290px;height:520px;background:#222;border-radius:35px;padding:12px;box-shadow:0 15px 35px rgba(0,0,0,.3)}
+.screen {position:relative;width:100%;height:100%;overflow:hidden;border-radius:26px;background:linear-gradient(90deg,transparent 48%,#e7d7a7 48%,#e7d7a7 53%,transparent 53%),linear-gradient(transparent 42%,#e7d7a7 42%,#e7d7a7 47%,transparent 47%),#a8d58d}
+.lake {position:absolute;width:120px;height:180px;right:-30px;top:50px;background:#63b9e8;border-radius:50%}
+.player {position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);font-size:42px}
+.monster {position:absolute;font-size:45px;cursor:pointer;transition:.2s}
+.monster:hover {transform:scale(1.2)}
+#monster1 {left:45px;top:100px}
+#monster2 {right:35px;bottom:85px}
+#monster3 {left:55px;bottom:55px}
+.game-status {position:absolute;top:15px;left:15px;right:15px;background:rgba(255,255,255,.9);padding:10px;text-align:center;border-radius:15px;font-weight:bold}
+.features {background:white;padding:70px 8%;text-align:center}
+.features h2 {margin-bottom:40px;font-size:36px}
+.feature-grid {max-width:1000px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.card {padding:30px;border-radius:15px;background:#f5f9ff;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.card .icon {font-size:45px;margin-bottom:15px}
+.card h3 {margin-bottom:12px;color:#1976d2}
+footer {text-align:center;padding:25px;background:#153b5c;color:white}
+@media (max-width:800px) {
+nav {display:none}
+.hero {flex-direction:column;text-align:center}
+.hero h1 {font-size:42px}
+.feature-grid {grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">PocketMon GO</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#features">How to Play</a>
+<a href="#about">About</a>
+</nav>
+</header>
+<section class="hero" id="home">
+<div class="hero-text">
+<h1>Explore. Find. Catch.</h1>
+<p>Explore the world around you and discover virtual creatures. Find PocketMons on the map, catch them, and build your collection.</p>
+<button class="play-btn" onclick="startGame()">Start Exploring</button>
+</div>
+<div class="phone">
+<div class="screen">
+<div class="lake"></div>
+<div class="game-status" id="status">PocketMons nearby: 3</div>
+<div class="player">🧍</div>
+<div class="monster" id="monster1" onclick="catchMonster(this)">🐲</div>
+<div class="monster" id="monster2" onclick="catchMonster(this)">🐸</div>
+<div class="monster" id="monster3" onclick="catchMonster(this)">🐣</div>
+</div>
+</div>
+</section>
+<section class="features" id="features">
+<h2>How to Play</h2>
+<div class="feature-grid">
+<div class="card">
+<div class="icon">🗺️</div>
+<h3>Explore</h3>
+<p>Move around the map and discover PocketMons nearby.</p>
+</div>
+<div class="card">
+<div class="icon">🔎</div>
+<h3>Discover</h3>
+<p>Different PocketMons appear in different environments.</p>
+</div>
+<div class="card">
+<div class="icon">⚪</div>
+<h3>Catch</h3>
+<p>Click a PocketMon on the map to add it to your collection.</p>
+</div>
+</div>
+</section>
+<footer id="about">PocketMon GO Internship Web Development Practice</footer>
+<script>
+let remainingMonsters=3;
+function startGame() {
+document.querySelector(".phone").scrollIntoView({behavior:"smooth"});
+}
+function catchMonster(monster) {
+monster.style.display="none";
+remainingMonsters--;
+const status=document.getElementById("status");
+if (remainingMonsters>0) {status.innerText="PocketMons nearby: "+remainingMonsters}
+else {status.innerText="🎉 You caught them all!"}
+}
+</script>
+</body>
+</html>
