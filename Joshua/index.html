@@ -1,1 +1,120 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Clean Bathroom Guide</title>
+<style>
+* {box-sizing:border-box;margin:0;padding:0}
+body {font-family:Arial,sans-serif;background:#eef9fb;color:#18333a;line-height:1.6}
+header {background:#fff;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.logo {font-size:25px;font-weight:bold;color:#16879a}
+nav a {margin-left:18px;text-decoration:none;color:#34545b;font-weight:bold}
+nav a:hover {color:#16879a}
+.hero {padding:75px 8%;text-align:center;background:linear-gradient(#dff7fa,#eef9fb)}
+.hero .icon {font-size:75px;margin-bottom:15px}
+.hero h1 {font-size:48px;color:#116a7a;margin-bottom:15px}
+.hero p {max-width:720px;margin:auto;font-size:19px;color:#48666d}
+section {padding:60px 8%}
+.section-title {text-align:center;font-size:32px;margin-bottom:30px;color:#116a7a}
+.grid {display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1050px;margin:auto}
+.card {background:#fff;padding:28px;border-radius:18px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+.card .icon {font-size:42px;margin-bottom:12px}
+.card h3 {color:#16879a;margin-bottom:12px}
+.card ul {padding-left:20px}
+.card li {margin-bottom:8px}
+.checklist {max-width:750px;margin:auto;background:#fff;padding:30px;border-radius:18px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+.check-item {display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #ddecef}
+.check-item:last-child {border-bottom:none}
+.check-item input {width:20px;height:20px}
+.tip {max-width:850px;margin:25px auto 0;padding:22px;background:#dff6e6;border-left:6px solid #43a66b;border-radius:12px}
+footer {background:#116a7a;color:#fff;text-align:center;padding:25px;margin-top:40px}
+@media (max-width:800px) {
+.grid {grid-template-columns:1fr}
+.hero h1 {font-size:38px}
+nav {display:none}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🧼 Clean Bathroom Guide</div>
+<nav>
+<a href="#daily">Daily</a>
+<a href="#weekly">Weekly</a>
+<a href="#habits">Good Habits</a>
+</nav>
+</header>
+<section class="hero">
+<div class="icon">🚿✨</div>
+<h1>Keep Your Bathroom Clean</h1>
+<p>A clean bathroom is healthier, safer, and more comfortable. Small daily habits can prevent odors, stains, mold, and unnecessary cleaning later.</p>
+</section>
+<section id="daily">
+<h2 class="section-title">Daily Cleaning</h2>
+<div class="grid">
+<div class="card">
+<div class="icon">🚽</div>
+<h3>Toilet</h3>
+<ul>
+<li>Flush after every use.</li>
+<li>Keep the seat and handle clean.</li>
+<li>Wipe visible water or dirt quickly.</li>
+</ul>
+</div>
+<div class="card">
+<div class="icon">🚰</div>
+<h3>Sink</h3>
+<ul>
+<li>Rinse toothpaste and soap residue.</li>
+<li>Keep the faucet dry and clean.</li>
+<li>Do not leave hair in the sink.</li>
+</ul>
+</div>
+<div class="card">
+<div class="icon">🛁</div>
+<h3>Shower Area</h3>
+<ul>
+<li>Rinse soap from walls and floor.</li>
+<li>Remove standing water when possible.</li>
+<li>Keep the shower area ventilated.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="weekly">
+<h2 class="section-title">Weekly Cleaning Checklist</h2>
+<div class="checklist">
+<label class="check-item"><input type="checkbox">Clean and disinfect the toilet</label>
+<label class="check-item"><input type="checkbox">Clean the sink and faucet</label>
+<label class="check-item"><input type="checkbox">Clean the mirror</label>
+<label class="check-item"><input type="checkbox">Scrub the shower or bathtub</label>
+<label class="check-item"><input type="checkbox">Sweep and mop the floor</label>
+<label class="check-item"><input type="checkbox">Empty the trash can</label>
+<label class="check-item"><input type="checkbox">Replace towels when needed</label>
+</div>
+</section>
+<section id="habits">
+<h2 class="section-title">Good Bathroom Habits</h2>
+<div class="grid">
+<div class="card">
+<div class="icon">💨</div>
+<h3>Keep It Dry</h3>
+<p>Moisture can encourage mold and unpleasant odors. Use a ventilation fan or open the door after showering to help the bathroom dry.</p>
+</div>
+<div class="card">
+<div class="icon">🧴</div>
+<h3>Organize Supplies</h3>
+<p>Keep soap, shampoo, towels, and cleaning products organized. A clutter-free bathroom is easier and faster to clean.</p>
+</div>
+<div class="card">
+<div class="icon">🧽</div>
+<h3>Clean Small Messes Early</h3>
+<p>Do not wait until dirt builds up. Cleaning small spills, hair, and soap residue immediately makes weekly cleaning much easier.</p>
+</div>
+</div>
+<div class="tip"><strong>Remember:</strong> A clean bathroom does not require hours of work. A few minutes of daily care and regular weekly cleaning can keep the space fresh, safe, and comfortable.</div>
+</section>
+<footer>Joshua · GEBA Internship Web Development Practice</footer>
+</body>
+</html>
