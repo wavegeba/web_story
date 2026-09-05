@@ -52,6 +52,19 @@ section.light {background:#f6faf7;color:#102018}
 .contact-box a:hover {text-decoration:underline}
 .lead-highlight {display:inline-block;padding:2px 9px;border-radius:999px;font-weight:900;white-space:nowrap}
 .lead-highlight.season {color:#06120f;background:#ffd166;box-shadow:0 0 18px rgba(255,209,102,.24)}
+.history-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:30px}
+.history-card {background:#fff;color:#102018;border-radius:18px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.14);border:1px solid rgba(255,255,255,.08)}
+.history-card img {width:100%;height:220px;object-fit:cover;display:block}
+.history-gallery {display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#06120f}
+.history-gallery img {width:100%;height:108px;object-fit:cover}
+.history-gallery img:first-child {grid-column:1/-1;height:220px}
+.history-info {padding:19px}
+.history-info h3 {color:#0b3b25;margin-bottom:8px;font-size:1.08rem}
+.history-info p {color:#46584e;font-size:.93rem;line-height:1.55}
+.history-placeholder {min-height:340px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border:1px dashed rgba(126,231,135,.35);box-shadow:none}
+.history-placeholder .history-info {text-align:center;padding:32px}
+.history-placeholder .history-info h3 {color:#7ee787}
+.history-placeholder .history-info p {color:#9fb5a8}
 .student-links {display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
 .student-link {display:inline-flex;padding:10px 18px;border:1px solid rgba(126,231,135,.45);border-radius:999px;color:#7ee787!important;text-decoration:none;font-weight:800;background:rgba(126,231,135,.08)}
 .student-link:hover {background:#7ee787;color:#06120f!important;text-decoration:none!important}
@@ -59,6 +72,7 @@ footer {padding:34px 7%;background:#030907;color:#9fb5a8;font-size:.9rem}
 @media (max-width:1000px) {
 .hero-grid,.week-card {grid-template-columns:1fr}
 .highlight-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+.history-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:700px) {
 nav {display:none}
@@ -68,6 +82,7 @@ section {padding:56px 6%}
 .highlight-grid {grid-template-columns:1fr}
 .hero-image,.program-image-wrap {padding:10px;border-radius:18px}
 .hero-image img,.program-image-wrap img {border-radius:12px}
+.history-grid {grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -127,6 +142,90 @@ The program is designed to make data science approachable by connecting everyday
 Internship journey with weekly photos, short descriptions, student learning activities, and project milestones.
 </p>
 </div>
+<div class="history-grid">
+<div class="history-card">
+<img src="/assets/images/internship/Internship_week1.jpg" alt="Week 1 virtual internship orientation" loading="lazy">
+<div class="history-info">
+<h3>Week 1 · Virtual Orientation</h3>
+<p>The internship began with a virtual orientation introducing the program structure, learning goals, and 8–12 week roadmap. Students were introduced to data science, GeoAI, Earth observation, and the team project they will develop throughout the program.</p>
+</div>
+</div>
+<div class="history-card">
+<div class="history-gallery">
+<img src="/assets/images/internship/Internship_week2_1.jpg" alt="Week 2 data science and data analysis" loading="lazy">
+<img src="/assets/images/internship/Internship_week2_2.jpg" alt="Week 2 hands-on data analysis" loading="lazy">
+<img src="/assets/images/internship/Internship_week2_3.jpg" alt="Week 2 individual data analysis practice" loading="lazy">
+</div>
+<div class="history-info">
+<h3>Week 2 · Data Science & Data Analysis</h3>
+<p>Students learned the fundamentals of data science and how raw data can be organized, explored, and interpreted to answer real-world questions. Hands-on activities introduced basic data analysis workflows and encouraged students to identify patterns, variables, and relationships in data.</p>
+</div>
+</div>
+<div class="history-card">
+<img src="/assets/images/internship/Week3.jpg" alt="Week 3 data visualization practice" loading="lazy">
+<div class="history-info">
+<h3>Week 3 · Data Visualization Practice</h3>
+<p>Students practiced transforming data into visual information using charts and graphical displays. The activities focused on understanding how visualization can reveal trends, comparisons, and patterns that may be difficult to recognize from raw numbers alone.</p>
+</div>
+</div>
+<div class="history-card">
+<img src="/assets/images/internship/week4.jpg" alt="Week 4 prediction modeling" loading="lazy">
+<div class="history-info">
+<h3>Week 4 · Prediction Modeling</h3>
+<p>Students were introduced to predictive modeling and how data can be used to estimate unknown or future outcomes. They practiced connecting input variables with model results while learning the importance of interpretation, accuracy, and model evaluation.</p>
+</div>
+</div>
+<div class="history-card">
+<img src="/assets/images/internship/Week5_1.jpg" alt="Week 5 Earth observation" loading="lazy">
+<div class="history-info">
+<h3>Week 5 · Earth Observation</h3>
+<p>Students explored Earth observation and learned how satellites and remote sensing provide information about the Earth's surface and environment. They examined spatial imagery and discussed how environmental conditions can be observed and analyzed from space.</p>
+</div>
+</div>
+<div class="history-card">
+<img src="/assets/images/internship/Week5_2.jpg" alt="Week 6 Google Earth Engine practice" loading="lazy">
+<div class="history-info">
+<h3>Week 6 · Google Earth Engine</h3>
+<p>Students gained hands-on experience with Google Earth Engine for exploring satellite imagery and geospatial data. They practiced navigating locations, examining Earth observation datasets, and connecting cloud-based mapping tools with GeoAI and environmental applications.</p>
+</div>
+</div>
+<div class="history-card history-placeholder">
+<div class="history-info">
+<h3>Week 7</h3>
+<p>Coming soon</p>
+</div>
+</div>
+<div class="history-card history-placeholder">
+<div class="history-info">
+<h3>Week 8</h3>
+<p>Coming soon</p>
+</div>
+</div>
+<div class="history-card history-placeholder">
+<div class="history-info">
+<h3>Week 9</h3>
+<p>Coming soon</p>
+</div>
+</div>
+<div class="history-card history-placeholder">
+<div class="history-info">
+<h3>Week 10</h3>
+<p>Coming soon</p>
+</div>
+</div>
+<div class="history-card history-placeholder">
+<div class="history-info">
+<h3>Week 11</h3>
+<p>Coming soon</p>
+</div>
+</div>
+<div class="history-card history-placeholder">
+<div class="history-info">
+<h3>Week 12</h3>
+<p>Coming soon</p>
+</div>
+</div>
+</div>
 </section>
 <section id="projects" class="light">
 <div class="section-header">
@@ -137,7 +236,6 @@ As students build team projects, this section will link to simple web apps, maps
 dashboards, or GeoAI demonstrations developed during the internship.
 </p>
 </div>
-<!-- UPDATED: Student project links -->
 <div class="contact-box">
 <h3>Student Projects</h3>
 <div class="student-links">
@@ -146,7 +244,6 @@ dashboards, or GeoAI demonstrations developed during the internship.
 <a class="student-link" href="/web_story/Issac/">Issac</a>
 </div>
 </div>
-<!-- END UPDATED -->
 </section>
 <section id="contact">
 <div class="section-header">
