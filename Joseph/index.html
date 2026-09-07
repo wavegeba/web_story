@@ -1,117 +1,1093 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Smart Management | Finance & Relief Ministry</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>결정장애 치료센터</title>
+
 <style>
-* {box-sizing:border-box;margin:0;padding:0}
-body {font-family:Arial,sans-serif;background:#f5f8f4;color:#26382d;line-height:1.6}
-header {background:#fff;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-.logo {font-size:24px;font-weight:bold;color:#2e6b46}
-nav a {margin-left:18px;text-decoration:none;color:#40584a;font-weight:bold}
-nav a:hover {color:#2e8b57}
-.hero {padding:80px 8%;text-align:center;background:linear-gradient(#dff2e4,#f5f8f4)}
-.hero .icon {font-size:70px;margin-bottom:15px}
-.hero h1 {font-size:48px;color:#285c3d;margin-bottom:15px}
-.hero p {max-width:760px;margin:auto;font-size:19px;color:#52675a}
-section {padding:60px 8%}
-.section-title {text-align:center;font-size:32px;margin-bottom:30px;color:#285c3d}
-.grid {display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1050px;margin:auto}
-.card {background:#fff;padding:28px;border-radius:18px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
-.card .icon {font-size:42px;margin-bottom:12px}
-.card h3 {color:#2e8b57;margin-bottom:12px}
-.card p {color:#52675a}
-.flow {display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1050px;margin:auto}
-.flow-box {background:#fff;padding:25px;text-align:center;border-radius:18px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
-.flow-box .icon {font-size:38px;margin-bottom:10px}
-.flow-box h3 {color:#2e6b46;margin-bottom:8px}
-.checklist {max-width:760px;margin:auto;background:#fff;padding:30px;border-radius:18px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
-.check-item {display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #e1e9e3}
-.check-item:last-child {border-bottom:none}
-.check-item input {width:20px;height:20px}
-.tip {max-width:850px;margin:30px auto 0;padding:22px;background:#e3f5e8;border-left:6px solid #45a565;border-radius:12px}
-footer {background:#285c3d;color:#fff;text-align:center;padding:25px;margin-top:40px}
-@media (max-width:800px) {
-.grid,.flow {grid-template-columns:1fr}
-.hero h1 {font-size:38px}
-nav {display:none}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans KR",
+        sans-serif;
+
+    color: #fff;
+
+    background:
+        radial-gradient(circle at 50% 0%, #333 0%, #171717 38%, #080808 100%);
+
+    padding: 40px 16px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 999px;
+    background: #ff3155;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    box-shadow: 0 0 30px rgba(255,49,85,.3);
+}
+
+h1 {
+    margin: 15px 0 8px;
+    font-size: clamp(38px, 7vw, 68px);
+    line-height: 1;
+    letter-spacing: -4px;
+    font-weight: 950;
+}
+
+.subtitle {
+    color: #999;
+    font-size: 15px;
+}
+
+.card {
+    background: rgba(24,24,24,.94);
+    border: 1px solid #383838;
+    border-radius: 26px;
+    padding: 28px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.5);
+}
+
+.section-title {
+    font-weight: 900;
+    font-size: 19px;
+    margin-bottom: 16px;
+}
+
+.choice {
+    background: #1b1b1b;
+    border: 1px solid #353535;
+    border-radius: 16px;
+    padding: 17px;
+    margin-bottom: 12px;
+    transition: .2s;
+}
+
+.choice:hover {
+    border-color: #666;
+}
+
+.choice-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.number {
+    color: #ff3155;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.remove {
+    border: 0;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+input,
+textarea {
+    width: 100%;
+    border: 1px solid #3b3b3b;
+    background: #0e0e0e;
+    color: white;
+    border-radius: 12px;
+    padding: 13px 14px;
+    outline: none;
+    font-size: 15px;
+}
+
+textarea {
+    margin-top: 8px;
+    min-height: 85px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #ff3155;
+    box-shadow: 0 0 0 3px rgba(255,49,85,.1);
+}
+
+.add {
+    width: 100%;
+    margin: 5px 0 20px;
+    padding: 13px;
+    border-radius: 12px;
+    border: 1px dashed #555;
+    background: transparent;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.add:hover {
+    background: #202020;
+    color: white;
+}
+
+.main-btn {
+    width: 100%;
+    padding: 17px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+
+    background: linear-gradient(135deg,#ff3155,#ff123d);
+    color: white;
+
+    font-size: 18px;
+    font-weight: 950;
+
+    box-shadow: 0 12px 35px rgba(255,49,85,.25);
+
+    transition: .2s;
+}
+
+.main-btn:hover {
+    transform: translateY(-2px);
+}
+
+.result {
+    display: none;
+    margin-top: 22px;
+
+    padding: 24px;
+
+    background: #0f0f0f;
+    border: 1px solid #343434;
+    border-radius: 18px;
+
+    animation: appear .4s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ai {
+    color: #ff3155;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: .7px;
+    margin-bottom: 12px;
+}
+
+.analysis {
+    color: #ddd;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.analysis strong {
+    color: white;
+}
+
+.insight {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 14px;
+    background: #181818;
+    border-left: 4px solid #ff3155;
+}
+
+.insight-title {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.winner {
+    margin-top: 18px;
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,49,85,.2),
+            rgba(255,49,85,.03)
+        );
+
+    border: 1px solid rgba(255,49,85,.35);
+}
+
+.winner-label {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.winner-name {
+    font-size: 36px;
+    font-weight: 950;
+    margin-top: 5px;
+}
+
+.reason {
+    color: #bbb;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+.scores {
+    margin-top: 22px;
+}
+
+.score {
+    margin-bottom: 14px;
+}
+
+.score-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.bar {
+    height: 8px;
+    background: #292929;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.bar-inner {
+    height: 100%;
+    background: #ff3155;
+    border-radius: 99px;
+}
+
+.pressure {
+    margin-top: 22px;
+    padding: 16px;
+
+    border-radius: 14px;
+
+    background: #191919;
+
+    font-weight: 850;
+    line-height: 1.7;
+
+    min-height: 55px;
+}
+
+.pressure span {
+    color: #ff3155;
+}
+
+.again {
+    margin-top: 12px;
+    width: 100%;
+    padding: 13px;
+
+    border-radius: 12px;
+
+    border: 1px solid #444;
+    background: #202020;
+    color: white;
+
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.reset {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+    background: transparent;
+    color: #666;
+
+    cursor: pointer;
+}
+
+@media(max-width:600px) {
+    .card {
+        padding: 19px;
+    }
+
+    h1 {
+        letter-spacing: -2px;
+    }
 }
 </style>
 </head>
+
 <body>
-<header>
-<div class="logo">🌱 Smart Management</div>
-<nav>
-<a href="#finance">Finance</a>
-<a href="#relief">Relief Ministry</a>
-<a href="#practice">Practice</a>
-</nav>
-</header>
-<section class="hero">
-<div class="icon">💰🤝❤️</div>
-<h1>Smart Management</h1>
-<p>Good management means using resources wisely, preparing for future needs, and helping others when possible. Smart financial decisions can support both personal stability and meaningful service to the community.</p>
-</section>
-<section id="finance">
-<h2 class="section-title">Smart Financial Management</h2>
-<div class="grid">
-<div class="card">
-<div class="icon">📋</div>
-<h3>Plan</h3>
-<p>Create a simple budget by understanding income, necessary expenses, and financial priorities. Planning helps prevent unnecessary spending and makes better decisions possible.</p>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="badge">
+            DECISION POLICE
+        </div>
+
+        <h1>
+            결정장애 치료센터
+        </h1>
+
+        <div class="subtitle">
+            선택을 못 하겠으면 우리가 대신 합니다.
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="section-title">
+            선택지를 입력하세요.
+        </div>
+
+        <div id="choices"></div>
+
+        <button class="add" onclick="addChoice()">
+            ＋ 선택지 추가
+        </button>
+
+        <button class="main-btn" onclick="analyze()">
+            AI에게 결정 맡기기
+        </button>
+
+
+        <div class="result" id="result">
+
+            <div class="ai">
+                DECISION AI // 분석 완료
+            </div>
+
+            <div class="analysis" id="analysis"></div>
+
+            <div class="insight">
+                <div class="insight-title">
+                    AI가 발견한 당신의 진짜 문제
+                </div>
+
+                <div id="insightText"></div>
+            </div>
+
+
+            <div class="winner">
+
+                <div class="winner-label">
+                    최종 판결
+                </div>
+
+                <div
+                    class="winner-name"
+                    id="winnerName">
+                </div>
+
+                <div
+                    class="reason"
+                    id="winnerReason">
+                </div>
+
+            </div>
+
+
+            <div class="scores" id="scores"></div>
+
+
+            <div
+                class="pressure"
+                id="pressure">
+            </div>
+
+
+            <button
+                class="again"
+                onclick="pressure()">
+
+                🤨 아직도 고민 중
+
+            </button>
+
+
+            <button
+                class="reset"
+                onclick="resetAll()">
+
+                처음부터 다시 하기
+
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
-<div class="card">
-<div class="icon">🏦</div>
-<h3>Save</h3>
-<p>Set aside part of available income for future needs and unexpected situations. Even small and regular savings can build financial stability over time.</p>
-</div>
-<div class="card">
-<div class="icon">📊</div>
-<h3>Manage Wisely</h3>
-<p>Track spending, compare needs and wants, and review financial decisions regularly. Smart management focuses on responsible use of limited resources.</p>
-</div>
-</div>
-</section>
-<section id="relief">
-<h2 class="section-title">From Management to Relief Ministry</h2>
-<div class="flow">
-<div class="flow-box">
-<div class="icon">📝</div>
-<h3>Plan</h3>
-<p>Understand available resources and current needs.</p>
-</div>
-<div class="flow-box">
-<div class="icon">💵</div>
-<h3>Save</h3>
-<p>Prepare resources for future and emergency needs.</p>
-</div>
-<div class="flow-box">
-<div class="icon">🎁</div>
-<h3>Share</h3>
-<p>Set aside resources that can be used to help others.</p>
-</div>
-<div class="flow-box">
-<div class="icon">🤝</div>
-<h3>Serve</h3>
-<p>Use resources responsibly to support people and communities in need.</p>
-</div>
-</div>
-<div class="tip"><strong>Smart stewardship:</strong> Financial management is not only about keeping more money. It is also about making thoughtful decisions so that resources can support family needs, future goals, and compassionate service to others.</div>
-</section>
-<section id="practice">
-<h2 class="section-title">Smart Management Checklist</h2>
-<div class="checklist">
-<label class="check-item"><input type="checkbox">Identify monthly income or available resources</label>
-<label class="check-item"><input type="checkbox">List necessary expenses first</label>
-<label class="check-item"><input type="checkbox">Separate needs from wants</label>
-<label class="check-item"><input type="checkbox">Set a simple savings goal</label>
-<label class="check-item"><input type="checkbox">Reserve resources for unexpected needs</label>
-<label class="check-item"><input type="checkbox">Consider how part of the resources can help others</label>
-<label class="check-item"><input type="checkbox">Review the plan and improve it regularly</label>
-</div>
-</section>
-<footer>Joseph · GEBA Internship Web Development Practice</footer>
+
+
+<script>
+
+let choiceNumber = 0;
+let pressureCount = 0;
+
+const positiveWords = [
+    "먹고 싶",
+    "하고 싶",
+    "끌린",
+    "땡긴",
+    "땡김",
+    "좋아",
+    "좋음",
+    "맛있",
+    "원해",
+    "원함",
+    "기대",
+    "필요",
+    "편함",
+    "재밌",
+    "재미있",
+    "선호"
+];
+
+const negativeWords = [
+    "별로",
+    "싫",
+    "안 땡",
+    "안끌",
+    "질림",
+    "질렸",
+    "비싸",
+    "귀찮",
+    "어제 먹",
+    "이미 먹",
+    "방금 먹",
+    "먹었",
+    "후회",
+    "없음",
+    "싫어"
+];
+
+const hesitationWords = [
+    "모르겠",
+    "고민",
+    "둘 다",
+    "아무거나",
+    "상관없",
+    "모르",
+    "애매",
+    "뭘 먹",
+    "뭐가 나",
+    "결정 못"
+];
+
+
+function addChoice(name="", description="") {
+
+    choiceNumber++;
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className = "choice";
+
+    wrapper.innerHTML = `
+        <div class="choice-top">
+
+            <div class="number">
+                OPTION ${choiceNumber}
+            </div>
+
+            ${
+                choiceNumber > 2
+                ?
+                `<button
+                    class="remove"
+                    onclick="removeChoice(this)">
+                    ×
+                </button>`
+                :
+                ""
+            }
+
+        </div>
+
+        <input
+            class="choice-name"
+            placeholder="선택지 이름 (예: 피자)"
+            value="${escapeHTML(name)}"
+        >
+
+        <textarea
+            class="choice-description"
+            placeholder="왜 고민하는지 자세하게 적어주세요.
+예: 어제 먹었는데 또 먹고 싶음 / 가격이 비쌈 / 오늘은 별로 안 땡김"
+        >${escapeHTML(description)}</textarea>
+    `;
+
+    document
+        .getElementById("choices")
+        .appendChild(wrapper);
+}
+
+
+function removeChoice(button) {
+
+    button
+        .closest(".choice")
+        .remove();
+
+    renumber();
+}
+
+
+function renumber() {
+
+    const all =
+        document.querySelectorAll(".choice");
+
+    all.forEach((choice,index)=>{
+
+        choice.querySelector(".number")
+            .textContent =
+            `OPTION ${index + 1}`;
+
+    });
+
+}
+
+
+function escapeHTML(text) {
+
+    return text
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
+}
+
+
+function analyze() {
+
+    const elements =
+        document.querySelectorAll(".choice");
+
+    const data = [];
+
+
+    elements.forEach(element=>{
+
+        const name =
+            element
+                .querySelector(".choice-name")
+                .value
+                .trim();
+
+        const description =
+            element
+                .querySelector(".choice-description")
+                .value
+                .trim();
+
+        if(name) {
+
+            data.push({
+                name,
+                description
+            });
+
+        }
+
+    });
+
+
+    if(data.length < 2) {
+
+        alert(
+            "최소 2개의 선택지를 입력하세요."
+        );
+
+        return;
+    }
+
+
+    const analyzed =
+        data.map(item=>analyzeChoice(item));
+
+
+    analyzed.sort(
+        (a,b)=>b.score-a.score
+    );
+
+
+    const winner =
+        analyzed[0];
+
+
+    showAnalysis(
+        analyzed,
+        winner
+    );
+
+}
+
+
+function analyzeChoice(item) {
+
+    const text =
+        (
+            item.name +
+            " " +
+            item.description
+        ).toLowerCase();
+
+
+    let score = 50;
+
+    let positive = 0;
+    let negative = 0;
+    let hesitation = 0;
+
+
+    positiveWords.forEach(word=>{
+
+        if(text.includes(word)){
+
+            positive++;
+            score += 12;
+
+        }
+
+    });
+
+
+    negativeWords.forEach(word=>{
+
+        if(text.includes(word)){
+
+            negative++;
+            score -= 13;
+
+        }
+
+    });
+
+
+    hesitationWords.forEach(word=>{
+
+        if(text.includes(word)){
+
+            hesitation++;
+            score -= 3;
+
+        }
+
+    });
+
+
+    // 설명이 구체적이면
+    // 사용자의 마음이 어느 정도 정해져 있다고 판단
+    if(item.description.length >= 30){
+
+        score += 5;
+
+    }
+
+
+    // 부정적인 이유가 너무 많은 경우
+    if(negative >= 2){
+
+        score -= 5;
+
+    }
+
+
+    // 긍정적인 표현이 많으면 가산점
+    if(positive >= 2){
+
+        score += 7;
+
+    }
+
+
+    score =
+        Math.max(
+            5,
+            Math.min(98,score)
+        );
+
+
+    return {
+        ...item,
+        score,
+        positive,
+        negative,
+        hesitation
+    };
+
+}
+
+
+function showAnalysis(options,winner) {
+
+    const result =
+        document.getElementById("result");
+
+    const analysis =
+        document.getElementById("analysis");
+
+    const insight =
+        document.getElementById("insightText");
+
+    const winnerName =
+        document.getElementById("winnerName");
+
+    const winnerReason =
+        document.getElementById("winnerReason");
+
+
+    /*
+        사용자가 실제로 적은 표현을 분석해서
+        AI가 "심리 분석"처럼 말하도록 구성
+    */
+
+
+    let motive = "";
+
+    if(winner.positive > winner.negative) {
+
+        motive =
+            `"${winner.name}"에 대한 긍정적인 표현이 더 많습니다.`;
+
+    }
+    else if(winner.negative > winner.positive) {
+
+        motive =
+            `"${winner.name}"에 대해서는 불만도 있는데, 다른 선택지의 단점이 더 크게 작용하고 있습니다.`;
+
+    }
+    else {
+
+        motive =
+            `"${winner.name}"에 대한 감정이 비교적 중립적입니다.`;
+
+    }
+
+
+    let hiddenReason = "";
+
+
+    if(
+        /어제 먹|이미 먹|방금 먹|먹었/.test(
+            winner.description
+        )
+    ) {
+
+        hiddenReason =
+            `사실 "${winner.name}"을(를) 먹는 것 자체가 싫은 게 아닙니다. <strong>이미 먹었다는 죄책감</strong> 때문에 고민하고 있습니다.`;
+
+    }
+    else if(
+        /별로|안 땡|싫|질림/.test(
+            winner.description
+        )
+    ) {
+
+        hiddenReason =
+            `이 선택지는 완벽하진 않지만, <strong>다른 선택지가 더 마음에 안 들어서</strong> 살아남았습니다.`;
+
+    }
+    else if(
+        /먹고 싶|땡김|끌림|하고 싶|좋아/.test(
+            winner.description
+        )
+    ) {
+
+        hiddenReason =
+            `축하합니다. 사실 처음부터 <strong>${winner.name}</strong>을(를) 원하고 있었습니다. 지금까지 고민한 건 그냥 절차였습니다.`;
+
+    }
+    else {
+
+        hiddenReason =
+            `솔직히 말하면 선택지가 문제가 아닙니다. <strong>결정을 내리는 행위 자체를 피하고 있었습니다.</strong>`;
+
+    }
+
+
+    analysis.innerHTML = `
+
+        <strong>좋습니다. 분석을 시작합니다.</strong>
+        <br><br>
+
+        입력 내용을 전체적으로 비교해보니
+        <strong>${winner.name}</strong>에 대한 판단이
+        다른 선택지보다 상대적으로 유리합니다.
+        <br><br>
+
+        ${motive}
+        <br><br>
+
+        그런데 더 중요한 문제가 하나 있습니다.
+        당신은 지금 선택지를 비교하는 것보다
+        <strong>결정을 미루는 데 더 많은 에너지를 쓰고 있습니다.</strong>
+
+    `;
+
+
+    insight.innerHTML =
+        hiddenReason;
+
+
+    winnerName.textContent =
+        winner.name;
+
+
+    winnerReason.textContent =
+        generateWinnerReason(
+            winner,
+            options
+        );
+
+
+    const scores =
+        document.getElementById("scores");
+
+
+    scores.innerHTML = "";
+
+
+    options.forEach(option=>{
+
+        const item =
+            document.createElement("div");
+
+        item.className = "score";
+
+        item.innerHTML = `
+
+            <div class="score-head">
+
+                <span>
+                    ${option.name}
+                </span>
+
+                <span>
+                    ${option.score}점
+                </span>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                    class="bar-inner"
+                    style="width:${option.score}%">
+                </div>
+
+            </div>
+
+        `;
+
+        scores.appendChild(item);
+
+    });
+
+
+    pressureCount = 0;
+
+    document.getElementById("pressure")
+        .innerHTML =
+        `
+        <span>AI:</span>
+        판결이 내려졌습니다.
+        이제 ${winner.name}을(를) 선택하고
+        인생을 살아가세요.
+        `;
+
+
+    result.style.display = "block";
+
+    result.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+
+function generateWinnerReason(
+    winner,
+    options
+) {
+
+    if(winner.positive >= 2) {
+
+        return `
+            이유는 간단합니다.
+            다른 선택지보다 "${winner.name}"에 대해
+            <strong>긍정적인 표현이 많이 나왔습니다.</strong>
+            말은 거짓말을 할 수 있지만
+            직접 쓴 문장은 꽤 솔직합니다.
+        `;
+
+    }
+
+
+    if(winner.negative === 0) {
+
+        return `
+            이 선택지를 설명할 때
+            결정적인 단점이 하나도 발견되지 않았습니다.
+            그러니까 그냥 이걸 하세요.
+        `;
+
+    }
+
+
+    return `
+        완벽한 선택이라서가 아닙니다.
+        <strong>다른 선택지들이 더 구렸기 때문입니다.</strong>
+        인생의 많은 결정은 원래 이런 식입니다.
+    `;
+}
+
+
+function pressure() {
+
+    pressureCount++;
+
+    const box =
+        document.getElementById("pressure");
+
+
+    const messages = [
+
+        `
+
+        <span>AI:</span>
+        아직도 고민합니까?
+        방금 제가 결정해줬는데요.
+
+        `,
+
+        `
+
+        <span>AI:</span>
+        분석 결과까지 보여줬습니다.
+        이제 고민하면 분석을 다시 해야 하는데
+        저는 그러고 싶지 않습니다.
+
+        `,
+
+        `
+
+        <span>AI:</span>
+        혹시 선택지가 마음에 안 드는 게 아니라
+        <strong>책임지는 게 싫은 거 아닙니까?</strong>
+
+        `,
+
+        `
+
+        <span>AI:</span>
+        당신이 원하는 건 새로운 선택지가 아니라
+        누군가 "그거 해"라고 말해주는 것입니다.
+
+        `,
+
+        `
+
+        <span>AI:</span>
+        좋습니다.
+        <strong>제가 결정했습니다.</strong>
+        이제 ${document.getElementById("winnerName").textContent}
+        하세요.
+
+        `,
+
+        `
+
+        <span>AI:</span>
+        마지막 경고입니다.
+        더 고민해도 결과는 안 바뀝니다.
+        이미 끝났습니다.
+
+        `,
+
+        `
+
+        <span>AI:</span>
+        결정 완료.
+        고민 종료.
+        이동하세요.
+
+        `
+
+    ];
+
+
+    const index =
+        Math.min(
+            pressureCount,
+            messages.length - 1
+        );
+
+
+    box.innerHTML =
+        messages[index];
+
+}
+
+
+function resetAll() {
+
+    document.getElementById("choices")
+        .innerHTML = "";
+
+    choiceNumber = 0;
+
+    document.getElementById("result")
+        .style.display = "none";
+
+    addChoice();
+    addChoice();
+
+}
+
+
+addChoice();
+addChoice();
+
+</script>
+
 </body>
 </html>
