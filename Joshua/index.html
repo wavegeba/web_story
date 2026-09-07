@@ -1,953 +1,240 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Health Vision AI</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Noto Sans KR",
-        sans-serif;
-      background: #f4f7f6;
-      color: #17221e;
-      min-height: 100vh;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-      min-height: 100vh;
-      background: #ffffff;
-      overflow: hidden;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
-    }
-
-    /* Header */
-    header {
-      padding: 28px 22px 20px;
-      background: linear-gradient(135deg, #0f9d72, #36c98d);
-      color: white;
-      border-radius: 0 0 28px 28px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 21px;
-    }
-
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 13px;
-      background: rgba(255,255,255,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-    }
-
-    header h1 {
-      margin-top: 24px;
-      font-size: 28px;
-      line-height: 1.3;
-    }
-
-    header p {
-      margin-top: 8px;
-      opacity: 0.9;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    /* Main */
-    main {
-      padding: 22px;
-    }
-
-    .section-title {
-      font-size: 17px;
-      font-weight: 800;
-      margin-bottom: 13px;
-    }
-
-    /* Upload */
-    .upload-box {
-      border: 2px dashed #b9d9cc;
-      border-radius: 20px;
-      padding: 28px 18px;
-      text-align: center;
-      background: #f7fcfa;
-      cursor: pointer;
-      transition: 0.25s;
-    }
-
-    .upload-box:hover {
-      border-color: #1cad7b;
-      background: #f0fbf6;
-    }
-
-    .upload-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 14px;
-      border-radius: 50%;
-      background: #ddf6eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-    }
-
-    .upload-box strong {
-      display: block;
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-
-    .upload-box span {
-      color: #71817b;
-      font-size: 13px;
-    }
-
-    #fileInput {
-      display: none;
-    }
-
-    /* Preview */
-    .preview-container {
-      display: none;
-      margin-top: 16px;
-      position: relative;
-    }
-
-    .preview-container img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 18px;
-      display: block;
-    }
-
-    .remove-image {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      border: none;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 17px;
-    }
-
-    /* Analyze Button */
-    .analyze-btn {
-      width: 100%;
-      margin-top: 18px;
-      padding: 16px;
-      border: none;
-      border-radius: 16px;
-      background: #0f9d72;
-      color: white;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .analyze-btn:hover {
-      background: #087e5a;
-      transform: translateY(-1px);
-    }
-
-    .analyze-btn:disabled {
-      background: #b8c8c2;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Loading */
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 30px 0;
-    }
-
-    .spinner {
-      width: 42px;
-      height: 42px;
-      border: 4px solid #dcece6;
-      border-top-color: #0f9d72;
-      border-radius: 50%;
-      margin: 0 auto 14px;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* Results */
-    #results {
-      display: none;
-      margin-top: 30px;
-    }
-
-    .result-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .result-header h2 {
-      font-size: 20px;
-    }
-
-    .badge {
-      background: #e2f8ed;
-      color: #087c58;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    /* Cards */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .card {
-      background: #f7f9f8;
-      border-radius: 18px;
-      padding: 18px;
-    }
-
-    .card.full {
-      grid-column: 1 / -1;
-    }
-
-    .card-label {
-      color: #71817b;
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-
-    .card-value {
-      font-size: 25px;
-      font-weight: 900;
-      color: #15221d;
-    }
-
-    .card-description {
-      font-size: 11px;
-      color: #7a8983;
-      margin-top: 6px;
-      line-height: 1.4;
-    }
-
-    /* Progress */
-    .progress-section {
-      margin-top: 24px;
-    }
-
-    .metric {
-      margin-bottom: 20px;
-    }
-
-    .metric-top {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .percentage {
-      color: #0f9d72;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 11px;
-      border-radius: 20px;
-      background: #e7eeeb;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      border-radius: 20px;
-      transition: width 1.2s ease;
-      background: linear-gradient(90deg, #36c98d, #0f9d72);
-    }
-
-    .fatigue .progress-fill {
-      background: linear-gradient(90deg, #ffd166, #f59e0b);
-    }
-
-    .body .progress-fill {
-      background: linear-gradient(90deg, #69a7ff, #4779e6);
-    }
-
-    /* Health Score */
-    .health-score {
-      margin-top: 24px;
-      padding: 22px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #e9fbf3, #f4fffa);
-      text-align: center;
-    }
-
-    .health-score h3 {
-      font-size: 14px;
-      color: #557269;
-    }
-
-    .score {
-      font-size: 48px;
-      font-weight: 900;
-      color: #0f9d72;
-      margin: 5px 0;
-    }
-
-    .score-text {
-      font-size: 13px;
-      color: #557269;
-    }
-
-    /* Tips */
-    .tips {
-      margin-top: 24px;
-    }
-
-    .tip {
-      display: flex;
-      gap: 13px;
-      padding: 15px;
-      border-radius: 16px;
-      background: #f8faf9;
-      margin-bottom: 10px;
-    }
-
-    .tip-icon {
-      min-width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: #e2f7ed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .tip h4 {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .tip p {
-      font-size: 12px;
-      color: #71817b;
-      line-height: 1.5;
-    }
-
-    /* Notice */
-    .notice {
-      margin-top: 25px;
-      padding: 13px;
-      background: #fff8e8;
-      border-radius: 13px;
-      color: #80621e;
-      font-size: 11px;
-      line-height: 1.6;
-    }
-
-    /* Reset */
-    .reset-btn {
-      width: 100%;
-      margin-top: 12px;
-      padding: 13px;
-      border: 1px solid #d8e2de;
-      background: white;
-      border-radius: 14px;
-      color: #56665f;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    footer {
-      padding: 10px 22px 30px;
-      text-align: center;
-      color: #9aa6a1;
-      font-size: 10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Health Vision AI</title>
+<style>
+* {box-sizing:border-box;margin:0;padding:0}
+body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;background:#f4f7f6;color:#17221e;min-height:100vh}
+.app {width:100%;max-width:480px;margin:0 auto;min-height:100vh;background:#fff;overflow:hidden;box-shadow:0 0 30px rgba(0,0,0,.06)}
+header {padding:28px 22px 20px;background:linear-gradient(135deg,#0f9d72,#36c98d);color:#fff;border-radius:0 0 28px 28px}
+.logo {display:flex;align-items:center;gap:10px;font-weight:800;font-size:21px}
+.logo-icon {width:40px;height:40px;border-radius:13px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px}
+header h1 {margin-top:24px;font-size:28px;line-height:1.3}
+header p {margin-top:8px;opacity:.9;font-size:14px;line-height:1.6}
+main {padding:22px}
+.section-title {font-size:17px;font-weight:800;margin-bottom:13px}
+.upload-box {border:2px dashed #b9d9cc;border-radius:20px;padding:28px 18px;text-align:center;background:#f7fcfa;cursor:pointer;transition:.25s;display:block}
+.upload-box:hover {border-color:#1cad7b;background:#f0fbf6}
+.upload-icon {width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:#ddf6eb;display:flex;align-items:center;justify-content:center;font-size:30px}
+.upload-box strong {display:block;font-size:16px;margin-bottom:6px}
+.upload-box span {color:#71817b;font-size:13px}
+#fileInput {display:none}
+.preview-container {display:none;margin-top:16px;position:relative}
+.preview-container img {width:100%;height:280px;object-fit:cover;border-radius:18px;display:block}
+.remove-image {position:absolute;right:10px;top:10px;border:none;background:rgba(0,0,0,.6);color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:17px}
+.analyze-btn {width:100%;margin-top:18px;padding:16px;border:none;border-radius:16px;background:#0f9d72;color:#fff;font-size:16px;font-weight:800;cursor:pointer;transition:.2s}
+.analyze-btn:hover {background:#087e5a;transform:translateY(-1px)}
+.analyze-btn:disabled {background:#b8c8c2;cursor:not-allowed;transform:none}
+.loading {display:none;text-align:center;padding:22px 0}
+.spinner {width:42px;height:42px;border:4px solid #dcece6;border-top-color:#0f9d72;border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite}
+@keyframes spin {to {transform:rotate(360deg)}}
+#results {display:none;margin-top:30px}
+.result-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+.result-header h2 {font-size:20px}
+.badge {background:#e2f8ed;color:#087c58;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:800}
+.cards {display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card {background:#f7f9f8;border-radius:18px;padding:18px}
+.card.full {grid-column:1/-1}
+.card-label {color:#71817b;font-size:12px;margin-bottom:8px}
+.card-value {font-size:25px;font-weight:900;color:#15221d}
+.card-description {font-size:11px;color:#7a8983;margin-top:6px;line-height:1.4}
+.progress-section {margin-top:24px}
+.metric {margin-bottom:20px}
+.metric-top {display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;font-weight:700}
+.percentage {color:#0f9d72}
+.progress-bar {width:100%;height:11px;border-radius:20px;background:#e7eeeb;overflow:hidden}
+.progress-fill {width:0;height:100%;border-radius:20px;transition:width .8s ease;background:linear-gradient(90deg,#36c98d,#0f9d72)}
+.fatigue .progress-fill {background:linear-gradient(90deg,#ffd166,#f59e0b)}
+.body .progress-fill {background:linear-gradient(90deg,#69a7ff,#4779e6)}
+.health-score {margin-top:24px;padding:22px;border-radius:20px;background:linear-gradient(135deg,#e9fbf3,#f4fffa);text-align:center}
+.health-score h3 {font-size:14px;color:#557269}
+.score {font-size:48px;font-weight:900;color:#0f9d72;margin:5px 0}
+.score-text {font-size:13px;color:#557269}
+.tips {margin-top:24px}
+.tip {display:flex;gap:13px;padding:15px;border-radius:16px;background:#f8faf9;margin-bottom:10px}
+.tip-icon {min-width:40px;height:40px;border-radius:12px;background:#e2f7ed;display:flex;align-items:center;justify-content:center;font-size:20px}
+.tip h4 {font-size:14px;margin-bottom:4px}
+.tip p {font-size:12px;color:#71817b;line-height:1.5}
+.notice {margin-top:25px;padding:13px;background:#fff8e8;border-radius:13px;color:#80621e;font-size:11px;line-height:1.6}
+.reset-btn {width:100%;margin-top:12px;padding:13px;border:1px solid #d8e2de;background:#fff;border-radius:14px;color:#56665f;cursor:pointer;font-weight:700}
+footer {padding:10px 22px 30px;text-align:center;color:#9aa6a1;font-size:10px}
+</style>
 </head>
-
 <body>
-
 <div class="app">
-
-  <header>
-    <div class="logo">
-      <div class="logo-icon">♥</div>
-      Health Vision AI
-    </div>
-
-    <h1>사진으로 확인하는<br>나의 건강 리포트</h1>
-
-    <p>
-      사진을 업로드하면 AI 기반의 참고용 신체 분석과
-      건강 관리 팁을 확인할 수 있어요.
-    </p>
-  </header>
-
-  <main>
-
-    <div class="section-title">사진 업로드</div>
-
-    <label class="upload-box" id="uploadBox">
-      <div class="upload-icon">📷</div>
-      <strong>사진을 선택해주세요</strong>
-      <span>정면 사진을 사용하면 더 보기 좋습니다.</span>
-      <input type="file" id="fileInput" accept="image/*">
-    </label>
-
-    <div class="preview-container" id="previewContainer">
-      <img id="previewImage" alt="업로드한 사진">
-
-      <button class="remove-image" id="removeImage">
-        ×
-      </button>
-    </div>
-
-    <button class="analyze-btn" id="analyzeBtn" disabled>
-      사진 분석하기
-    </button>
-
-    <div class="loading" id="loading">
-      <div class="spinner"></div>
-      <strong>사진을 분석하고 있어요...</strong>
-      <p style="font-size:12px;color:#87958f;margin-top:6px;">
-        잠시만 기다려주세요.
-      </p>
-    </div>
-
-    <!-- RESULTS -->
-    <section id="results">
-
-      <div class="result-header">
-        <h2>분석 결과</h2>
-        <div class="badge">참고용 AI 분석</div>
-      </div>
-
-      <div class="cards">
-
-        <div class="card">
-          <div class="card-label">추정 연령</div>
-          <div class="card-value" id="ageValue">--세</div>
-          <div class="card-description">
-            사진에서 추정한 연령대
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-label">종합 건강 점수</div>
-          <div class="card-value" id="healthValue">--%</div>
-          <div class="card-description">
-            데모 분석 기준 점수
-          </div>
-        </div>
-
-        <div class="card full">
-          <div class="card-label">신체 상태 참고</div>
-          <div class="card-value" id="bodyType">
-            분석 중
-          </div>
-          <div class="card-description" id="bodyDescription">
-            사진 기반 참고 정보입니다.
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Percentage Metrics -->
-      <div class="progress-section">
-
-        <div class="metric">
-          <div class="metric-top">
-            <span>연령 추정 신뢰도</span>
-            <span class="percentage" id="agePercent">0%</span>
-          </div>
-
-          <div class="progress-bar">
-            <div
-              class="progress-fill"
-              id="ageProgress"
-            ></div>
-          </div>
-        </div>
-
-        <div class="metric fatigue">
-          <div class="metric-top">
-            <span>피로도</span>
-            <span class="percentage" id="fatiguePercent">0%</span>
-          </div>
-
-          <div class="progress-bar">
-            <div
-              class="progress-fill"
-              id="fatigueProgress"
-            ></div>
-          </div>
-        </div>
-
-        <div class="metric body">
-          <div class="metric-top">
-            <span>체형 균형 참고 지표</span>
-            <span class="percentage" id="bodyPercent">0%</span>
-          </div>
-
-          <div class="progress-bar">
-            <div
-              class="progress-fill"
-              id="bodyProgress"
-            ></div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Score -->
-      <div class="health-score">
-
-        <h3>오늘의 건강 참고 점수</h3>
-
-        <div class="score" id="score">
-          0
-        </div>
-
-        <div class="score-text" id="scoreText">
-          분석 결과를 확인해주세요.
-        </div>
-
-      </div>
-
-      <!-- Tips -->
-      <div class="tips">
-
-        <div class="section-title">
-          더 건강해지기 위한 추천
-        </div>
-
-        <div class="tip">
-          <div class="tip-icon">💧</div>
-
-          <div>
-            <h4>수분 섭취</h4>
-            <p>
-              하루 동안 충분한 물을 규칙적으로 마시는 습관을 만들어보세요.
-            </p>
-          </div>
-        </div>
-
-        <div class="tip">
-          <div class="tip-icon">🚶</div>
-
-          <div>
-            <h4>가벼운 활동</h4>
-            <p>
-              오래 앉아 있었다면 중간중간 일어나 걷거나 스트레칭해보세요.
-            </p>
-          </div>
-        </div>
-
-        <div class="tip">
-          <div class="tip-icon">😴</div>
-
-          <div>
-            <h4>수면 관리</h4>
-            <p>
-              일정한 시간에 자고 일어나는 규칙적인 수면 습관을 유지해보세요.
-            </p>
-          </div>
-        </div>
-
-        <div class="tip">
-          <div class="tip-icon">🥗</div>
-
-          <div>
-            <h4>균형 잡힌 식사</h4>
-            <p>
-              채소, 단백질, 통곡물 등 다양한 식품을 균형 있게 섭취해보세요.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="notice">
-        ⚠️ 이 서비스의 결과는 사진을 기반으로 한 참고용 추정치이며
-        의료적 진단이나 질병 판정을 의미하지 않습니다.
-        건강에 관한 우려가 있다면 의료 전문가와 상담하세요.
-      </div>
-
-      <button class="reset-btn" id="resetBtn">
-        새로운 사진 분석하기
-      </button>
-
-    </section>
-
-  </main>
-
-  <footer>
-    Health Vision AI · Personal Health Assistant
-  </footer>
-
+<header>
+<div class="logo"><div class="logo-icon">♥</div>Health Vision AI</div>
+<h1>사진으로 확인하는<br>나의 건강 리포트</h1>
+<p>사진을 업로드하면 교육용 데모 결과와 건강 관리 팁을 확인할 수 있어요.</p>
+</header>
+<main>
+<div class="section-title">사진 업로드</div>
+<label class="upload-box" id="uploadBox">
+<div class="upload-icon">📷</div>
+<strong>사진을 선택해주세요</strong>
+<span>정면 사진을 사용하면 더 보기 좋습니다.</span>
+<input type="file" id="fileInput" accept="image/*">
+</label>
+<div class="preview-container" id="previewContainer">
+<img id="previewImage" alt="업로드한 사진">
+<button class="remove-image" id="removeImage" type="button">×</button>
 </div>
-
-
+<button class="analyze-btn" id="analyzeBtn" type="button" disabled>사진 분석하기</button>
+<div class="loading" id="loading">
+<div class="spinner"></div>
+<strong>데모 결과를 준비하고 있어요...</strong>
+<p style="font-size:12px;color:#87958f;margin-top:6px">잠시만 기다려주세요.</p>
+</div>
+<section id="results">
+<div class="result-header">
+<h2>분석 결과</h2>
+<div class="badge">UI DEMO · SIMULATED</div>
+</div>
+<div class="cards">
+<div class="card">
+<div class="card-label">추정 연령</div>
+<div class="card-value" id="ageValue">--세</div>
+<div class="card-description">교육용 데모 값</div>
+</div>
+<div class="card">
+<div class="card-label">종합 건강 점수</div>
+<div class="card-value" id="healthValue">--%</div>
+<div class="card-description">교육용 데모 값</div>
+</div>
+<div class="card full">
+<div class="card-label">신체 상태 참고</div>
+<div class="card-value" id="bodyType">분석 중</div>
+<div class="card-description" id="bodyDescription">교육용 데모 정보입니다.</div>
+</div>
+</div>
+<div class="progress-section">
+<div class="metric">
+<div class="metric-top"><span>연령 추정 신뢰도</span><span class="percentage" id="agePercent">0%</span></div>
+<div class="progress-bar"><div class="progress-fill" id="ageProgress"></div></div>
+</div>
+<div class="metric fatigue">
+<div class="metric-top"><span>피로도</span><span class="percentage" id="fatiguePercent">0%</span></div>
+<div class="progress-bar"><div class="progress-fill" id="fatigueProgress"></div></div>
+</div>
+<div class="metric body">
+<div class="metric-top"><span>체형 균형 참고 지표</span><span class="percentage" id="bodyPercent">0%</span></div>
+<div class="progress-bar"><div class="progress-fill" id="bodyProgress"></div></div>
+</div>
+</div>
+<div class="health-score">
+<h3>오늘의 건강 참고 점수</h3>
+<div class="score" id="score">0</div>
+<div class="score-text" id="scoreText">분석 결과를 확인해주세요.</div>
+</div>
+<div class="tips">
+<div class="section-title">더 건강해지기 위한 추천</div>
+<div class="tip"><div class="tip-icon">💧</div><div><h4>수분 섭취</h4><p>하루 동안 충분한 물을 규칙적으로 마시는 습관을 만들어보세요.</p></div></div>
+<div class="tip"><div class="tip-icon">🚶</div><div><h4>가벼운 활동</h4><p>오래 앉아 있었다면 중간중간 일어나 걷거나 스트레칭해보세요.</p></div></div>
+<div class="tip"><div class="tip-icon">😴</div><div><h4>수면 관리</h4><p>일정한 시간에 자고 일어나는 규칙적인 수면 습관을 유지해보세요.</p></div></div>
+<div class="tip"><div class="tip-icon">🥗</div><div><h4>균형 잡힌 식사</h4><p>채소, 단백질, 통곡물 등 다양한 식품을 균형 있게 섭취해보세요.</p></div></div>
+</div>
+<div class="notice">⚠️ 이 페이지는 교육용 UI 데모입니다. 표시되는 결과는 업로드한 사진을 실제 분석한 값이 아니라 임의로 생성된 데모 값입니다. 의료적 평가, 진단 또는 건강 상태 판정을 제공하지 않습니다.</div>
+<button class="reset-btn" id="resetBtn" type="button">새로운 사진 분석하기</button>
+</section>
+</main>
+<footer>Health Vision AI · Internship Web Development Practice</footer>
+</div>
 <script>
-
-  const fileInput = document.getElementById("fileInput");
-  const uploadBox = document.getElementById("uploadBox");
-  const previewContainer =
-    document.getElementById("previewContainer");
-
-  const previewImage =
-    document.getElementById("previewImage");
-
-  const removeImage =
-    document.getElementById("removeImage");
-
-  const analyzeBtn =
-    document.getElementById("analyzeBtn");
-
-  const loading =
-    document.getElementById("loading");
-
-  const results =
-    document.getElementById("results");
-
-  let selectedFile = null;
-
-
-  // Upload area click
-  uploadBox.addEventListener("click", () => {
-    fileInput.click();
-  });
-
-
-  // File selected
-  fileInput.addEventListener("change", function () {
-
-    const file = this.files[0];
-
-    if (!file) return;
-
-    selectedFile = file;
-
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-
-      previewImage.src = event.target.result;
-
-      previewContainer.style.display = "block";
-
-      analyzeBtn.disabled = false;
-
-    };
-
-    reader.readAsDataURL(file);
-  });
-
-
-  // Remove image
-  removeImage.addEventListener("click", function () {
-
-    selectedFile = null;
-
-    fileInput.value = "";
-
-    previewImage.src = "";
-
-    previewContainer.style.display = "none";
-
-    analyzeBtn.disabled = true;
-
-    results.style.display = "none";
-
-  });
-
-
-  // Analyze
-  analyzeBtn.addEventListener("click", function () {
-
-    if (!selectedFile) return;
-
-    analyzeBtn.style.display = "none";
-
-    loading.style.display = "block";
-
-    results.style.display = "none";
-
-
-    // Demo delay
-    setTimeout(() => {
-
-      loading.style.display = "none";
-
-      analyzeBtn.style.display = "block";
-
-      results.style.display = "block";
-
-      generateDemoResult();
-
-      results.scrollIntoView({
-        behavior: "smooth"
-      });
-
-    }, 1800);
-
-  });
-
-
-  function generateDemoResult() {
-
-    /*
-      현재는 데모 데이터입니다.
-
-      실제 AI를 연결할 때 이 부분에서
-      API 서버로 사진을 보내고 결과를 받아오면 됩니다.
-    */
-
-    const age =
-      Math.floor(Math.random() * 25) + 20;
-
-    const ageConfidence =
-      Math.floor(Math.random() * 20) + 75;
-
-    const fatigue =
-      Math.floor(Math.random() * 55) + 20;
-
-    const bodyBalance =
-      Math.floor(Math.random() * 25) + 65;
-
-    const healthScore =
-      Math.round(
-        (ageConfidence +
-        (100 - fatigue) +
-        bodyBalance) / 3
-      );
-
-
-    // Age
-    document.getElementById("ageValue")
-      .textContent = age + "세";
-
-    document.getElementById("agePercent")
-      .textContent = ageConfidence + "%";
-
-    document.getElementById("ageProgress")
-      .style.width = ageConfidence + "%";
-
-
-    // Fatigue
-    document.getElementById("fatiguePercent")
-      .textContent = fatigue + "%";
-
-    document.getElementById("fatigueProgress")
-      .style.width = fatigue + "%";
-
-
-    // Body
-    document.getElementById("bodyPercent")
-      .textContent = bodyBalance + "%";
-
-    document.getElementById("bodyProgress")
-      .style.width = bodyBalance + "%";
-
-
-    // Health
-    document.getElementById("healthValue")
-      .textContent = healthScore + "%";
-
-    document.getElementById("score")
-      .textContent = healthScore;
-
-
-    // Body type
-    let bodyType;
-    let bodyDescription;
-
-    if (bodyBalance >= 82) {
-
-      bodyType = "균형형";
-
-      bodyDescription =
-        "전반적인 체형 균형이 좋아 보이는 편입니다.";
-
-    } else if (bodyBalance >= 72) {
-
-      bodyType = "일반형";
-
-      bodyDescription =
-        "전반적으로 무난한 체형 지표를 보입니다.";
-
-    } else {
-
-      bodyType = "관리 관심형";
-
-      bodyDescription =
-        "규칙적인 운동과 생활 습관 관리에 관심을 가져보세요.";
-    }
-
-    document.getElementById("bodyType")
-      .textContent = bodyType;
-
-    document.getElementById("bodyDescription")
-      .textContent = bodyDescription;
-
-
-    // Score message
-    let scoreText;
-
-    if (healthScore >= 85) {
-
-      scoreText =
-        "좋은 생활 습관을 유지해보세요!";
-
-    } else if (healthScore >= 70) {
-
-      scoreText =
-        "기본적인 건강 습관을 꾸준히 관리해보세요.";
-
-    } else {
-
-      scoreText =
-        "휴식과 생활 습관 개선에 조금 더 신경 써보세요.";
-    }
-
-    document.getElementById("scoreText")
-      .textContent = scoreText;
-
-
-    // Dynamic tips
-    updateTips(fatigue);
-  }
-
-
-  function updateTips(fatigue) {
-
-    const tipsContainer =
-      document.querySelector(".tips");
-
-    // 기존 추천 삭제
-    const oldDynamicTips =
-      document.querySelectorAll(".dynamic-tip");
-
-    oldDynamicTips.forEach(tip => tip.remove());
-
-
-    if (fatigue >= 60) {
-
-      const tip = document.createElement("div");
-
-      tip.className = "tip dynamic-tip";
-
-      tip.innerHTML = `
-        <div class="tip-icon">🛌</div>
-
-        <div>
-          <h4>휴식을 우선하세요</h4>
-          <p>
-            피로도가 높게 추정되었습니다.
-            오늘은 충분한 수면과 휴식을 우선적으로 고려해보세요.
-          </p>
-        </div>
-      `;
-
-      tipsContainer.insertBefore(
-        tip,
-        tipsContainer.children[1]
-      );
-
-    } else {
-
-      const tip = document.createElement("div");
-
-      tip.className = "tip dynamic-tip";
-
-      tip.innerHTML = `
-        <div class="tip-icon">⚡</div>
-
-        <div>
-          <h4>규칙적인 활동</h4>
-          <p>
-            현재 피로도가 비교적 낮게 추정됩니다.
-            무리하지 않는 범위에서 꾸준한 신체 활동을 유지해보세요.
-          </p>
-        </div>
-      `;
-
-      tipsContainer.insertBefore(
-        tip,
-        tipsContainer.children[1]
-      );
-    }
-  }
-
-
-  // Reset
-  document.getElementById("resetBtn")
-    .addEventListener("click", function () {
-
-      selectedFile = null;
-
-      fileInput.value = "";
-
-      previewImage.src = "";
-
-      previewContainer.style.display = "none";
-
-      results.style.display = "none";
-
-      analyzeBtn.disabled = true;
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    });
-
+const fileInput=document.getElementById("fileInput");
+const previewContainer=document.getElementById("previewContainer");
+const previewImage=document.getElementById("previewImage");
+const removeImage=document.getElementById("removeImage");
+const analyzeBtn=document.getElementById("analyzeBtn");
+const loading=document.getElementById("loading");
+const results=document.getElementById("results");
+let selectedFile=null;
+fileInput.addEventListener("change",function() {
+const file=this.files[0];
+if (!file) return;
+selectedFile=file;
+const reader=new FileReader();
+reader.onload=function(event) {
+previewImage.src=event.target.result;
+previewContainer.style.display="block";
+analyzeBtn.disabled=false;
+results.style.display="none";
+};
+reader.readAsDataURL(file);
+});
+removeImage.addEventListener("click",function(event) {
+event.preventDefault();
+event.stopPropagation();
+selectedFile=null;
+fileInput.value="";
+previewImage.src="";
+previewContainer.style.display="none";
+analyzeBtn.disabled=true;
+analyzeBtn.style.display="block";
+loading.style.display="none";
+results.style.display="none";
+});
+analyzeBtn.addEventListener("click",function() {
+if (!selectedFile) return;
+analyzeBtn.style.display="none";
+loading.style.display="block";
+results.style.display="none";
+setTimeout(function() {
+loading.style.display="none";
+analyzeBtn.style.display="block";
+results.style.display="block";
+generateDemoResult();
+results.scrollIntoView({behavior:"smooth"});
+},500);
+});
+function generateDemoResult() {
+const age=Math.floor(Math.random()*25)+20;
+const ageConfidence=Math.floor(Math.random()*20)+75;
+const fatigue=Math.floor(Math.random()*55)+20;
+const bodyBalance=Math.floor(Math.random()*25)+65;
+const healthScore=Math.round((ageConfidence+(100-fatigue)+bodyBalance)/3);
+document.getElementById("ageValue").textContent=age+"세";
+document.getElementById("agePercent").textContent=ageConfidence+"%";
+document.getElementById("ageProgress").style.width=ageConfidence+"%";
+document.getElementById("fatiguePercent").textContent=fatigue+"%";
+document.getElementById("fatigueProgress").style.width=fatigue+"%";
+document.getElementById("bodyPercent").textContent=bodyBalance+"%";
+document.getElementById("bodyProgress").style.width=bodyBalance+"%";
+document.getElementById("healthValue").textContent=healthScore+"%";
+document.getElementById("score").textContent=healthScore;
+let bodyType="관리 관심형";
+let bodyDescription="규칙적인 운동과 생활 습관 관리에 관심을 가져보세요.";
+if (bodyBalance>=82) {bodyType="균형형";bodyDescription="전반적인 체형 균형이 좋아 보이는 편입니다."}
+else if (bodyBalance>=72) {bodyType="일반형";bodyDescription="전반적으로 무난한 체형 지표를 보입니다."}
+document.getElementById("bodyType").textContent=bodyType;
+document.getElementById("bodyDescription").textContent=bodyDescription;
+let scoreText="휴식과 생활 습관 개선에 조금 더 신경 써보세요.";
+if (healthScore>=85) {scoreText="좋은 생활 습관을 유지해보세요!"}
+else if (healthScore>=70) {scoreText="기본적인 건강 습관을 꾸준히 관리해보세요."}
+document.getElementById("scoreText").textContent=scoreText;
+updateTips(fatigue);
+}
+function updateTips(fatigue) {
+const tipsContainer=document.querySelector(".tips");
+document.querySelectorAll(".dynamic-tip").forEach(function(tip) {tip.remove()});
+const tip=document.createElement("div");
+tip.className="tip dynamic-tip";
+if (fatigue>=60) {tip.innerHTML='<div class="tip-icon">🛌</div><div><h4>휴식을 우선하세요</h4><p>피로도가 높게 표시된 데모 결과입니다. 오늘은 충분한 수면과 휴식을 우선적으로 고려해보세요.</p></div>'}
+else {tip.innerHTML='<div class="tip-icon">⚡</div><div><h4>규칙적인 활동</h4><p>피로도가 비교적 낮게 표시된 데모 결과입니다. 무리하지 않는 범위에서 꾸준한 신체 활동을 유지해보세요.</p></div>'}
+tipsContainer.insertBefore(tip,tipsContainer.children[1]);
+}
+document.getElementById("resetBtn").addEventListener("click",function() {
+selectedFile=null;
+fileInput.value="";
+previewImage.src="";
+previewContainer.style.display="none";
+results.style.display="none";
+loading.style.display="none";
+analyzeBtn.style.display="block";
+analyzeBtn.disabled=true;
+window.scrollTo({top:0,behavior:"smooth"});
+});
 </script>
-
 </body>
 </html>
