@@ -49,6 +49,13 @@ a { color:inherit; text-decoration:none; }
 .panel-text { color:var(--muted); font-size:0.82rem; font-weight:650; margin-bottom:12px; }
 .county-search { width:100%; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.09); color:var(--text); border-radius:15px; padding:13px 14px; font-size:0.9rem; outline:none; margin-bottom:10px; }
 .county-search::placeholder { color:rgba(235,246,255,0.55); }
+.near-results { display:grid; gap:10px; }
+.near-result { padding:14px; border-radius:17px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.10); }
+.near-result-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
+.near-result-location { font-size:0.95rem; font-weight:900; line-height:1.25; }
+.near-result-score { white-space:nowrap; padding:6px 9px; border-radius:999px; background:rgba(24,216,255,0.12); border:1px solid rgba(24,216,255,0.28); color:#C9F7FF; font-size:0.68rem; font-weight:900; }
+.near-result-metrics { display:grid; gap:5px; color:var(--muted); font-size:0.76rem; font-weight:750; line-height:1.35; }
+.near-result-metrics strong { color:var(--text); }
 .county-tools { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; color:var(--muted); font-size:0.72rem; font-weight:800; }
 .show-all-btn { border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.08); color:var(--text); border-radius:999px; padding:8px 11px; font-size:0.72rem; font-weight:900; cursor:pointer; }
 .county-list,.archive-list { display:grid; gap:8px; max-height:360px; overflow-y:auto; padding-right:2px; }
@@ -110,6 +117,7 @@ footer { padding:22px 8px 6px; text-align:center; color:rgba(235,246,255,0.62); 
 </div>
 </header>
 <main>
+
 <section class="hero-card" aria-label="Weekly Lyme Alert Map Preview">
 <div class="map-preview" role="img" aria-label="Preview of GEBA Lyme alert map">
 <div class="map-overlay">
@@ -125,18 +133,22 @@ Open Lyme AI-alert Interactive Map
 </div>
 </div>
 </section>
+
 <div class="section-label">
 <h2>Explore</h2>
 <span>Select a tool</span>
 </div>
+
 <section class="card-grid" aria-label="Lyme Alert app tools">
+
 <div class="feature-card near-you">
-<a class="tool-image-link" href="#high-risk-counties" aria-label="Check Lyme alert near you">
+<a class="tool-image-link" href="#lyme-alert-near-you" aria-label="Check Lyme alert near you">
 <img src="/assets/images/app_geoai_trendai_map.png" alt="Lyme alert near you figure" class="tool-figure">
 </a>
 <h3>Lyme Alert Near You</h3>
 <p>Check Your Area (ZIP code or county)</p>
 </div>
+
 <div class="feature-card counties">
 <a class="tool-image-link" href="#high-risk-counties" aria-label="Open latest high-risk counties list">
 <img src="/assets/images/app_high_risk_counties.png" alt="Latest high-risk counties list figure" class="tool-figure">
@@ -144,71 +156,106 @@ Open Lyme AI-alert Interactive Map
 <h3>High-Risk Counties</h3>
 <p id="high-risk-card-date">Latest update</p>
 </div>
+
 <div class="feature-card vision">
 <a class="tool-image-link" href="https://gebaconsulting.com/lyme-alert/VisionAI.html" aria-label="Open VisionAI rash pattern check">
 <img src="/assets/images/app_vision_ai.png" alt="VisionAI rash pattern screening figure" class="tool-figure">
 </a>
 <h3>VisionAI Scan</h3>
 </div>
+
 <div class="feature-card info">
 <a class="tool-image-link" href="#lyme-info" aria-label="Open Lyme information links">
 <img src="/assets/images/app_lyme_info.png" alt="Lyme information resources figure" class="tool-figure">
 </a>
 <h3>Lyme Information</h3>
 </div>
+
 <div class="feature-card care">
 <a class="tool-image-link" href="https://www.google.com/maps/search/urgent+care+hospital+near+me+Lyme+disease+tick+bite" target="_blank" rel="noopener noreferrer" aria-label="Find nearby care">
 <img src="/assets/images/clinic.png" alt="Find nearby urgent care or healthcare services" class="tool-figure">
 </a>
 <h3>Find Nearby Care</h3>
 </div>
+
 <div class="feature-card archive">
 <a class="tool-image-link" href="#weekly-archive" aria-label="Open weekly Lyme alert archive">
 <img src="/assets/images/app_archive.png" alt="Weekly Lyme alert archive figure" class="tool-figure">
 </a>
 <h3>Alert Archive</h3>
 </div>
+
 </section>
-<section id="high-risk-counties" class="panel" aria-label="High-risk county search and list">
+
+<section id="lyme-alert-near-you" class="panel" aria-label="Lyme alert near you">
+<div class="panel-heading">
+<h2>Lyme Alert Near You</h2>
+<span id="near-you-report-date" class="panel-date-pill">Loading date...</span>
+</div>
+<p class="panel-text">Check Your Area (ZIP code or county)</p>
+<input id="near-you-search" class="county-search" type="search" placeholder="Enter ZIP code or county..." aria-label="Search Lyme alert by ZIP code or county" />
+<div id="near-you-results" class="near-results">
+<div class="empty-message">Enter a ZIP code or county to see the latest alert.</div>
+</div>
+</section>
+
+<section id="high-risk-counties" class="panel" aria-label="High-risk county list">
 <div class="panel-heading">
 <h2>High-Risk Counties</h2>
 <span id="county-report-date" class="panel-date-pill">Loading date...</span>
 </div>
-<p class="panel-text">Search the latest weekly high-risk county list.</p>
-<input id="county-search" class="county-search" type="search" placeholder="Search county or state..." aria-label="Search high-risk counties" />
 <div class="county-tools">
 <span id="county-count">Loading county list...</span>
 <button type="button" id="show-all-counties" class="show-all-btn">Show all</button>
 </div>
 <div id="county-list" class="county-list">
-<div class="empty-message">Loading latest county list...</div>
+<div class="empty-message">Loading latest high-risk counties...</div>
 </div>
 </section>
+
 <section id="lyme-info" class="panel" aria-label="Lyme information and resources">
 <h2>Lyme Information</h2>
 <p class="panel-text">General public-health resources for Lyme disease, tick bites, rash signs, and care-seeking.</p>
 <div class="resource-grid">
+
 <a class="resource-card" href="https://www.cdc.gov/lyme/" target="_blank" rel="noopener">
 <img src="/assets/images/cdc.png" alt="CDC Lyme disease information" class="resource-img">
-<div><div class="resource-title">CDC Lyme Information</div><div class="resource-desc">Symptoms, prevention, testing, diagnosis, and treatment.</div></div>
+<div>
+<div class="resource-title">CDC Lyme Information</div>
+<div class="resource-desc">Symptoms, prevention, testing, diagnosis, and treatment.</div>
+</div>
 <div class="resource-arrow">→</div>
 </a>
+
 <a class="resource-card" href="https://www.hhs.gov/lyme/index.html" target="_blank" rel="noopener">
 <img src="/assets/images/HHS.png" alt="HHS tick-borne disease resources" class="resource-img">
-<div><div class="resource-title">HHS Tick-Borne Disease Resources</div><div class="resource-desc">Federal information for patients, families, and public awareness.</div></div>
+<div>
+<div class="resource-title">HHS Tick-Borne Disease Resources</div>
+<div class="resource-desc">Federal information for patients, families, and public awareness.</div>
+</div>
 <div class="resource-arrow">→</div>
 </a>
+
 <a class="resource-card" href="https://www.youtube.com/results?search_query=Lyme+disease+rash+tick+bite" target="_blank" rel="noopener">
 <img src="/assets/images/tickbite.png" alt="Blacklegged tick and Lyme symptoms video" class="resource-img photo">
-<div><div class="resource-title">Lyme Symptoms Video</div><div class="resource-desc">Videos about tick bites, rash signs, symptoms, and prevention.</div></div>
+<div>
+<div class="resource-title">Lyme Symptoms Video</div>
+<div class="resource-desc">Videos about tick bites, rash signs, symptoms, and prevention.</div>
+</div>
 <div class="resource-arrow">→</div>
 </a>
+
 <a class="resource-card" href="https://www.lymedisease.org/lyme-disease-symptom-checklist/" target="_blank" rel="noopener noreferrer">
 <img src="/assets/images/limediseaseorg.png" alt="LymeDisease.org Lyme Symptoms Checklist" class="resource-img">
-<div><div class="resource-title">Lyme Symptoms Checklist</div><div class="resource-desc">External symptom checklist and information resource from LymeDisease.org.</div></div>
+<div>
+<div class="resource-title">Lyme Symptoms Checklist</div>
+<div class="resource-desc">External symptom checklist and information resource from LymeDisease.org.</div>
+</div>
 <div class="resource-arrow">→</div>
 </a>
+
 </div>
+
 <a class="stress-game-card" href="https://www.pestworldforkids.org/games/sortthebug/index.html" target="_blank" rel="noopener">
 <img src="/assets/images/pestworld.png" alt="PestWorld bug sorting game" class="stress-game-img">
 <div>
@@ -218,6 +265,7 @@ Open Lyme AI-alert Interactive Map
 <div class="stress-game-arrow">→</div>
 </a>
 </section>
+
 <section id="weekly-archive" class="panel" aria-label="Weekly Lyme alert archive">
 <div class="panel-heading">
 <h2>Archive</h2>
@@ -228,204 +276,474 @@ Open Lyme AI-alert Interactive Map
 <div class="empty-message">Loading weekly archive...</div>
 </div>
 </section>
+
 <div class="disclaimer">GEBA Lyme Alert provides public-awareness and visual-screening information only. It is not a medical diagnosis and cannot confirm or rule out Lyme disease. If you have an expanding rash, recent tick exposure, fever, or other medical concern, consult a qualified healthcare professional.</div>
 </main>
+
 <footer>© 2026 GEBA LLC · GeoAI · TrendAI · VisionAI</footer>
 </div>
+
 <script>
 const geeMapUrl="https://ssucrg.projects.earthengine.app/view/weeklyalert";
 const latestReportUrl="/lyme-alert/weekly/weekly-lyme-alert-latest.html";
+const latestDataUrl="/lyme-alert/weekly/weekly-lyme-alert-latest.json";
 const latestArchiveApiUrl="https://api.github.com/repos/wavegeba/web_story/contents/lyme-alert/weekly?ref=main";
+
 let allCounties=[];
+let highRiskCounties=[];
+let zipToCounties={};
 let isShowingAllCounties=false;
+
 function openGEEMapExternal(event){
 if(event) event.preventDefault();
 const ua=navigator.userAgent||"";
 const isAndroid=/Android/i.test(ua);
 const isIOS=/iPhone|iPad|iPod/i.test(ua);
+
 if(isAndroid){
 const cleanUrl=geeMapUrl.replace(/^https?:\/\//,"");
 const fallbackUrl=encodeURIComponent(geeMapUrl);
 window.location.href="intent://"+cleanUrl+"#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url="+fallbackUrl+";end";
-return;}
-if(isIOS){ window.open(geeMapUrl,"_blank","noopener,noreferrer"); return; }
+return;
+}
+
+if(isIOS){
+window.open(geeMapUrl,"_blank","noopener,noreferrer");
+return;
+}
+
 const opened=window.open(geeMapUrl,"_blank","noopener,noreferrer");
-if(!opened) window.location.href=geeMapUrl;}
-function cleanText(value){ return String(value||"").replace(/\s+/g," ").trim(); }
-function escapeHTML(value){ return String(value||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
+if(!opened) window.location.href=geeMapUrl;
+}
+
+function cleanText(value){
+return String(value??"").replace(/\s+/g," ").trim();
+}
+
+function escapeHTML(value){
+return String(value??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
 function formatReportDate(value){
 const text=cleanText(value);
 const match=text.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
 if(!match) return text;
-return `${match[1]}.${String(match[2]).padStart(2,"0")}.${String(match[3]).padStart(2,"0")}`;}
+return `${match[1]}.${String(match[2]).padStart(2,"0")}.${String(match[3]).padStart(2,"0")}`;
+}
+
 function makeDateFromFilename(filename){
 const match=String(filename||"").match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2})\.html$/);
 if(!match) return "";
-return `${match[1]}.${match[2]}.${match[3]}`;}
+return `${match[1]}.${match[2]}.${match[3]}`;
+}
+
 function makeTitleFromFilename(filename){
 const match=String(filename||"").match(/weekly-lyme-alert-(\d{4})-(\d{2})-(\d{2})\.html$/);
 if(!match) return String(filename||"").replace(".html","").replaceAll("-"," ");
-return `Weekly Lyme Alert Report (${match[1]}.${match[2]}.${match[3]})`;}
-async function getLatestArchiveDate(){
-try{
-const response=await fetch(latestArchiveApiUrl,{cache:"no-store"});
-if(!response.ok) return "";
-const files=await response.json();
-const latest=files.filter(file=>file.type==="file"&&file.name&&file.name.startsWith("weekly-lyme-alert-")&&file.name.endsWith(".html")&&file.name!=="weekly-lyme-alert-latest.html").map(file=>({name:file.name,date:makeDateFromFilename(file.name)})).filter(file=>file.date).sort((a,b)=>b.date.localeCompare(a.date))[0];
-return latest?latest.date:"";
-}catch(error){ console.warn("Could not load latest archive date:",error); return ""; }}
-function extractReportDateFromReport(doc){
-const metaDate=doc.querySelector('meta[name="report-date"]');
-if(metaDate&&metaDate.getAttribute("content")) return formatReportDate(metaDate.getAttribute("content"));
-const dateElement=doc.getElementById("reportDate")||doc.querySelector(".report-date")||doc.querySelector("[data-report-date]");
-if(dateElement) return formatReportDate(dateElement.getAttribute("data-report-date")||dateElement.textContent);
-const bodyText=cleanText(doc.body?doc.body.textContent:"");
-const dateMatch=bodyText.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
-return dateMatch?formatReportDate(dateMatch[0]):"";}
-function splitCountyText(text){
-const original=cleanText(text);
-const risk=/very\s+high/i.test(original)?"Very high":"High risk";
-const cleaned=original.replace(/^(\d+)[.)]\s*/,"").replace(/\b(Very\s+High|High|Moderate|Low)\s+Risk\b/gi,"").replace(/\b(Very\s+High|High|Moderate|Low)\b/gi,"").replace(/\s+—\s+/g,", ").trim();
-const parts=cleaned.split(",").map(part=>cleanText(part)).filter(Boolean);
-return {county:parts[0]||cleaned,state:parts[1]||"",risk,date:""};}
+return `Weekly Lyme Alert Report (${match[1]}.${match[2]}.${match[3]})`;
+}
+
+function numericAlert(value){
+const number=Number(value);
+if(Number.isFinite(number)) return number;
+const match=String(value??"").match(/\d+(?:\.\d+)?/);
+return match?Number(match[0]):NaN;
+}
+
 function normalizeCountyRecord(item){
-if(typeof item==="string") return splitCountyText(item);
-const record={county:cleanText(item.county||item.County||item.county_name||item.name||""),state:cleanText(item.state||item.State||item.state_abbr||item.ST||""),risk:cleanText(item.risk||item["Risk label"]||item.alert||item.alert_level||item.level||item.score||"High risk"),date:cleanText(item.date||item.updated||item.week||item.report_date||"")};
-if(record.county.includes(",")&&!record.state){ const split=splitCountyText(record.county); return {...record,county:split.county,state:split.state}; }
-return record;}
-function dedupeCounties(items){
-const seen=new Set();
-return items.filter(item=>{
-if(!item.county) return false;
-const key=`${item.county}|${item.state}`.toLowerCase();
-if(seen.has(key)) return false;
-seen.add(key);
-return true;});}
-function extractCountyListFromReport(doc){
-const dataTag=doc.getElementById("countyData");
-if(dataTag){
-try{
-const parsed=JSON.parse((dataTag.textContent||"[]").trim());
-if(Array.isArray(parsed)&&parsed.length>0) return dedupeCounties(parsed.map(normalizeCountyRecord));
-}catch(error){ console.warn("countyData JSON parse failed:",error); }}
-const selectors=["[data-county]",".high-risk-county",".county-alert-item",".county-row",".county-item"];
-for(const selector of selectors){
-const items=Array.from(doc.querySelectorAll(selector)).map(el=>{
-const county=el.getAttribute("data-county")||el.querySelector("[data-county-name]")?.textContent||el.querySelector(".county-name")?.textContent||el.querySelector("strong")?.textContent||el.textContent;
-const state=el.getAttribute("data-state")||el.querySelector("[data-state]")?.textContent||el.querySelector(".state")?.textContent||"";
-const risk=el.getAttribute("data-risk")||el.querySelector(".badge")?.textContent||el.querySelector(".risk-badge")?.textContent||el.querySelector(".risk")?.textContent||"High risk";
-return normalizeCountyRecord({county,state,risk});
-}).filter(item=>item.county&&!/loading|not found|show all/i.test(item.county));
-if(items.length>0) return dedupeCounties(items);}
-const tableItems=[];
-doc.querySelectorAll("table tr").forEach(row=>{
-const cells=Array.from(row.querySelectorAll("td, th")).map(cell=>cleanText(cell.textContent)).filter(Boolean);
-if(cells.length<2) return;
-const rowText=cells.join(" ");
-const lower=rowText.toLowerCase();
-if(lower.includes("state")&&lower.includes("county")) return;
-const county=cells.find(cell=>/county/i.test(cell))||cells[0];
-const state=cells[1]||"";
-const risk=cells.find(cell=>/very high|high|moderate|low/i.test(cell))||"High risk";
-if(county&&rowText.length>5) tableItems.push(normalizeCountyRecord({county,state,risk}));
+return {
+geoid:cleanText(item.geoid||item.GEOID||"").padStart(5,"0"),
+county:cleanText(item.county||item.County||item.NAMELSAD||item.NAME||""),
+state:cleanText(item.state||item.State||item.STUSPS||""),
+risk:cleanText(item.risk||item["Risk label"]||item.Final_weekly_alert_label||item.Final_weekly_alert_0_5_label||""),
+annual:item.annual??item.GeoAI_annual_alert??"",
+monthly:item.monthly??item.TrendAI_monthly_alert??"",
+weekly:item.weekly??item.TrendAI_weekly_alert??"",
+total:item.total??item.Final_weekly_alert_0_5??"",
+zip_codes:Array.isArray(item.zip_codes)?item.zip_codes:[]
+};
+}
+
+function isHighRisk(item){
+const total=numericAlert(item.total);
+if(Number.isFinite(total)) return total>=4;
+return /very high|high/.test(cleanText(item.risk).toLowerCase());
+}
+
+function sortHighRisk(items){
+return [...items].sort((a,b)=>{
+const aScore=numericAlert(a.total);
+const bScore=numericAlert(b.total);
+
+if(Number.isFinite(aScore)&&Number.isFinite(bScore)&&aScore!==bScore){
+return bScore-aScore;
+}
+
+return `${a.state} ${a.county}`.localeCompare(`${b.state} ${b.county}`);
 });
-if(tableItems.length>0) return dedupeCounties(tableItems);
-return [];}
+}
+
 function updateCountyDate(reportDate){
 const datePill=document.getElementById("county-report-date");
+const nearDate=document.getElementById("near-you-report-date");
 const cardDate=document.getElementById("high-risk-card-date");
 const displayDate=reportDate?`Updated ${reportDate}`:"Latest update";
-if(datePill) datePill.textContent=reportDate?reportDate:"Latest";
-if(cardDate) cardDate.textContent=displayDate;}
+
+if(datePill) datePill.textContent=reportDate||"Latest";
+if(nearDate) nearDate.textContent=reportDate||"Latest";
+if(cardDate) cardDate.textContent=displayDate;
+}
+
 function updateCountyCount(count,label){
 const countyCount=document.getElementById("county-count");
-if(!countyCount) return;
-countyCount.textContent=`${count} counties · ${label}`;}
+if(countyCount){
+countyCount.textContent=`${count} counties · ${label}`;
+}
+}
+
 function renderCountyList(records){
 const list=document.getElementById("county-list");
 if(!list) return;
-if(!records.length){ list.innerHTML=`<div class="empty-message">No counties matched your search.</div>`; return; }
+
+if(!records.length){
+list.innerHTML=`<div class="empty-message">No high-risk counties are available in the latest data.</div>`;
+return;
+}
+
 list.innerHTML=records.map(item=>{
 const location=item.state?`${item.county}, ${item.state}`:item.county;
-const note=item.date?`Updated ${item.date}`:"Latest weekly Lyme alert list";
-const risk=String(item.risk||"High risk");
-return `<div class="county-item"><div><div class="county-name">${escapeHTML(location)}</div><div class="county-note">${escapeHTML(note)}</div></div><div class="risk-badge">${escapeHTML(risk)}</div></div>`;
-}).join("");}
-function renderCountyLoadError(){
-const list=document.getElementById("county-list");
-const countyCount=document.getElementById("county-count");
-if(countyCount) countyCount.textContent="Could not load latest report";
-updateCountyDate("N/A");
-if(list) list.innerHTML=`<div class="empty-message">Could not load the latest weekly county list. Please check that this file exists:<br><br>/lyme-alert/weekly/weekly-lyme-alert-latest.html</div>`;}
+const score=Number.isFinite(numericAlert(item.total))
+?`Level ${numericAlert(item.total)}`
+:(item.risk||"High");
+
+return `
+<div class="county-item">
+<div>
+<div class="county-name">${escapeHTML(location)}</div>
+</div>
+<div class="risk-badge">${escapeHTML(score)}</div>
+</div>`;
+}).join("");
+}
+
+function renderNearYouResults(records,query){
+const box=document.getElementById("near-you-results");
+if(!box) return;
+
+if(!records.length){
+box.innerHTML=`<div class="empty-message">No county result found for “${escapeHTML(query)}”.</div>`;
+return;
+}
+
+box.innerHTML=records.map(item=>{
+const location=item.state?`${item.county}, ${item.state}`:item.county;
+const score=numericAlert(item.total);
+
+const scoreText=Number.isFinite(score)
+?`Alert Level ${score}${item.risk?` · ${item.risk}`:""}`
+:(item.risk||"Alert available");
+
+return `
+<div class="near-result">
+
+<div class="near-result-head">
+<div class="near-result-location">${escapeHTML(location)}</div>
+<div class="near-result-score">${escapeHTML(scoreText)}</div>
+</div>
+
+<div class="near-result-metrics">
+<div><strong>GeoAI (Annual)</strong> ${escapeHTML(item.annual===""||item.annual==null?"No data":item.annual)}</div>
+<div><strong>Trend AI (Monthly)</strong> ${escapeHTML(item.monthly===""||item.monthly==null?"No data":item.monthly)}</div>
+<div><strong>Trend AI (Weekly)</strong> ${escapeHTML(item.weekly===""||item.weekly==null?"No data":item.weekly)}</div>
+</div>
+
+</div>`;
+}).join("");
+}
+
+function findCountiesByQuery(query){
+const q=cleanText(query);
+if(!q) return [];
+
+if(/^\d{5}$/.test(q)){
+const geoids=zipToCounties[q]||[];
+const byGeoid=new Map(allCounties.map(item=>[item.geoid,item]));
+
+return geoids
+.map(id=>byGeoid.get(String(id).padStart(5,"0")))
+.filter(Boolean);
+}
+
+const lower=q.toLowerCase();
+
+const exact=allCounties.filter(item=>
+`${item.county} ${item.state}`.toLowerCase()===lower||
+item.county.toLowerCase()===lower
+);
+
+if(exact.length) return exact;
+
+return allCounties.filter(item=>
+`${item.county} ${item.state}`.toLowerCase().includes(lower)
+).slice(0,20);
+}
+
 async function loadCountyData(){
 try{
-const response=await fetch(latestReportUrl+"?v="+Date.now(),{cache:"no-store"});
-if(!response.ok) throw new Error(`Latest report load failed: ${response.status}`);
-const htmlText=await response.text();
-const latestDoc=new DOMParser().parseFromString(htmlText,"text/html");
-let reportDate=extractReportDateFromReport(latestDoc);
-if(!reportDate) reportDate=await getLatestArchiveDate();
-updateCountyDate(reportDate);
-allCounties=extractCountyListFromReport(latestDoc).map(item=>({...item,date:item.date||reportDate}));
-if(!allCounties.length){ renderCountyLoadError(); return; }
-isShowingAllCounties=false;
-renderCountyList(allCounties.slice(0,10));
-updateCountyCount(allCounties.length,"showing top 10");
-const showAll=document.getElementById("show-all-counties");
-if(showAll) showAll.textContent=allCounties.length>10?"Show all":"Showing all";
-}catch(error){ console.error("County list loading error:",error); renderCountyLoadError(); }}
-function setupCountySearch(){
-const input=document.getElementById("county-search");
-const showAll=document.getElementById("show-all-counties");
-if(!input||!showAll) return;
-input.addEventListener("input",()=>{
-const query=cleanText(input.value).toLowerCase();
-if(!query){
-isShowingAllCounties=false;
-renderCountyList(allCounties.slice(0,10));
-updateCountyCount(allCounties.length,allCounties.length?"showing top 10":"no data");
-showAll.textContent="Show all";
-return;}
-const filtered=allCounties.filter(item=>`${item.county} ${item.state} ${item.risk} ${item.date}`.toLowerCase().includes(query));
-isShowingAllCounties=true;
-renderCountyList(filtered);
-updateCountyCount(filtered.length,"matched");
-showAll.textContent="Wrap up";
+
+const response=await fetch(latestDataUrl+"?v="+Date.now(),{
+cache:"no-store"
 });
-showAll.addEventListener("click",()=>{
-input.value="";
-if(isShowingAllCounties){
+
+if(!response.ok){
+throw new Error(`Latest JSON load failed: ${response.status}`);
+}
+
+const reportData=await response.json();
+
+const reportDate=formatReportDate(
+reportData.report_date||
+reportData.report_date_long||
+""
+);
+
+updateCountyDate(reportDate);
+
+zipToCounties=reportData.zip_to_counties||{};
+
+allCounties=Array.isArray(reportData.records)
+?reportData.records.map(normalizeCountyRecord)
+:[];
+
+highRiskCounties=sortHighRisk(
+allCounties.filter(isHighRisk)
+);
+
+if(!allCounties.length){
+throw new Error("No county records found in latest JSON");
+}
+
 isShowingAllCounties=false;
-renderCountyList(allCounties.slice(0,10));
-updateCountyCount(allCounties.length,allCounties.length?"showing top 10":"no data");
-showAll.textContent="Show all";
+
+renderCountyList(
+highRiskCounties.slice(0,10)
+);
+
+updateCountyCount(
+highRiskCounties.length,
+highRiskCounties.length>10
+?"showing top 10"
+:"showing all"
+);
+
+const showAll=document.getElementById("show-all-counties");
+
+if(showAll){
+showAll.textContent=
+highRiskCounties.length>10
+?"Show all"
+:"Showing all";
+}
+
+}catch(error){
+
+console.error("County data loading error:",error);
+
+updateCountyDate("N/A");
+
+const list=document.getElementById("county-list");
+const near=document.getElementById("near-you-results");
+const count=document.getElementById("county-count");
+
+if(count){
+count.textContent="Could not load latest data";
+}
+
+if(list){
+list.innerHTML=`<div class="empty-message">Could not load the latest county data.</div>`;
+}
+
+if(near){
+near.innerHTML=`<div class="empty-message">Could not load the latest county data.</div>`;
+}
+
+}
+}
+
+function setupNearYouSearch(){
+const input=document.getElementById("near-you-search");
+
+if(!input) return;
+
+input.addEventListener("input",()=>{
+
+const query=cleanText(input.value);
+
+if(!query){
+
+const box=document.getElementById("near-you-results");
+
+if(box){
+box.innerHTML=`<div class="empty-message">Enter a ZIP code or county to see the latest alert.</div>`;
+}
+
+return;
+}
+
+if(/^\d{1,4}$/.test(query)){
+return;
+}
+
+renderNearYouResults(
+findCountiesByQuery(query),
+query
+);
+
+});
+}
+
+function setupHighRiskToggle(){
+const showAll=document.getElementById("show-all-counties");
+
+if(!showAll) return;
+
+showAll.addEventListener("click",()=>{
+
+if(isShowingAllCounties){
+
+isShowingAllCounties=false;
+
+renderCountyList(
+highRiskCounties.slice(0,10)
+);
+
+updateCountyCount(
+highRiskCounties.length,
+highRiskCounties.length>10
+?"showing top 10"
+:"showing all"
+);
+
+showAll.textContent=
+highRiskCounties.length>10
+?"Show all"
+:"Showing all";
+
 }else{
+
 isShowingAllCounties=true;
-renderCountyList(allCounties);
-updateCountyCount(allCounties.length,"showing all");
-showAll.textContent="Wrap up";}
-});}
+
+renderCountyList(
+highRiskCounties
+);
+
+updateCountyCount(
+highRiskCounties.length,
+"showing all"
+);
+
+showAll.textContent="Wrap up";
+
+}
+
+});
+}
+
 async function loadArchiveList(){
 const archiveList=document.getElementById("archive-list");
 const archiveCount=document.getElementById("archive-count");
-if(!archiveList||!archiveCount) return;
+
+if(!archiveList||!archiveCount){
+return;
+}
+
 try{
-const response=await fetch(latestArchiveApiUrl,{cache:"no-store"});
-if(!response.ok) throw new Error("Could not load GitHub folder list");
+
+const response=await fetch(latestArchiveApiUrl,{
+cache:"no-store"
+});
+
+if(!response.ok){
+throw new Error("Could not load GitHub folder list");
+}
+
 const files=await response.json();
-const reports=files.filter(file=>file.type==="file"&&file.name&&file.name.endsWith(".html")&&file.name.startsWith("weekly-lyme-alert-")&&file.name!=="weekly-lyme-alert-latest.html").map(file=>({name:file.name,date:makeDateFromFilename(file.name),title:makeTitleFromFilename(file.name),url:"/lyme-alert/weekly/"+file.name})).filter(report=>report.date).sort((a,b)=>b.date.localeCompare(a.date));
+
+const reports=files
+.filter(file=>
+file.type==="file"&&
+file.name&&
+file.name.endsWith(".html")&&
+file.name.startsWith("weekly-lyme-alert-")&&
+file.name!=="weekly-lyme-alert-latest.html"
+)
+.map(file=>({
+name:file.name,
+date:makeDateFromFilename(file.name),
+title:makeTitleFromFilename(file.name),
+url:"/lyme-alert/weekly/"+file.name
+}))
+.filter(report=>report.date)
+.sort((a,b)=>b.date.localeCompare(a.date));
+
 if(!reports.length){
+
 archiveCount.textContent="0 reports";
-archiveList.innerHTML='<div class="empty-message">No weekly HTML reports found yet.</div>';
-return;}
+
+archiveList.innerHTML=
+'<div class="empty-message">No weekly HTML reports found yet.</div>';
+
+return;
+}
+
 archiveCount.textContent=`${reports.length} reports`;
-archiveList.innerHTML=reports.map(report=>`<a class="archive-item" href="${escapeHTML(report.url)}" aria-label="Open ${escapeHTML(report.title)}"><span>${escapeHTML(report.title)}</span><small>${escapeHTML(report.date)}</small></a>`).join("");
+
+archiveList.innerHTML=reports.map(report=>
+`<a class="archive-item" href="${escapeHTML(report.url)}" aria-label="Open ${escapeHTML(report.title)}">
+<span>${escapeHTML(report.title)}</span>
+<small>${escapeHTML(report.date)}</small>
+</a>`
+).join("");
+
 }catch(error){
-console.error("Weekly report archive loading error:",error);
+
+console.error(
+"Weekly report archive loading error:",
+error
+);
+
 archiveCount.textContent="Archive";
-archiveList.innerHTML=`<a class="archive-item" href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html"><span>Weekly Lyme Alert Report (2026.06.21)</span><small>2026.06.21</small></a>`;}}
-function initializeApp(){ setupCountySearch(); loadCountyData(); loadArchiveList(); }
-if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded",initializeApp); }else{ initializeApp(); }
+
+archiveList.innerHTML=
+`<a class="archive-item" href="/lyme-alert/weekly/weekly-lyme-alert-2026-06-21.html">
+<span>Weekly Lyme Alert Report (2026.06.21)</span>
+<small>2026.06.21</small>
+</a>`;
+
+}
+}
+
+function initializeApp(){
+setupNearYouSearch();
+setupHighRiskToggle();
+loadCountyData();
+loadArchiveList();
+}
+
+if(document.readyState==="loading"){
+document.addEventListener(
+"DOMContentLoaded",
+initializeApp
+);
+}else{
+initializeApp();
+}
 </script>
+
 </body>
 </html>
