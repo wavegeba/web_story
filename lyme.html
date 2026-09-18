@@ -67,7 +67,8 @@ box-shadow:0 12px 22px rgba(0,0,0,0.18); margin-bottom:10px; }
 .care { --accent:var(--green); }
 .archive { --accent:var(--cyan); }
 .panel { margin-top:16px; border:1px solid var(--line); background:rgba(255,255,255,0.07); border-radius:22px;
-padding:16px; }
+padding:16px; scroll-margin-top:calc(88px + env(safe-area-inset-top)); }
+scroll-margin-top:calc(88px + env(safe-area-inset-top));
 .panel-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:7px; }
 .panel-heading h2,.panel h2 { font-size:1rem; margin-bottom:0; }
 .panel-date-pill { display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
