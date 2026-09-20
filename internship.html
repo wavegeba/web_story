@@ -58,6 +58,11 @@ section.light {background:#f6faf7;color:#102018}
 .history-gallery {display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#06120f}
 .history-gallery img {width:100%;height:108px;object-fit:cover}
 .history-gallery img:first-child {grid-column:1/-1;height:220px}
+.final-presentation-card { grid-column:1/-1; }
+.final-presentation-gallery { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:#06120f; }
+.final-presentation-gallery img { width:100%;height:260px;object-fit:cover;display:block; }
+@media (max-width:1000px) { .final-presentation-gallery { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:700px) { .final-presentation-gallery { grid-template-columns:1fr; } .final-presentation-gallery img { height:auto; } }
 .history-info {padding:19px}
 .history-info h3 {color:#0b3b25;margin-bottom:8px;font-size:1.08rem}
 .history-info p {color:#46584e;font-size:.93rem;line-height:1.55}
@@ -219,7 +224,20 @@ Internship journey with weekly photos, short descriptions, student learning acti
 </p>
 </div>
 </div>
-
+<div class="history-card final-presentation-card">
+<div class="final-presentation-gallery">
+<img src="/assets/images/presentation_joshua_4.jpg" alt="Student presenting the Lyme Alert app" loading="lazy">
+<img src="/assets/images/presentation_joseph_1.jpg" alt="Student demonstrating the Lyme Alert app" loading="lazy">
+<img src="/assets/images/presentation_issac.jpg" alt="Student presenting the project app" loading="lazy">
+<img src="/assets/images/Internship_week11-12_2_2026.jpg" alt="Students preparing for the final presentation" loading="lazy">
+<img src="/assets/images/presentation_joshua.jpg" alt="Student explaining project ideas during the final presentation" loading="lazy">
+<img src="/assets/images/icon_4.jpg" alt="Students participating in the final presentation activity" loading="lazy">
+</div>
+<div class="history-info">
+<h3>Final Presentation</h3>
+<p>Students presented their final internship project, demonstrated the Lyme AI-ert app, and shared what they learned through data science, GeoAI, Earth observation, field activities, and web/app development.</p>
+</div>
+</div>
 
 <div class="history-card history-placeholder">
 <div class="history-info">
