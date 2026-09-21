@@ -101,6 +101,23 @@
     .rash-check-card p { color: #b9cfc2; font-size: 0.95rem; margin-bottom: 16px; }
     .rash-check-card .btn { width: fit-content; }
 
+    .monthly-pattern-btn{  margin-left:8px;padding:5px 11px;border:0;border-radius:999px;
+  background:#0f766e;color:white;font-weight:700;cursor:pointer;}
+#monthlyDialog{  width:min(1050px,96vw);max-height:92vh;margin:auto;
+  padding:18px;border:0;border-radius:18px;
+  background:white;color:#183325;overflow:auto;}
+#monthlyDialog::backdrop{background:rgba(0,0,0,.65)}
+.monthly-head{  display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.monthly-head h3{margin:0;font-size:1.1rem}
+.monthly-close{  padding:7px 13px;border:0;border-radius:999px;
+  background:#e2e8f0;cursor:pointer;font-weight:700;}
+#monthlyStatus{margin:10px 0;color:#475569;font-size:.9rem}
+.monthly-controls{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0}
+.monthly-controls label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.monthly-chart-scroll{overflow-x:auto}
+#monthlyTimeChart{min-width:600px;height:410px}
+#monthlySeasonChart{min-width:520px;height:480px}
+    
     .archive-list { display: grid; gap: 14px; margin-top: 20px; }
     .archive-item { padding: 18px; border-radius: 16px; background: #ffffff; color: #102018; border: 1px solid rgba(0,0,0,0.08); }
     .archive-item a { color: #0b5a2a; text-decoration: none; font-weight: 900; }
@@ -489,7 +506,10 @@ document.addEventListener("DOMContentLoaded", function() {
         : item.risk || "Alert available";
 
       return '<span class="found"><strong>' + escapeHTML(location) + '</strong>' +
-        '<span class="badge">' + escapeHTML(alertText) + '</span><br>' +
+        '<span class="badge">' + escapeHTML(alertText) + '</span>' +
+        '<button type="button" class="monthly-pattern-btn" ' +
+        'data-geoid="' + escapeHTML(item.geoid) + '">' +
+        'Monthly Pattern</button><br>' +
         'GeoAI (Annual) ' + escapeHTML(formatAlertValue(item.annual)) + ' · ' +
         'Trend AI (Monthly) ' + escapeHTML(formatAlertValue(item.monthly)) + ' · ' +
         'Trend AI (Weekly) ' + escapeHTML(formatAlertValue(item.weekly)) + '</span>';
@@ -658,6 +678,232 @@ document.addEventListener("DOMContentLoaded", function() {
   loadCountyList().finally(function() { loadArchiveList(); });
 });
 </script>
-
+<dialog id="monthlyDialog" aria-labelledby="monthlyTitle">
+  <div class="monthly-head">
+    <h3 id="monthlyTitle">Monthly Pattern</h3>
+    <button type="button" id="monthlyClose" class="monthly-close"
+      autofocus>Close</button>
+  </div>
+  <p id="monthlyStatus" role="status"></p>
+  <div id="monthlyContent" hidden>
+    <div class="monthly-controls">
+      <label style="color:#0f766e">
+        <input id="monthlyCounty" type="checkbox" checked> County
+      </label>
+      <label style="color:#d97706">
+        <input id="monthlyState" type="checkbox">
+        <span id="monthlyStateLabel">State</span>
+      </label>
+      <label style="color:#6b7280">
+        <input id="monthlyConus" type="checkbox"> CONUS
+      </label>
+    </div>
+    <div class="monthly-chart-scroll">
+      <div id="monthlyTimeChart"></div>
+    </div>
+    <div class="monthly-chart-scroll">
+      <div id="monthlySeasonChart"></div>
+    </div>
+  </div>
+</dialog>
+<script>
+(()=>{
+  const el=id=>document.getElementById(id);
+  const dialog=el("monthlyDialog"),Dialog"),status=el("monthlyStatus");
+  const content=el("monthlyContent"),time=el("monthlyTimeChart");
+  const season=el("monthlySeasonChart");
+  const checks=["monthlyCounty","monthlyState","monthlyConus"].map(el);
+  const months="Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
+  const colors=["#0f766e","#d97706","#9ca3af"];
+  const dataRoot=new URL("./",document.baseURI);
+  let dataPromise,plotPromise,requestId=0,opener;
+  let activeSeries=[],renderQueue=Promise.resolve();
+  const valid=v=>typeof v==="number"&&Number.isFinite(v);
+  const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+  const config={responsive:true,displaylogo:false,scrollZoom:false,
+    toImageButtonOptions:{scale:2}};
+  async function readJSON(name){
+    const response=await fetch(new URL(name,dataRoot),{cache:"no-cache"});
+    if(!response.ok)throw new Error(name+" could not be loaded.");
+    return response.json();
+  }
+  function loadData(){
+    if(!dataPromise)dataPromise=Promise.all([
+      readJSON("county_lookup.json"),readJSON("monthly_trends.json")
+    ]).then(([lookup,trends])=>{
+      if(!Array.isArray(lookup.counties)||!trends.dmas)
+        throw new Error("Monthly JSON format is invalid.");
+      return {lookup,trends};
+    }).catch(error=>{dataPromise=null;throw error;});
+    return dataPromise;
+  }
+  function loadPlotly(){
+    if(window.Plotly)return Promise.resolve();
+    if(!plotPromise)plotPromise=new Promise((resolve,reject)=>{
+      const script=document.createElement("script");
+      script.src="https://cdn.plot.ly/plotly-2.35.2.min.js";
+      script.onload=()=>window.Plotly?resolve():
+        reject(new Error("Chart library could not be started."));
+      script.onerror=()=>{
+        script.remove();
+        reject(new Error("Chart library could not be loaded."));
+      };
+      document.head.appendChild(script);
+    }).catch(error=>{plotPromise=null;throw error;});
+    return plotPromise;
+  }
+  function recordsOf(payload){
+    return (payload?.records||[]).filter(r=>
+      /^\d{4}-\d{2}-\d{2}$/.test(String(r.date)))
+      .sort((a,b)=>a.date.localeCompare(b.date));
+  }
+  function baseLayout(height){
+    return {height,autosize:true,paper_bgcolor:"white",
+      plot_bgcolor:"#f8fafc",font:{family:"Arial",color:"#334155"},
+      margin:{l:65,r:85,t:25,b:55},hovermode:"x unified"};
+  }
+  function makeAxis(title,color,records){
+    const max=records.reduce((m,r)=>
+      valid(r.TrendAI)?Math.max(m,r.TrendAI):m,0);
+    return {title:{text:title,font:{color}},tickfont:{color},
+      linecolor:color,showline:true,showticklabels:true,
+      ticks:"outside",zeroline:false,showgrid:false,
+      automargin:true,range:[0,max>0?max*1.08:1]};
+  }
+  function drawTime(){
+    const on=checks.map(c=>c.checked&&!c.disabled);
+    const both=on[1]&&on[2],right=on[1]||on[2];
+    const edge=both?0.76:right?0.90:1;
+    const traces=activeSeries.map((s,i)=>({
+      type:"scatter",mode:"lines",name:s.name,
+      x:s.records.map(r=>r.date),
+      y:s.records.map(r=>valid(r.TrendAI)?r.TrendAI:null),
+      yaxis:i?"y"+(i+1):"y",visible:on[i],connectgaps:false,
+      line:{color:colors[i],width:i?2:3,
+        dash:["solid","dash","dot"][i]},
+      hovertemplate:"%{y:,.1f}<extra>%{fullData.name}</extra>"
+    }));
+    const layout={...baseLayout(410),showlegend:false,
+      margin:{l:65,r:right?85:30,t:25,b:55},
+      xaxis:{domain:[0,edge],type:"date",showgrid:false,
+        tickformat:"%Y",nticks:7},
+      uirevision:activeSeries[0].key};
+    activeSeries.forEach((s,i)=>{
+      const key=i?"yaxis"+(i+1):"yaxis";
+      layout[key]={...makeAxis(s.axisTitle,colors[i],s.records),
+        visible:on[i]};
+      if(i)Object.assign(layout[key],{
+        overlaying:"y",anchor:"free",side:"right",
+        position:i===2&&both?0.98:edge});
+      else Object.assign(layout[key],{
+        showgrid:true,gridcolor:"#e2e8f0"});
+    });
+    return Plotly.react(time,traces,layout,config);
+  }
+  function drawSeason(local){
+    const grouped=new Map();
+    local.forEach(r=>{
+      const year=r.date.slice(0,4),month=Number(r.date.slice(5,7))-1;
+      if(!grouped.has(year))grouped.set(year,Array(12).fill(null));
+      grouped.get(year)[month]=valid(r.TrendAI)?r.TrendAI:null;
+    });
+    const years=[...grouped.keys()].filter(y=>
+      grouped.get(y).some(valid)).sort();
+    const latest=years[years.length-1];
+    const x=months.map((_,i)=>i+1);
+    const traces=years.map((year,i)=>({
+      type:"scatter",name:year,x,y:grouped.get(year),
+      mode:"lines+markers",visible:true,connectgaps:false,
+      line:{color:`hsl(${i*137.508%360},60%,45%)`,
+        width:year===latest?3:1.5},
+      marker:{size:year===latest?6:4},
+      hovertemplate:"%{y:.1f}<extra>%{fullData.name}</extra>"
+    }));
+    const mean=x.map((_,i)=>{
+      const values=years.map(y=>grouped.get(y)[i]).filter(valid);
+      return values.length?values.reduce((a,b)=>a+b,0)/values.length:null;
+    });
+    traces.push({type:"scatter",name:"Mean",x,y:mean,mode:"lines",
+      connectgaps:false,line:{color:"#0f172a",width:3,dash:"dash"},
+      hovertemplate:"%{y:.1f}<extra>Mean</extra>"});
+    const legendRows=Math.ceil(traces.length/5);
+    const bottom=60+legendRows*25;
+    const layout={...baseLayout(350+bottom),
+      title:{text:"Seasonal pattern by year",x:0.06},
+      margin:{l:65,r:30,t:55,b:bottom},
+      xaxis:{tickmode:"array",tickvals:x,ticktext:months,
+        range:[0.8,12.2],showgrid:false},
+      yaxis:{title:{text:"TrendAI signal"},
+        gridcolor:"#e2e8f0",zeroline:false},
+      legend:{orientation:"h",x:0,y:-0.18,xanchor:"left",
+        yanchor:"top",entrywidth:0.2,entrywidthmode:"fraction",
+        traceorder:"normal",itemclick:"toggle",itemdoubleclick:false}};
+    return Plotly.react(season,traces,layout,config);
+  }
+  checks.forEach(check=>check.addEventListener("change",()=>{
+    renderQueue=renderQueue.then(()=>drawTime()).catch(error=>{
+      status.textContent="Could not update chart: "+error.message;
+    });
+  }));
+  async function openPattern(geoid,button){
+    const token=++requestId;
+    opener=button;
+    content.hidden=true;
+    status.textContent="Loading monthly pattern…";
+    el("monthlyTitle").textContent="Monthly Pattern";
+    if(!dialog.open)dialog.showModal();
+    try{
+      const [{lookup,trends}]=await Promise.all([loadData(),loadPlotly()]);
+      if(token!==requestId||!dialog.open)return;
+      const county=lookup.counties.find(c=>
+        String(c.geoid).padStart(5,"0")===geoid);
+      if(!county)throw new Error("County not found in monthly data.");
+      const code=String(county.dma_code??"").padStart(3,"0");
+      const local=recordsOf(trends.dmas[code]);
+      if(!local.some(r=>valid(r.TrendAI)))
+        throw new Error("No monthly pattern available for this county.");
+      activeSeries=[
+        {name:"County",axisTitle:"County TrendAI",records:local,key:geoid},
+        {name:"State ("+county.state+")",axisTitle:county.state+" sum",
+          records:recordsOf(trends.states?.[county.state])},
+        {name:"CONUS",axisTitle:"CONUS sum",
+          records:recordsOf(trends.conus)}
+      ];
+      checks.forEach((check,i)=>{
+        check.disabled=!activeSeries[i].records.some(r=>valid(r.TrendAI));
+        check.checked=i===0;
+      });
+      el("monthlyTitle").textContent=
+        (county.county||county.name)+", "+county.state;
+      el("monthlyStateLabel").textContent="State ("+county.state+")";
+      status.textContent="Select County, State or CONUS to compare. "
+        +"Click a year below to show or hide it.";
+      const missing=activeSeries.slice(1).filter(s=>
+        !s.records.some(r=>valid(r.TrendAI))).map(s=>s.name);
+      if(missing.length)status.textContent+=
+        " Monthly data unavailable: "+missing.join(", ")+".";
+      content.hidden=false;
+      await drawTime();
+      await drawSeason(local);
+    }catch(error){
+      if(token!==requestId)return;
+      content.hidden=true;
+      status.textContent=error.message+
+        " Close this window and try again.";
+    }
+  }
+  document.addEventListener("click",event=>{
+    const button=event.target.closest(".monthly-pattern-btn");
+    if(button)openPattern(button.dataset.geoid,button);
+  });
+  el("monthlyClose").addEventListener("click",()=>dialog.close());
+  dialog.addEventListener("close",()=>{
+    requestId++;
+    if(opener?.isConnected)opener.focus();
+  });
+})();
+</script>
 </body>
 </html>
