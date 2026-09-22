@@ -83,8 +83,13 @@ color:var(--text); border-radius:15px; padding:13px 14px; font-size:0.9rem; outl
 border:1px solid rgba(255,255,255,0.10); }
 .near-result-head { display:flex; justify-content:flex-start; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
 .near-result-location { font-size:0.95rem; font-weight:900; line-height:1.25; }
-.near-result-score { white-space:nowrap; padding:6px 9px; border-radius:999px; background:rgba(24,216,255,0.12);
-border:1px solid rgba(24,216,255,0.28); color:#C9F7FF; font-size:0.68rem; font-weight:900; }
+.near-result-score { white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:.68rem;font-weight:900;border:1px solid rgba(255,255,255,.25); }
+.alert-level-0 { background:#2ca25f;color:#fff; }
+.alert-level-1 { background:#99d594;color:#071A2F; }
+.alert-level-2 { background:#ffff33;color:#071A2F; }
+.alert-level-3 { background:#fdae61;color:#071A2F; }
+.alert-level-4 { background:#f46d43;color:#fff; }
+.alert-level-5 { background:#a50026;color:#fff; }
 .near-result-metrics { display:flex; flex-wrap:wrap; gap:5px 8px; color:var(--muted); font-size:0.76rem;
 font-weight:750; line-height:1.35; }
 .near-result-metrics strong { color:var(--text); }
@@ -487,31 +492,27 @@ return `<div class="county-item">`+
 }
 function renderNearYouResults(records,query){
 const box=document.getElementById("near-you-results");
-if(!box) return;
+if(!box)return;
 if(!records.length){
-box.innerHTML=
-`<div class="empty-message">No county result found for “${escapeHTML(query)}”.</div>`;
+box.innerHTML=`<div class="empty-message">No county result found for “${escapeHTML(query)}”.</div>`;
 return;
 }
 box.innerHTML=records.map(item=>{
 const location=item.state?`${item.county}, ${item.state}`:item.county;
 const score=numericAlert(item.total);
 const riskName=cleanText(item.risk).replace(/^\d+\s*/,"");
-const scoreText=Number.isFinite(score)
-?`Alert Level ${score}${riskName?` · ${riskName}`:""}`
-:(item.risk||"Alert available");
+const level=Number.isFinite(score)?Math.max(0,Math.min(5,Math.round(score))):null;
+const levelClass=level!==null?`alert-level-${level}`:"";
+const scoreText=Number.isFinite(score)?`Alert Level ${score}${riskName?` · ${riskName}`:""}`:(item.risk||"Alert available");
 return `<div class="near-result"><div class="near-result-head">`+
 `<div class="near-result-location">${escapeHTML(location)}</div>`+
-`<div class="near-result-score">${escapeHTML(scoreText)}</div></div>`+
+`<div class="near-result-score ${levelClass}">${escapeHTML(scoreText)}</div></div>`+
 `<div class="near-result-metrics">`+
-`<span><strong>GeoAI (Annual)</strong> `+
-`${escapeHTML(formatAlertValue(item.annual))}</span>`+
+`<span><strong>GeoAI (Annual)</strong> ${escapeHTML(formatAlertValue(item.annual))}</span>`+
 `<span class="metric-dot">·</span>`+
-`<span><strong>Trend AI (Monthly)</strong> `+
-`${escapeHTML(formatAlertValue(item.monthly))}</span>`+
+`<span><strong>TrendAI (Monthly)</strong> ${escapeHTML(formatAlertValue(item.monthly))}</span>`+
 `<span class="metric-dot">·</span>`+
-`<span><strong>Trend AI (Weekly)</strong> `+
-`${escapeHTML(formatAlertValue(item.weekly))}</span>`+
+`<span><strong>TrendAI (Weekly)</strong> ${escapeHTML(formatAlertValue(item.weekly))}</span>`+
 `</div></div>`;
 }).join("");
 }
