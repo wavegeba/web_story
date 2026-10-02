@@ -129,6 +129,11 @@ border-radius:17px; background:rgba(255,255,255,0.08); border:1px solid rgba(255
 .disclaimer { margin-top:16px; padding:14px 15px; border-radius:18px; background:rgba(245,158,11,0.10);
 border:1px solid rgba(245,158,11,0.25); color:#FFE8B5; font-size:0.76rem; font-weight:700; }
 footer { padding:22px 8px 6px; text-align:center; color:rgba(235,246,255,0.62); font-size:0.75rem; font-weight:700; }
+.app-download { text-align:center; }
+.app-download-links { display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:14px; }
+.app-download-link { display:block; }
+.app-download-link img { width:145px;height:90px;object-fit:contain;border-radius:12px;display:block; }
+.app-download-link:hover img { transform:scale(1.03); }
 @media (max-width:430px) {
 .stress-game-card { grid-template-columns:76px 1fr auto; gap:10px; padding:12px; }
 .stress-game-img { width:76px; height:64px; border-radius:13px; }
@@ -350,6 +355,20 @@ It is not a medical diagnosis and cannot confirm or rule out Lyme disease.
 If you have an expanding rash, recent tick exposure, fever, or other medical concern,
 consult a qualified healthcare professional.
 </div>
+
+<section class="panel app-download" aria-label="Download Lyme AI-ert app">
+<h2>Download Lyme AI-ert</h2>
+<p class="panel-text" style="margin-top:8px">Available on Google Play and the Apple App Store.</p>
+<div class="app-download-links">
+<a class="app-download-link" href="https://play.google.com/store/apps/details?id=com.gebaconsulting.lymealert" target="_blank" rel="noopener noreferrer">
+<img src="/assets/images/google_play.png" alt="Get Lyme AI-ert on Google Play">
+</a>
+<a class="app-download-link" href="https://apps.apple.com/us/app/lyme-ai-ert/id6815765597" target="_blank" rel="noopener noreferrer">
+<img src="/assets/images/apple_store.png" alt="Download Lyme AI-ert on the Apple App Store">
+</a>
+</div>
+</section>
+  
 <section class="panel" aria-label="Feedback and contact">
 <h2>Feedback & Messages</h2>
 <p class="panel-text" style="margin-top:10px">Questions, comments, or suggestions about Lyme AI-ert are welcome.</p>
