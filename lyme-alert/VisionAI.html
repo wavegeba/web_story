@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lyme-like Rash Pattern Check | GEBA</title>
+  <title>Lyme-like Rash Pattern Screening | GEBA</title>
   <meta name="description" content="GEBA Lyme-like rash pattern screening using a browser-based Teachable Machine image model." />
   <style>
     * { box-sizing: border-box; }
@@ -70,9 +70,9 @@
 </head>
 <body>
   <header>
-    <div class="eyebrow">GEBA Vision AI</div>
-    <h1>Lyme-like Rash Pattern Check</h1>
-    <p>Compare an uploaded skin image with Lyme-like rash patterns. Visual screening only. Images are not stored and are deleted immediately after screening.</p>
+    <div class="eyebrow">Vision AI</div>
+    <h1>Lyme-like Rash Pattern Screening</h1>
+    <p>Compare an uploaded skin image with example rash patterns using VisionAI. This tool provides visual pattern screening only and is not intended for medical diagnosis. </p>
   </header>
 
   <main>
@@ -80,11 +80,11 @@
       <div class="control-panel">
         <div class="control-copy">
           <strong>Upload a skin image</strong>
-          <span>The result will appear automatically beside the image after upload.</span>
+          <span>Results appear automatically. Images are not stored and are deleted after screening.</span>
         </div>
         <div class="file-control">
           <input id="imageUpload" type="file" accept="image/*" />
-          <button type="button" onclick="analyzeImage()">Check Image</button>
+          <button type="button" onclick="analyzeImage()">Analyze Image</button>
           <!-- <a class="link-button" href="index.html">Back to Alert Home</a> -->
           <a class="link-button" href="../lyme.html">Back to Alert Home</a>
         </div>
@@ -100,16 +100,16 @@
         </div>
 
         <div class="panel">
-          <div class="panel-head"><h3>Screening Result</h3><span class="mini-badge">Visual match</span></div>
+          <div class="panel-head"><h3>Visual Screening Result</h3><span class="mini-badge">Pattern match</span></div>
           <div id="resultBox"><div class="placeholder">Upload an image to view the result automatically.</div></div>
         </div>
       </div>
 
-      <div class="disclaimer"><strong>Important:</strong> This tool provides visual similarity screening only. It is not a medical diagnosis and cannot confirm or rule out Lyme disease. If you have an expanding rash, recent tick exposure, fever, or any medical concern, please consult a qualified healthcare professional.</div>
+      <div class="disclaimer"><strong>Important:</strong> VisionAI compares uploaded images with example skin patterns. It does not diagnose, confirm, or rule out Lyme disease. A result showing low similarity does not mean Lyme disease is absent. If you have a concerning rash, symptoms following possible tick exposure, or other medical concerns, consult a qualified healthcare professional.</div>
 
     <div class="lyme-checklist-card">
-    <h4>Lyme-like Rash or Symptoms?</h4>
-    <p>This external LymeDisease.org checklist can help you document possible Lyme exposure and common symptoms to share with a healthcare provider. It is not a self-diagnosis tool.</p>
+    <h4>Concerned About a Rash or Lyme Symptoms?</h4>
+    <p>Use the external LymeDisease.org symptom checklist to document possible tick exposure and symptoms before speaking with a healthcare professional. This checklist is not a diagnostic tool.</p>
     <a class="lyme-checklist-link" href="https://www.lymedisease.org/lyme-disease-symptom-checklist/" target="_blank" rel="noopener noreferrer">
     <img src="/assets/images/limediseaseorg.png" alt="LymeDisease.org Lyme Disease Symptoms Checklist" />
     <span>Lyme Symptom Checklist ↗</span>
@@ -161,11 +161,11 @@
       const confuserP = items.find(x => x.key === "confuser")?.probability || 0;
       const otherP = items.find(x => x.key === "other")?.probability || 0;
 
-      if (rashP >= 0.70) return { kicker: "Strong Lyme-like visual match", text: "The uploaded image strongly matches the Lyme-like rash pattern examples in this Vision AI screening tool." };
-      if (rashP >= 0.40) return { kicker: "Moderate Lyme-like visual match", text: "The uploaded image shows a moderate visual match with the Lyme-like rash pattern examples in this Vision AI screening tool." };
-      if (confuserP >= 0.40) return { kicker: "Similar-looking rash pattern", text: "The uploaded image does not strongly match the Lyme-like rash pattern examples, but it visually matches similar-looking rash patterns." };
-      if (otherP >= 0.50) return { kicker: "Low Lyme-like visual match", text: "The uploaded image shows a low visual match with the Lyme-like rash pattern and appears closer to other skin-pattern." };
-      return { kicker: "Unclear visual match", text: "The uploaded image does not clearly match one visual rash-pattern category. A clearer or closer image may improve the visual screening result." };
+      if (rashP >= 0.70) return { kicker: "Higher similarity to Lyme-like rash examples", text: "The image shows higher visual similarity to Lyme-like rash examples in the model's reference categories. This does not indicate whether Lyme disease is present." };
+      if (rashP >= 0.40) return { kicker: "Some similarity to Lyme-like rash examples", text: "The image shares some visual features with Lyme-like rash examples. Visual similarity alone cannot determine whether Lyme disease is present." };
+      if (confuserP >= 0.40) return { kicker: "Similarity to other rash examples", text: "The image shows visual similarity to examples of other rash patterns. This does not rule out Lyme disease." };
+      if (otherP >= 0.50) return { kicker: "Closer to other skin patterns", text: "The image more closely resembles other skin patterns. This result cannot rule out Lyme disease or other medical conditions." };
+      return { kicker: "Inconclusive visual comparison", text: "The image does not clearly resemble one reference category. Image quality, lighting, and framing may affect the comparison." };
     }
 
     document.getElementById("imageUpload").addEventListener("change", function(event) {
